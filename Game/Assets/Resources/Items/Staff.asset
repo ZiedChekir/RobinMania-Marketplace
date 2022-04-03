@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feee34bf68379443a710b2446ea5496, type: 3}
+  m_Name: Staff
+  m_EditorClassIdentifier: 
+  Name: Staff
+  id: 3
+  itemType: 1
+  damage: 4
+  healthbuff: 0
+  sprite: {fileID: 21300000, guid: d289f20d25c7ca34a8dc8e2eeb5078ea, type: 3}
+  stackable: 0
+  audio: {fileID: 0}
+  audioConfig: {fileID: 0}
+  coolDown: 0.9
+  ProjectileDistance: 10
+  Projectile: {fileID: 8080614119440546687, guid: f8a7884d67f05364c93652f3f6803f88,
+    type: 3}
+  ProjectileSprite: {fileID: 0}
+  ProjectileSpeed: 370
+  KnockbackPower: 1
+  AttackAnim: {fileID: 0}
