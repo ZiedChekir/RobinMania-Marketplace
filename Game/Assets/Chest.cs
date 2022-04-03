@@ -79,18 +79,18 @@ public class Chest : MonoBehaviour
 
     async public void Claim()
     {
-
-        //bool x = await AllowPlayerToMint.Instance.Allow(ItemID.ToString());
-        //bool y = await Mint.Instance.mint(ItemID.ToString());
+        print("hiiii");
+        bool x = await AllowPlayerToMint.Instance.Allow(ItemID.ToString());
+        bool y = await Mint.Instance.mint(ItemID.ToString());
         //bool w = await Mintable.Instance.isMintable(ItemID.ToString());
 
-        //if (x && y && w && !PlayerPrefs.HasKey("Chest" + ChestID))
-        //{
-        //    InventoryBackend.Instance.AddItem(ItemDatabase.ItemList[ItemID]);
-        //    ToastManager.Instance.AddToast("Item Successfully minted");
-        //    SR.sprite = Opened;
-        //    PlayerPrefs.SetInt("Chest" + ChestID, 1);
-        //}
+        if (x && y)
+        {
+            InventoryBackend.Instance.AddItem(ItemDatabase.ItemList[ItemID]);
+            ToastManager.Instance.AddToast("Item Successfully minted");
+            SR.sprite = Opened;
+            PlayerPrefs.SetInt("Chest" + ChestID, 1);
+        }
 
     }
 

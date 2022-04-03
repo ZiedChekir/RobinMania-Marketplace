@@ -38,7 +38,7 @@ public class InventoryBackend : MonoBehaviour
         else
             Destroy(this);
         InitializeInventory();
-       // PopulateInventory();
+        PopulateInventory();
         // AddItem(ItemDatabase.ItemList[4]);
 
     }
@@ -50,7 +50,7 @@ public class InventoryBackend : MonoBehaviour
         {
             int tokenID = item.Key;
             print("bef");
-            BigInteger balanceOf = await ERC1155.BalanceOf(chain, network, "0x3B907c02dC6069D82D76ac07173Fc879814E73d5", PlayerPrefs.GetString("Account"), tokenID.ToString());
+            BigInteger balanceOf = await ERC1155.BalanceOf(chain, network, "0x584cb58df81ea75795b7043d906d6ce3adb0139c", PlayerPrefs.GetString("Account"), tokenID.ToString());
             print("balance of " + tokenID + " is " + balanceOf);
             for (int i = 0; i < balanceOf; i++)
             {
