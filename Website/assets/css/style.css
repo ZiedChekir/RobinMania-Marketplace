@@ -665,7 +665,7 @@ body {
 }
 
 /* Site-logo */
-.site-title {
+/*.site-title {
     font-size: 18px;
     line-height: 26px;
     color: #26272d;
@@ -681,7 +681,7 @@ body {
 
 .site-title a:hover {
     color: #fff;
-}
+}*/
 
 /* Navigation */
 .navbar-collapse {
@@ -731,7 +731,7 @@ body {
 .slicknav_nav>li.active a,
 .slicknav_open .slicknav_arrow,
 .slicknav_nav>li a:hover {
-    background-color: transparent;
+    background-image: transparent;
     color: #6fc754;
 }
 
@@ -795,7 +795,7 @@ body {
 /* HERO
 ================================================== */
 .hero {
-    background: url(../img/hero.jpg) no-repeat center / cover;
+    background: url(assets\img\Background11.jpg) no-repeat center / cover; 
     height: 100%;
     width: 100%;
     display: table;
@@ -938,7 +938,7 @@ body {
     font: 'ARCADECLASSIC';
 }
 .site-section.section-features {
-    background: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Ftwitter.com%2Fneonslice%2Fstatus%2F1412534981352738822%3Flang%3Dbg&psig=AOvVaw2bv4LwjOYeWR6VtnQSaoPj&ust=1649089825895000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJiNl8Oo-PYCFQAAAAAdAAAAABAD);
+    background: url(..\img\logofinal_transparent.png);
 }
 
 .section-features img {
