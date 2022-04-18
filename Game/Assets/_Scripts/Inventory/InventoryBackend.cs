@@ -39,7 +39,19 @@ public class InventoryBackend : MonoBehaviour
             Destroy(this);
         InitializeInventory();
         PopulateInventory();
-        // AddItem(ItemDatabase.ItemList[4]);
+        AddItem(ItemDatabase.ItemList[2]);
+         AddItem(ItemDatabase.ItemList[4]);
+        AddItem(ItemDatabase.ItemList[1]);
+        AddItem(ItemDatabase.ItemList[3]);
+        AddItem(ItemDatabase.ItemList[0]);
+        AddItem(ItemDatabase.ItemList[5]);
+        AddItem(ItemDatabase.ItemList[5]);
+        AddItem(ItemDatabase.ItemList[8]);
+
+
+
+
+
 
     }
 
@@ -49,8 +61,9 @@ public class InventoryBackend : MonoBehaviour
         foreach( var item in ItemDatabase.ItemList)
         {
             int tokenID = item.Key;
+            string rpc = "https://dev-1.kardiachain.io/";
             print("bef");
-            BigInteger balanceOf = await ERC1155.BalanceOf(chain, network, "0x584cb58df81ea75795b7043d906d6ce3adb0139c", PlayerPrefs.GetString("Account"), tokenID.ToString());
+            BigInteger balanceOf = await ERC1155.BalanceOf(chain, network, "0x584cb58df81ea75795b7043d906d6ce3adb0139c", PlayerPrefs.GetString("Account"), tokenID.ToString(),rpc);
             print("balance of " + tokenID + " is " + balanceOf);
             for (int i = 0; i < balanceOf; i++)
             {
