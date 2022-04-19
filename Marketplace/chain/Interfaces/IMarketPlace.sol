@@ -4,11 +4,11 @@ pragma solidity ^0.8.12;
 import "./IGameItems.sol";
 
 interface IMarketPlace{
-    event ItemsListed(
+    event ItemListed(
         address indexed ownerOfNFTs,
         uint256 indexed tokenID,
-        uint256 amount,
-        uint256 price
+        uint256 price,
+        bytes32 orderID
     );
     event ItemSold(
         address indexed from,
@@ -16,26 +16,27 @@ interface IMarketPlace{
         uint256 indexed tokenID,
         uint256 price
     );
-    event ItemsRemoved(
-        address indexed ownerOfNFT,
+    event OrderRemoved(
+        address indexed seller,
         uint256 indexed tokenID,
-        uint256 amount
+        bytes32 orderID
     );
     struct Order {
         address seller;
         uint256 price;
-        uint256 amount;
         uint256 tokenID;
     }
     function listItem(
         IGameItems nft,
         uint256 tokenID,
-        uint256 price,
-        uint256 amount
+        uint256 price
     ) external;
     function buyItem(
         IGameItems nft,
-        Order memory order
+        bytes32 orderID
     ) external payable;
-    function withdraw() external;
+    function removeListing(
+        IGameItems nft,
+        bytes32 orderID
+    ) external;
 }

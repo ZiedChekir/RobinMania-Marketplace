@@ -22,5 +22,5 @@ interface IGameItems {
         uint256[] calldata _values,
         bytes calldata _data
     ) external;
-    
+    function isApprovedForAll(address account, address operator) external view returns(bool);
 }
