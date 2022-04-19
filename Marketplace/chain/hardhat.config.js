@@ -17,5 +17,22 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.4",
-};
+  defaultNetwork: "kardiachain",
+  networks: {
+    hardhat: {
+    },
+    kardiachain: {
+      url: "https://rpc.kardiachain.io",
+      accounts: ["YOUR_PRIVATE_KEY"]
+    }
+  },
+  solidity: {
+    version: "0.8.12", // Recommended version >= 0.5.0
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200
+      }
+    }
+  }
+}
