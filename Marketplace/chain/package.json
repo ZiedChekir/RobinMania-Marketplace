@@ -4,7 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@openzeppelin/contracts": "^4.5.0",
     "hardhat": "^2.9.3"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.0",
+    "ethereum-waffle": "^3.2.0",
+    "ethers": "^5.0.0"
   }
 }

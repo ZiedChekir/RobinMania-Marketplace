@@ -35,8 +35,4 @@ interface IMarketPlace{
         IGameItems nft,
         bytes32 orderID
     ) external payable;
-    function removeListing(
-        IGameItems nft,
-        bytes32 orderID
-    ) external;
 }

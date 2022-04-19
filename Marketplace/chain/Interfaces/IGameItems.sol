@@ -6,7 +6,6 @@ interface IGameItems {
         external
         view
         returns (uint256);
-    function setApprovalForAll(address _operator, bool _approved) external;
     function safeTransferFrom(
         address _from,
         address _to,

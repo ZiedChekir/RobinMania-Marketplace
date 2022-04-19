@@ -3,8 +3,8 @@ pragma solidity ^0.8.12;
 
 import "@openzeppelin/contracts/utils/Address.sol";
 
-import "../interfaces/IGameItems.sol";
-import "../interfaces/IMarketPlace.sol";
+import "../Interfaces/IGameItems.sol";
+import "../Interfaces/IMarketPlace.sol";
 
 contract MarketPlace is IMarketPlace {
   using Address for address payable;
@@ -64,7 +64,7 @@ contract MarketPlace is IMarketPlace {
     delete orders[orderID];
   }
 
-  function removeListing(IGameItems nft, bytes32 orderID) external override {
+  function removeListing(bytes32 orderID) external {
     require(msg.sender == orders[orderID].seller,"You didn't list this NFT");
     emit OrderRemoved(orders[orderID].seller,orders[orderID].tokenID,orderID);
     delete orders[orderID];

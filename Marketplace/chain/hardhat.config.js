@@ -23,7 +23,7 @@ module.exports = {
     },
     kardiachain: {
       url: "https://rpc.kardiachain.io",
-      accounts: ["YOUR_PRIVATE_KEY"]
+      accounts: ["12f46ce2e81adad7650d6a90673f8b5ff7fabab429a358fe36c07bc5063b83a5"]
     }
   },
   solidity: {
