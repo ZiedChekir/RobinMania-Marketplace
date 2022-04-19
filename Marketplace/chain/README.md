@@ -13,3 +13,7 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+#TODO:
+
+Specify functions that will be used for the project.
+Start transforming into ERC1155
