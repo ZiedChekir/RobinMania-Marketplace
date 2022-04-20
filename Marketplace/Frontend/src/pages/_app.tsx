@@ -2,14 +2,24 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 import { Layout } from 'components/layout'
+import { Web3ReactProvider } from '@web3-react/core'
+import { Web3Provider } from '@ethersproject/providers'
+import SidebarWithHeader from 'components/Navbar'
+function getLibrary(provider: any): Web3Provider {
+  const library = new Web3Provider(provider)
+  return library
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
+    <Web3ReactProvider getLibrary={getLibrary}>
       <ChakraProvider>
-        <Layout>
+     <SidebarWithHeader children={Component}/>
+         <Layout>
         <Component {...pageProps} />
-        </Layout>
+        </Layout> 
       </ChakraProvider>
+    </Web3ReactProvider>
   )
 }
 
