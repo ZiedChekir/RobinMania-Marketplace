@@ -35,7 +35,7 @@ contract MarketPlace is IMarketPlace {
       price : price,
       tokenID : tokenID
     });
-    bytes32 orderID = keccak256(abi.encodePacked(newOrder.seller,newOrder.price,newOrder.tokenID));
+    bytes32 orderID = keccak256(abi.encodePacked(newOrder.seller,newOrder.tokenID,newOrder.price));
     orders[orderID] = newOrder;
     emit ItemListed(msg.sender,tokenID,price,orderID);
   }
