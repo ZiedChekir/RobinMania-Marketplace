@@ -9,9 +9,9 @@ import "../Interfaces/IMarketPlace.sol";
 contract MarketPlace is IMarketPlace {
   using Address for address payable;
   
-  mapping(bytes32 => Order) orders;
+  mapping(bytes32 => Order) public orders;
 
-  address admin;
+  address public admin;
 
   constructor() {
     admin = msg.sender;
@@ -74,4 +74,5 @@ contract MarketPlace is IMarketPlace {
         require(msg.sender == admin, "");
         admin = address(0);
     }
+
 }

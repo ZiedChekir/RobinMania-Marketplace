@@ -17,7 +17,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork: "kardiachain",
+  defaultNetwork: "hardhat",//change this to kardiachain when testing on testnet (but give accounts KAI)
   networks: {
     hardhat: {
     },
