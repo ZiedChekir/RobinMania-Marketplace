@@ -9,7 +9,8 @@ import "../Interfaces/IMarketPlace.sol";
 contract MarketPlace is IMarketPlace {
   using Address for address payable;
   
-  mapping(bytes32 => Order) public orders;
+  // mapping(bytes32 => Order) public orders;
+  mapping(uint256 => Order[]) public ordersOf;
 
   address public admin;
 
@@ -33,18 +34,20 @@ contract MarketPlace is IMarketPlace {
     Order memory newOrder = Order({
       seller: msg.sender,
       price : price,
-      tokenID : tokenID
+      tokenID : tokenID,
+      index : ordersOf[tokenID].length
     });
-    bytes32 orderID = keccak256(abi.encodePacked(newOrder.seller,newOrder.tokenID,newOrder.price));
-    orders[orderID] = newOrder;
-    emit ItemListed(msg.sender,tokenID,price,orderID);
+    // bytes32 orderID = keccak256(abi.encodePacked(newOrder.seller,newOrder.tokenID,newOrder.price));
+    // orders[orderID] = newOrder;
+    ordersOf[tokenID].push(newOrder);
+    emit ItemListed(msg.sender,tokenID,price);
   }
-  function buyItem(IGameItems nft,bytes32 orderID)
+  function buyItem(IGameItems nft,uint256 tokenID,uint256 index)
     external
     payable
     override
   {
-    Order memory order = orders[orderID];
+    Order memory order = ordersOf[tokenID][index];
     require(
       order.seller != address(0),
       "Order doesn't exist"
@@ -61,13 +64,11 @@ contract MarketPlace is IMarketPlace {
     payable(order.seller).transfer(msg.value);
     nft.safeTransferFrom(order.seller, msg.sender, order.tokenID, 1, new bytes(0));
     emit ItemSold(order.seller,msg.sender,order.tokenID,order.price);
-    delete orders[orderID];
+    removeOrder(tokenID,index);
   }
 
-  function removeListing(bytes32 orderID) external {
-    require(msg.sender == orders[orderID].seller,"You didn't list this NFT");
-    emit OrderRemoved(orders[orderID].seller,orders[orderID].tokenID,orderID);
-    delete orders[orderID];
+  function removeListing(uint256 tokenID,uint256 index) external {
+    removeOrder(tokenID,index);
   }
 
   function revokeAdmin() external {
@@ -75,4 +76,22 @@ contract MarketPlace is IMarketPlace {
         admin = address(0);
     }
 
+  
+  function removeOrder(uint256 tokenID,uint256 index) internal {
+    //switches the last item and the one to remove and then remove the last item in list with pop()
+    if(ordersOf[tokenID].length -1 == index){
+      ordersOf[tokenID].pop();
+    }
+    else{
+      Order[] memory orderList = ordersOf[tokenID];
+      Order memory _order = orderList[orderList.length - 1];
+      _order.index = index;
+      ordersOf[tokenID][index] = _order;
+      ordersOf[tokenID].pop();
+    }
+  }
+
+  function getOrdersOf(uint256 tokenID) public view returns(Order[] memory){
+    return ordersOf[tokenID];
+  }
 }

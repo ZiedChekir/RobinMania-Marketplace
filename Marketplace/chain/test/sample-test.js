@@ -32,18 +32,13 @@ describe("NFT Marketplace ", function () {
       .withArgs(
         account0.address,
         1,
-        1000000000000,
-        ethers.utils.keccak256(ethers.utils.solidityPack(["address", "uint256", "uint256"], [account0.address, 1, 1000000000000]))
-      )
+        1000000000000
+        )
   })
   it("account1 should be able to buy the item", async function(){
-    const orderID = ethers.utils.keccak256(
-      ethers.utils.solidityPack(["address", "uint256", "uint256"],
-      [account0.address, 1, 1000000000000]
-      )
-    );
-    let balance = await waffle.provider.getBalance(account0.address)
-    await expect(await MPlace.connect(account1).buyItem(nft.address,orderID, {value: 1000000000000}))
+    let balance = await waffle.provider.getBalance(account0.address);
+    let index = 0;
+    await expect(await MPlace.connect(account1).buyItem(nft.address,1,index, {value: 1000000000000}))
       .to.emit(MPlace, 'ItemSold')
       .withArgs(
         account0.address,
@@ -56,7 +51,8 @@ describe("NFT Marketplace ", function () {
     expect(newBalance - balance > 0)
   })
   it("Should be able to remove listing", async function(){
+    console.log(await MPlace.getOrdersOf(1));
     await MPlace.listItem(nft.address,1,1000000000000)
-    
+    console.log(await MPlace.getOrdersOf(1));
   })
 });

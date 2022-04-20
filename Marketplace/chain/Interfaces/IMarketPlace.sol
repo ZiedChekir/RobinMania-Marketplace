@@ -7,8 +7,7 @@ interface IMarketPlace{
     event ItemListed(
         address indexed ownerOfNFTs,
         uint256 indexed tokenID,
-        uint256 price,
-        bytes32 orderID
+        uint256 price
     );
     event ItemSold(
         address indexed from,
@@ -25,6 +24,7 @@ interface IMarketPlace{
         address seller;
         uint256 price;
         uint256 tokenID;
+        uint256 index;
     }
     function listItem(
         IGameItems nft,
@@ -33,6 +33,7 @@ interface IMarketPlace{
     ) external;
     function buyItem(
         IGameItems nft,
-        bytes32 orderID
+        uint256 tokenID,
+        uint256 index
     ) external payable;
 }
