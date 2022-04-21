@@ -1,6 +1,5 @@
-const { Provider } = require("@ethersproject/abstract-provider");
 const { expect } = require("chai");
-
+//price is in wei
 describe("NFT Marketplace ", function () {
   before(async function(){//deploys contracts before running tests
     [account0,account1,account2] = await ethers.getSigners();
@@ -54,5 +53,8 @@ describe("NFT Marketplace ", function () {
     console.log(await MPlace.getOrdersOf(1));
     await MPlace.listItem(nft.address,1,1000000000000)
     console.log(await MPlace.getOrdersOf(1));
+    await MPlace.listItem(nft.address,1,6666666666666)
+    console.log(await MPlace.getOrdersOf(1));
+
   })
 });
