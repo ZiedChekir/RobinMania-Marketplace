@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
-
+import Metamask from '../components/metamask'
+import Link from 'next/link'
 export default () => {
 
   const [state, setState] = useState(false)
   const navRef = useRef()
 
   // Replace javascript:void(0) path with your path
-  const navigation = [
+  let navigation = [
       { title: "Home", path: "/" },
-      { title: "Explore", path: "javascript:void(0)" },
-      { title: "Collection", path: "javascript:void(0)" },
+      { title: "Explore", path: "/explore" },
+      { title: "Collection", path: "/collection" },
       { title: "Dashboard", path: "javascript:void(0)" },
   ]
 
@@ -68,15 +69,9 @@ export default () => {
                                     Contact
                                 </a>
                             </li>
-                            <li className="login-link">
-                                <a href="javascript:void(0)">
-                                    Login
-                                </a>
-                            </li>
                             <li className="signup-link">
-                                <a href="javascript:void(0)">
-                                    Connect Metamask
-                                </a>
+                              
+                            <Metamask/>
                             </li>
                         </ul>
                     </div>
@@ -86,9 +81,9 @@ export default () => {
                                 navigation.map((item, idx) => {
                                     return (
                                         <li key={idx}>
-                                            <a href={item.path}>
+                                            <Link href={item.path}>
                                                 { item.title }
-                                            </a>
+                                            </Link>
                                         </li>
                                     )
                                 })

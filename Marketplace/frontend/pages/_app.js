@@ -1,3 +1,4 @@
+import '../styles/dashboard.css'
 import '../styles/globals.css'
 import '../styles/Navbar.css'
 import {Web3ReactProvider} from '@web3-react/core'

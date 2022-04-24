@@ -3,6 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import CardItem from "../components/Card";
 import { ethers } from "ethers";
+
 const Collection = () => {
   const [Nfts, setNfts] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
@@ -12,6 +13,7 @@ const Collection = () => {
     loadCollection();
   },[])
   const loadCollection = async () => {
+    if(!active) return ;
     const provider = new ethers.providers.JsonRpcProvider();
     const signer = provider.getSigner();
     const Contract = new ethers.Contract(GameAddress, GameABI,signer);

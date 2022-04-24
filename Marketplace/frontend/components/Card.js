@@ -1,18 +1,30 @@
-//import { Card, Button } from "react-bootstrap";
 import Link from "next/link";
 
 const CardItem = (props) => {
   return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src={props.image} />
-      <Card.Body>
-        <Card.Title>{props.title}</Card.Title>
-        <Card.Text>{props.description}</Card.Text>
-        <Button variant="primary">
-          <Link href={props.link}>Show Details</Link>
-        </Button>
-      </Card.Body>
-    </Card>
+    <article className="card" key={props.key}>
+      <a href={props.image} className="card-details">
+        <img
+          src={props.image}
+          loading="lazy"
+          // alt={items.title}
+          className="w-full h-48 rounded-tl-md rounded-tr-md"
+        />
+        <div className="card-header">
+          {/* <div className="avatar">
+            <img src={items.authorLogo} alt={items.authorName} />
+          </div> */}
+          {/* <div className="info">
+            <span className="author-name">{items.authorName}</span>
+            <span className="date">{items.date}</span>
+          </div> */}
+        </div>
+        <div className="card-footer">
+          <h3>{props.title}</h3>
+          <p>{props.description}</p>
+        </div>
+      </a>
+    </article>
   );
 };
 
