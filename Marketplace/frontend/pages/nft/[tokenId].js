@@ -1,7 +1,7 @@
 
 import {useRouter} from 'next/router'
 import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
+//import { Button } from 'react-bootstrap';
 import CardItem from '../../components/Card';
 const nft =()=>{
     const router = useRouter();
