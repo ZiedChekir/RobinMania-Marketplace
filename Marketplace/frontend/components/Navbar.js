@@ -1,19 +1,37 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default () => {
 
   const [state, setState] = useState(false)
+  const navRef = useRef()
 
   // Replace javascript:void(0) path with your path
   const navigation = [
       { title: "Home", path: "/" },
-      { title: "Collection", path: "/collection" },
-      { title: "Guides", path: "javascript:void(0)" },
-      { title: "Partners", path: "javascript:void(0)" }
+      { title: "Explore", path: "javascript:void(0)" },
+      { title: "Collection", path: "javascript:void(0)" },
+      { title: "Dashboard", path: "javascript:void(0)" },
   ]
 
+  useEffect(() => {
+      
+      const body = document.body
+
+      // Disable scrolling
+      if (state) body.classList.add("disable-scrolling")
+      // Enable scrolling
+      else body.classList.remove("disable-scrolling")
+
+      // Sticky strick
+      window.onscroll = () => {
+          if (window.scrollY > 80) navRef.current.classList.add("sticky-nav-secondary")
+          else navRef.current.classList.remove("sticky-nav-secondary")
+      }
+    }, [state])
+    
+
   return (
-      <nav className="nav-primary">
+      <nav ref={navRef} className="nav-secondary">
           <div className="nav-container">
               <div className="brand">
                     <a href="javascript:void(0)">
@@ -42,25 +60,41 @@ export default () => {
                       </button>
                   </div>
               </div>
-              <div className={`nav-items ${ state ? '' : 'hide-nav'}`}>
-                  <ul>
-                      {
-                          navigation.map((item, idx) => {
-                              return (
-                                <li key={idx} className="nav-item">
-                                    <a href={item.path}>
-                                        { item.title }
-                                    </a>
-                                </li>
-                              )
-                          })
-                      }
-                  </ul>
-              </div>
-              <div className="get-started-link">
-                <a>
-                    Get Started
-                </a>
+              <div className={`nav-items-container ${ state ? 'show-nav-secondary' : 'hide-nav-secondary'}`}>
+                    <div className="nav-items-primary">
+                        <ul>
+                            <li className="contact-link">
+                                <a href="javascript:void(0)">
+                                    Contact
+                                </a>
+                            </li>
+                            <li className="login-link">
+                                <a href="javascript:void(0)">
+                                    Login
+                                </a>
+                            </li>
+                            <li className="signup-link">
+                                <a href="javascript:void(0)">
+                                    Connect Metamask
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="nav-items-secondary">
+                        <ul>
+                            {
+                                navigation.map((item, idx) => {
+                                    return (
+                                        <li key={idx}>
+                                            <a href={item.path}>
+                                                { item.title }
+                                            </a>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
               </div>
           </div>
       </nav>
