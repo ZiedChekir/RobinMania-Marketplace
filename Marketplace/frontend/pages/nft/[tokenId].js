@@ -2,7 +2,7 @@
 import {useRouter} from 'next/router'
 import { useEffect, useState } from 'react';
 import { useWeb3React } from "@web3-react/core";
- import { GameABI, GameAddress } from "../../config";
+ import { MarketplaceABI, MarketplaceAddress } from "../../config";
  import { ethers } from 'ethers';
 //import { Button } from 'react-bootstrap';
 import CardItem from '../../components/Card';
@@ -35,7 +35,7 @@ const nft =()=>{
 
         const provider = new ethers.providers.JsonRpcProvider();
         const signer = provider.getSigner();
-        const Contract = new ethers.Contract(GameAddress, GameABI,signer);
+        const Contract = new ethers.Contract(MarketplaceAddress, MarketplaceABI,signer);
         const ordersData = await  Contract.getOrdersOf(tokenId)
 
         console.log(ordersData);
@@ -47,13 +47,13 @@ const nft =()=>{
     <div>
 
         <button onClick={FetchOrders}>fetchORders</button>
-<CardItem
-        
+        <CardItem
+        key={1}
         title={nft.name}
         description={nft.description}
         image={nft.image}
-        link ={"/nft/"+(1)}
-      />    <button >show nft</button>
+        link ={"/nft/"+1}
+      />  
     </div>
     )
 }

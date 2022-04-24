@@ -47,12 +47,22 @@ const Collection = () => {
   // if (loadingState === "loaded" && collection.length > 0)
   //   return <h2>No Nfts owned</h2>;
 
+
+
   return (
-    <div>
-            <button onClick={loadCollection}>Test</button>
-    {Nfts.map((card,i)=>{
-      console
-     return  <CardItem
+    <section className="cards-primary">
+        <div className="cards-header">
+            <h1>
+                My Collection
+            </h1>
+            <p>
+                  Owned NFTs
+            </p>
+        </div>
+        <div className="card-container">
+        {Nfts.map((card,i)=>{
+     
+      return  <CardItem
         key={i}
         title={card.name}
         description={card.description}
@@ -60,9 +70,12 @@ const Collection = () => {
         link ={"/nft/"+(i+1)}
       />
     })}
-      
-    </div>
-  );
+        </div>
+    </section>
+)
+
+
+
 };
 
 export default Collection;
