@@ -7,6 +7,8 @@ import { GameABI, GameAddress } from "../../config";
 import { ethers } from "ethers";
 //import { Button } from 'react-bootstrap';
 import CardItem from "../../components/Card";
+import priceModal from "../../components/priceModal";
+
 const nft = () => {
   const { query, isReady } = useRouter();
   const [showing, setShowing] = useState(false);
@@ -14,15 +16,17 @@ const nft = () => {
   const tokenId = query.tokenId;
   const [nft, setNft] = useState({});
   const [Orders, setOrders] = useState([]);
-
+  const [price, setPrice] = useState("");
+  const [state, setState] = useState(false);
 
   useEffect(() => {
     setShowing(true);
     if (isReady) {
+    FetchOrders();
       FetchNftData();
-      FetchOrders();
+      
     }
-  }, [query]);
+  }, [query, state]);
 
   if (!showing) {
     return null;
@@ -38,10 +42,10 @@ const nft = () => {
     );
     const NFTContract = new ethers.Contract(GameAddress, GameABI, signer);
     await NFTContract.setApprovalForAll(MarketplaceAddress, true);
-    await MarketplaceContract.listItem(GameAddress, tokenId, "23460000");
+    await MarketplaceContract.listItem(GameAddress, tokenId, price.toString());
   };
 
-  const buy = async (orderIndex,price) => {
+  const buy = async (orderIndex, price) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const MarketplaceContract = new ethers.Contract(
@@ -52,12 +56,17 @@ const nft = () => {
     // const NFTContract = new ethers.Contract(GameAddress,GameABI,signer)
     //await NFTContract.setApprovalForAll(MarketplaceAddress, true);
 
-    await MarketplaceContract.buyItem(GameAddress, tokenId, parseInt(orderIndex), {
-      value: price.toString(),
-    });
+    await MarketplaceContract.buyItem(
+      GameAddress,
+      tokenId,
+      parseInt(orderIndex),
+      {
+        value: price.toString(),
+      }
+    );
   };
 
-  const FetchNftData = async () => {
+  async function FetchNftData() {
     const response = await fetch(
       "https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/" +
         tokenId +
@@ -73,7 +82,7 @@ const nft = () => {
     setNft(nftjson);
   };
 
-  const FetchOrders = async () => {
+   async function  FetchOrders() {
     const provider = new ethers.providers.JsonRpcProvider();
     const signer = provider.getSigner();
     const Contract = new ethers.Contract(
@@ -82,27 +91,35 @@ const nft = () => {
       signer
     );
     const ordersData = await Contract.getOrdersOf(tokenId);
-    console.log((ordersData[0].price).toString())
-    console.log((ordersData[0].seller))
-    console.log((ordersData[0].index.toString()))
-    const tempArray= []
-    ordersData.map((order)=>{
-        const orderJson = {seller:order.seller,price:order.price.toString(),orderIndex:order.index.toString()}
-        tempArray.push(orderJson)
-
-    })
-    setOrders(tempArray)
-
+    console.log(ordersData[0].price.toString());
+    console.log(ordersData[0].seller);
+    console.log(ordersData[0].index.toString());
+    const tempArray = [];
+    ordersData.map((order) => {
+      const orderJson = {
+        seller: order.seller,
+        price: order.price.toString(),
+        orderIndex: order.index.toString(),
+      };
+      tempArray.push(orderJson);
+    });
+    setOrders(tempArray);
   };
-
+  const handleChange = (e) => {
+    setPrice(e.target.value);
+  };
+  const OpenPriceModel = () => {
+    setState(true);
+  };
   if (typeof window === "undefined") {
     return <></>;
   } else {
     return (
       <div>
         <button onClick={FetchOrders}>fetchORders</button>
-        <button onClick={sell}>sell</button>
-        <button onClick={buy}>buy</button>
+        <button onClick={OpenPriceModel}>sell</button>
+        <button onClick={buy}>buy</button> <br />
+        <input type="text" onChange={handleChange} />
         <CardItem
           key={1}
           title={nft.name}
@@ -110,7 +127,6 @@ const nft = () => {
           image={nft.image}
           link={"/nft/" + 1}
         />
-
         <div>
           <table border="1" width="100%" cellspacing="0" cellpadding="6">
             <tr>
@@ -125,17 +141,67 @@ const nft = () => {
               </td>
             </tr>
 
-            {Orders.map((x)=>{
-                return (<tr>
-                    <td width="50%">{x.seller}</td>
-                    <td width="50%">{x.price}</td>
-                    <td width="50%"><button onClick={()=>buy(x.orderIndex,x.price)}>Buy</button></td>
-                  </tr>)
+            {Orders.map((x) => {
+              return (
+                <tr>
+                  <td width="50%">{x.seller}</td>
+                  <td width="50%">{x.price}</td>
+                  <td width="50%">
+                    <button onClick={() => buy(x.orderIndex, x.price)}>
+                      Buy
+                    </button>
+                  </td>
+                </tr>
+              );
             })}
-            
-           
           </table>
         </div>
+        {state ? (
+          <div className="modal-success">
+            <div className="modal-cover" onClick={() => setState(false)}></div>
+            <div className="modal-container">
+              <div className="modal">
+                <div className="modal-header">
+                 
+                  
+                  <div className="modal-details">
+                    <h4>Selling Item</h4>
+                    <p>Name your price</p>
+                    <div className="email-primary">
+                      <label for="email">Price</label>
+                      <div className="email-container">
+                    
+                        <input
+                          type="email"
+                          placeholder="wei"
+                          id="email"
+                          className="email-input"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    className="btn-primary"
+                    onClick={() => sell()}
+                  >
+                    Sell
+                  </button>
+                  <button
+                    className="btn-secondary"
+                    onClick={() => setState(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     );
   }
