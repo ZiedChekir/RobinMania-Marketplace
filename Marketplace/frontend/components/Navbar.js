@@ -69,11 +69,10 @@ export default () => {
                                     Contact
                                 </a>
                             </li>
-                            <li className="signup-link">
-                              
                             <Metamask/>
-                            </li>
                         </ul>
+                        
+                        
                     </div>
                     <div className="nav-items-secondary">
                         <ul>
