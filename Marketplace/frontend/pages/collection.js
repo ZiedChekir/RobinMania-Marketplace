@@ -11,31 +11,37 @@ const Collection = () => {
 
   useEffect(()=>{
     loadCollection();
-  },[])
+  },[active]) // loadCollection when switch account
   const loadCollection = async () => {
+    
     if(!active) return ;
     const provider = new ethers.providers.JsonRpcProvider();
     const signer = provider.getSigner();
     const Contract = new ethers.Contract(GameAddress, GameABI,signer);
     const data = await Contract.balanceOfBatch([account, account,account,account,account], [1, 2,3,4,5]);
-
+    
     let nftArray = [];
     for (let i = 0; i < 5; i++) {
       let BalanceOfTokenID = data[i].toNumber();
-      
-      if(BalanceOfTokenID ==0) return;
+      console.log(BalanceOfTokenID)
+      if(BalanceOfTokenID ==0) break;
+     
       const response = await fetch("https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/"+(i+1)+".json", {
         headers: {
           'Accept': 'application/json'
         }
       })
-      const responseJson = await response.json();
-       nftArray.push(responseJson)
       
+      
+      const responseJson = await response.json();
+      
+       nftArray.push(responseJson)
+     
       
     }
 
     setNfts(nftArray);
+    console.log(Nfts)
     setLoadingState("loaded");
   };
 
@@ -63,7 +69,7 @@ const Collection = () => {
         {Nfts.map((card,i)=>{
      
       return  <CardItem
-        key={i}
+        key={card.name}
         title={card.name}
         description={card.description}
         image={card.image}

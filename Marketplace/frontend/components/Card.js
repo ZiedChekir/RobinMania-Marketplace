@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const CardItem = (props) => {
   return (
-    <article className="card" key={props.key}>
+    <article className="card" >
       <Link href={props.link} className="card-details">
         <div>
           <img
