@@ -1,6 +1,9 @@
 import '../styles/dashboard.css'
 import '../styles/globals.css'
 import '../styles/Navbar.css'
+import '../styles/card.css'
+import '../styles/priceModal.css'
+
 import {Web3ReactProvider} from '@web3-react/core'
 import { ethers } from 'ethers'
 //import 'bootstrap/dist/css/bootstrap.min.css';
