@@ -1,179 +1,44 @@
-export default () => {
-
-    const posts = [
-        {
-            price:5,
-            tokenID:1,
-            
-        },
-        
-    ]
-    
-    return (
-        <section className="cards-primary">
-            <div className="cards-header">
-                <h1>
-                    Orders
-                </h1>
-                <p>
-                    Your placed orders.
-                </p>
-            </div>
-            {
-                posts.map((items, key) => (
-                    <div className="overflow-x-auto w-full">
-                    <table className="table w-full">
-                        {/* head */}
-                        <thead>
-                        <tr>
-                            <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                            </th>
-                            <th>Name</th>
-                            <th>tokenID</th>
-                            <th>price</th>
-                            <th />
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {/* row 1 */}
-                        <tr>
-                            <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                            </th>
-                            <td>
-                            <div className="flex items-center space-x-3">
-                                <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                    <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
-                                </div>
-                                </div>
-                                <div>
-                                <div className="font-bold">Hart Hagerty</div>
-                                <div className="text-sm opacity-50">United States</div>
-                                </div>
-                            </div>
-                            </td>
-                            <td>
-                            Zemlak, Daniel and Leannon
-                            <br />
-                            <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                            </td>
-                            <td>Purple</td>
-                            <th>
-                            <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        {/* row 2 */}
-                        <tr>
-                            <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                            </th>
-                            <td>
-                            <div className="flex items-center space-x-3">
-                                <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                    <img src="/tailwind-css-component-profile-3@56w.png" alt="Avatar Tailwind CSS Component" />
-                                </div>
-                                </div>
-                                <div>
-                                <div className="font-bold">Brice Swyre</div>
-                                <div className="text-sm opacity-50">China</div>
-                                </div>
-                            </div>
-                            </td>
-                            <td>
-                            Carroll Group
-                            <br />
-                            <span className="badge badge-ghost badge-sm">Tax Accountant</span>
-                            </td>
-                            <td>Red</td>
-                            <th>
-                            <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        {/* row 3 */}
-                        <tr>
-                            <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                            </th>
-                            <td>
-                            <div className="flex items-center space-x-3">
-                                <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                    <img src="/tailwind-css-component-profile-4@56w.png" alt="Avatar Tailwind CSS Component" />
-                                </div>
-                                </div>
-                                <div>
-                                <div className="font-bold">Marjy Ferencz</div>
-                                <div className="text-sm opacity-50">Russia</div>
-                                </div>
-                            </div>
-                            </td>
-                            <td>
-                            Rowe-Schoen
-                            <br />
-                            <span className="badge badge-ghost badge-sm">Office Assistant I</span>
-                            </td>
-                            <td>Crimson</td>
-                            <th>
-                            <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        {/* row 4 */}
-                        <tr>
-                            <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                            </th>
-                            <td>
-                            <div className="flex items-center space-x-3">
-                                <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                    <img src="/tailwind-css-component-profile-5@56w.png" alt="Avatar Tailwind CSS Component" />
-                                </div>
-                                </div>
-                                <div>
-                                <div className="font-bold">Yancy Tear</div>
-                                <div className="text-sm opacity-50">Brazil</div>
-                                </div>
-                            </div>
-                            </td>
-                            <td>
-                            Wyman-Ledner
-                            <br />
-                            <span className="badge badge-ghost badge-sm">Community Outreach Specialist</span>
-                            </td>
-                            <td>Indigo</td>
-                            <th>
-                            <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        </tbody>
-                        {/* foot */}
-                        <tfoot>
-                        <tr>
-                            <th />
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th />
-                        </tr>
-                        </tfoot>
-                    </table>
-                    </div>
-                ))
-            }
-            
-        </section>
-    )
+import { useWeb3React } from "@web3-react/core";
+import { MarketplaceABI, MarketplaceAddress } from "../config";
+import OrdersTable from "../components/OrdersTable"
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
+const dashboard = () => {
+  const { active, account } = useWeb3React();
+  const [orders, setOrders] = useState([])
+  useEffect(() => {
+    const fetchOrders = async () => {
+      //fetching orders here
+      const provider = new ethers.providers.JsonRpcProvider();
+      const signer = provider.getSigner();
+      const Contract = new ethers.Contract(
+        MarketplaceAddress,
+        MarketplaceABI,
+        signer
+      );
+      const data = []
+      for(let tokenID=1;tokenID<6;tokenID++){
+        const ordersData = await Contract.getOrdersOf(tokenID);
+        //TODO: need to place account instead of the actual address
+        const ownerOrders = ordersData.filter((order) => order.seller == "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266")
+        ownerOrders.map((order) => {
+          const orderJson = {
+            index: order.index.toString(),
+            tokenID: order.tokenID.toString(),
+            price: order.price.toString(),
+          };
+          data.push(orderJson);
+        });
+  
+      }
+      setOrders(data)
+    }
+    fetchOrders()
+  }, [active])
+  
+  return (
+    <OrdersTable orders={orders}/>
+  )
 }
+
+export default dashboard

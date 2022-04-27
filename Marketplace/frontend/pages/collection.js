@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
- import { GameABI, GameAddress } from "../config";
+import { GameABI, GameAddress } from "../config";
 import { useEffect, useState } from "react";
 import CardItem from "../components/Card";
 import { ethers } from "ethers";
