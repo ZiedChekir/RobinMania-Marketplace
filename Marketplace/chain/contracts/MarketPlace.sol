@@ -68,6 +68,7 @@ contract MarketPlace is IMarketPlace {
   }
 
   function removeListing(uint256 tokenID,uint256 index) external {
+    require(msg.sender == ordersOf[tokenID][index].seller);
     removeOrder(tokenID,index);
   }
 

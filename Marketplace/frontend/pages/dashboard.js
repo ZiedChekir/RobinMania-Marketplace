@@ -2,14 +2,14 @@ import { useWeb3React } from "@web3-react/core";
 import { MarketplaceABI, MarketplaceAddress } from "../config";
 import OrdersTable from "../components/OrdersTable"
 import { useEffect, useState } from "react";
-import { ethers } from "ethers";
+import { Contract, ethers } from "ethers";
 const dashboard = () => {
   const { active, account } = useWeb3React();
   const [orders, setOrders] = useState([])
   useEffect(() => {
     const fetchOrders = async () => {
       //fetching orders here
-      const provider = new ethers.providers.JsonRpcProvider();
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const Contract = new ethers.Contract(
         MarketplaceAddress,
@@ -20,7 +20,8 @@ const dashboard = () => {
       for(let tokenID=1;tokenID<6;tokenID++){
         const ordersData = await Contract.getOrdersOf(tokenID);
         //TODO: need to place account instead of the actual address
-        const ownerOrders = ordersData.filter((order) => order.seller == "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266")
+        const ownerAddress = await signer.getAddress()
+        const ownerOrders = ordersData.filter((order) => order.seller == ownerAddress)
         ownerOrders.map((order) => {
           const orderJson = {
             index: order.index.toString(),
@@ -34,10 +35,24 @@ const dashboard = () => {
       setOrders(data)
     }
     fetchOrders()
-  }, [active])
+  }, [])
+  const removeItem = async (index,tokenID) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const Contract = new ethers.Contract(
+      MarketplaceAddress,
+      MarketplaceABI,
+      signer
+    );
+    await Contract.removeListing(tokenID,index)
+    setOrders(orders.filter((order) => 
+    order.tokenID.toString() != tokenID.toString() || order.index.toString() != index.toString()
+    ))
+
+  }
   
   return (
-    <OrdersTable orders={orders}/>
+    <OrdersTable orders={orders} removeItem={removeItem}/>
   )
 }
 
