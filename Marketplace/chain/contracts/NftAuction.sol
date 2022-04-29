@@ -103,6 +103,8 @@ contract NftAuction  is ERC1155Holder{
         AuctionOf[_tokenId][index].highestBidder = msg.sender;
         AuctionOf[_tokenId][index].state = AuctionState.OPEN;
         AuctionOf[_tokenId][index].index = index;
+        Bid memory newBid = Bid({bidder: msg.sender,ammount: _minBidIncrement,bidTime: block.timestamp});
+        AuctionOf[_tokenId][index].bids.push(newBid);
         // AuctionOf[_tokenId] = Auction({
         //     minBidIncrement:_minBidIncrement,
         //     auctionStartedAt:block.timestamp,
