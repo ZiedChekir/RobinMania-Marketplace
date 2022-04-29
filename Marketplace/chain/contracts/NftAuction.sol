@@ -16,7 +16,7 @@ contract NftAuction  is ERC1155Holder{
         ENDED,
         CANCELLED
     }
-struct Bid {
+    struct Bid {
         address bidder;
         uint ammount;
         uint bidTime;
@@ -32,7 +32,7 @@ struct Bid {
         address seller;
         AuctionState state;
         uint256 index;
-        // Bid[] bids; 
+        Bid[] bids; 
     }
 
     event NftAuctionCreated(
@@ -76,24 +76,47 @@ struct Bid {
             "NFT not approved for Marketplace"
             );
 
-
-     
-
-         Auction memory newAuction = Auction({
-        minBidIncrement:_minBidIncrement,
-        auctionStartedAt:block.timestamp,
-        auctionEnd:block.timestamp + _auctionBidPeriod,
-        startPrice:_startPrice,
-        seller:msg.sender,
-        highestBid:_startPrice,
-        highestBidder:msg.sender,
-        state:AuctionState.OPEN,
-        index:AuctionOf[_tokenId].length
-        // bids:bids
-        });
-
-        nft.safeTransferFrom(newAuction.seller, address(this), _tokenId, 1, new bytes(0));
-        AuctionOf[_tokenId].push(newAuction);
+        // Bid memory newBid;
+        // Auction storage newAuction;
+        // newAuction.minBidIncrement = _minBidIncrement;
+        // newAuction.bids.push(newBid);
+        
+        // Auction memory newAuction = Auction({
+        // minBidIncrement:_minBidIncrement,
+        // auctionStartedAt:block.timestamp,
+        // auctionEnd:block.timestamp + _auctionBidPeriod,
+        // startPrice:_startPrice,
+        // seller:msg.sender,
+        // highestBid:_startPrice,
+        // highestBidder:msg.sender,
+        // state:AuctionState.OPEN,
+        // index:AuctionOf[_tokenId].length,
+        // bids: bids
+        // });
+        uint256 index = AuctionOf[_tokenId].length;
+        AuctionOf[_tokenId][index].minBidIncrement = _minBidIncrement;
+        AuctionOf[_tokenId][index].auctionStartedAt = block.timestamp;
+        AuctionOf[_tokenId][index].auctionEnd = block.timestamp + _auctionBidPeriod;
+        AuctionOf[_tokenId][index].startPrice = _startPrice;
+        AuctionOf[_tokenId][index].seller = msg.sender;
+        AuctionOf[_tokenId][index].highestBid = _startPrice;
+        AuctionOf[_tokenId][index].highestBidder = msg.sender;
+        AuctionOf[_tokenId][index].state = AuctionState.OPEN;
+        AuctionOf[_tokenId][index].index = index;
+        // AuctionOf[_tokenId] = Auction({
+        //     minBidIncrement:_minBidIncrement,
+        //     auctionStartedAt:block.timestamp,
+        //     auctionEnd:block.timestamp + _auctionBidPeriod,
+        //     startPrice:_startPrice,
+        //     seller:msg.sender,
+        //     highestBid:_startPrice,
+        //     highestBidder:msg.sender,
+        //     state:AuctionState.OPEN,
+        //     index:AuctionOf[_tokenId].length,
+        //     bids: [Bid({bidder: msg.sender,ammount: _minBidIncrement,bidTime: block.timestamp})]
+        // });
+        nft.safeTransferFrom(msg.sender, address(this), _tokenId, 1, new bytes(0));
+        // AuctionOf[_tokenId].push(newAuction);
         emit NftAuctionCreated(_tokenId, msg.sender, _startPrice, _auctionBidPeriod,_minBidIncrement);
     }
     function placeBid(uint _tokenId,uint index) public payable priceGreaterThanZero(msg.value) {
