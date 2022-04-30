@@ -6,7 +6,23 @@ import { Contract, ethers } from "ethers";
 const dashboard = () => {
   const { active, account } = useWeb3React();
   const [orders, setOrders] = useState([])
+  const [avatars, setAvatars] = useState([])
   useEffect(() => {
+    const fetchAvatars = async () => {
+      const _avatars = [];
+      for(let i = 1; i< 6; i++){
+        const response = await fetch("https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/"+(i)+".json", {
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        const responseJson = await response.json()
+        _avatars.push(responseJson.image)
+        
+      }
+      setAvatars(_avatars);
+
+    }
     const fetchOrders = async () => {
       //fetching orders here
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -19,7 +35,6 @@ const dashboard = () => {
       const data = []
       for(let tokenID=1;tokenID<6;tokenID++){
         const ordersData = await Contract.getOrdersOf(tokenID);
-        //TODO: need to place account instead of the actual address
         const ownerAddress = await signer.getAddress()
         const ownerOrders = ordersData.filter((order) => order.seller == ownerAddress)
         ownerOrders.map((order) => {
@@ -34,8 +49,9 @@ const dashboard = () => {
       }
       setOrders(data)
     }
-    fetchOrders()
-  }, [])
+    fetchOrders();
+    fetchAvatars();
+  }, [active])
   const removeItem = async (index,tokenID) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -52,7 +68,7 @@ const dashboard = () => {
   }
   
   return (
-    <OrdersTable orders={orders} removeItem={removeItem}/>
+    <OrdersTable orders={orders} removeItem={removeItem} avatars={avatars}/>
   )
 }
 

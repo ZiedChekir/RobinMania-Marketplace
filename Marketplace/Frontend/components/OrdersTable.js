@@ -7,14 +7,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { DeleteForever } from '@mui/icons-material';
-const OrdersTable = ({orders,removeItem}) =>  {
-    
+import { Avatar } from '@mui/material';
+const OrdersTable = ({orders,removeItem,avatars}) =>  {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>tokenID</TableCell>
+            <TableCell>Image</TableCell>
+            <TableCell align="center">TokenID</TableCell>
             <TableCell align="center">Price</TableCell>
             <TableCell align="right">Delete</TableCell>
           </TableRow>
@@ -26,8 +27,9 @@ const OrdersTable = ({orders,removeItem}) =>  {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="orders">
-                {order.tokenID}
+                <Avatar src={avatars[order.tokenID -1 ]}></Avatar>
               </TableCell>
+              <TableCell align="center">{order.tokenID}</TableCell>
               <TableCell align="center">{order.price}</TableCell>
               <TableCell align="right"><DeleteForever color="primary" cursor='pointer' onClick={() => removeItem(order.index,order.tokenID)}></DeleteForever></TableCell>
             </TableRow>

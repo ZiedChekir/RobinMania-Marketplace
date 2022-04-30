@@ -14,11 +14,11 @@ const Collection = () => {
   },[active]) // loadCollection when switch account
   const loadCollection = async () => {
     
-    if(!active) return ;
-    const provider = new ethers.providers.JsonRpcProvider();
+    // if(!active) return ;
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const Contract = new ethers.Contract(GameAddress, GameABI,signer);
-    const data = await Contract.balanceOfBatch([account, account,account,account,account], [1, 2,3,4,5]);
+    const data = await Contract.balanceOfBatch([signer.getAddress(), signer.getAddress(),signer.getAddress(),signer.getAddress(),signer.getAddress()], [1, 2,3,4,5]);
     
     let nftArray = [];
     for (let i = 0; i < 5; i++) {
@@ -48,7 +48,7 @@ const Collection = () => {
  
 
 
-  if (!active) return <h1>You need to connect your metamask account</h1>;
+  // if (!active) return <h1>You need to connect your metamask account</h1>;
   // if(loadingState="not-loaded") return <h2>Loading</h2>
   // if (loadingState === "loaded" && collection.length > 0)
   //   return <h2>No Nfts owned</h2>;
