@@ -7,9 +7,9 @@ import Button from "@mui/material/Button";
 
 const Hero = () => {
   return (
-    <Container component="section" maxWidth="md" sx={{ mb: 15 }}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+    <Container component="section" maxWidth="md" sx={{ mb: 16 }}>
+      <Grid container spacing={2} columns={16} flexDirection="row">
+        <Grid item xs={8} >
         <Image
   src="/peepo-peepoblush.gif"
   alt="peepoblush"
@@ -21,10 +21,9 @@ const Hero = () => {
         
         <Grid
          item 
-        xs={12} 
-        sm={6} 
+        xs={8} 
         container 
-        flexDirection="column" 
+        flexDirection="row" 
         justifyContent="center" 
         alignItems="center"
         >
@@ -49,3 +48,6 @@ const Hero = () => {
 };
 
 export default Hero;
+
+
+

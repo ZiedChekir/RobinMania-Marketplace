@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/icons-material/Menu";
 import MuiNextLink from "./MuiNextLink";
 import { useState } from "react";
+import Connect from "./Connect";
 
 const SideDrawer = ({ navLinks }) => {
   const [state, setState] = useState({
@@ -49,6 +50,7 @@ const SideDrawer = ({ navLinks }) => {
 
   return (
     <>
+    
       <IconButton
         edge="start"
         aria-label="menu"
@@ -58,8 +60,11 @@ const SideDrawer = ({ navLinks }) => {
           display: { xs: `inline`, md: `none` },
         }}
       >
+           <Connect />
+       
         <Menu fontSize="large" />
       </IconButton>
+      
       <Drawer
         anchor="right"
         open={state.right}
@@ -71,7 +76,9 @@ const SideDrawer = ({ navLinks }) => {
         }}
       >
         {list("right")}
+        
       </Drawer>
+      
     </>
   );
 };
