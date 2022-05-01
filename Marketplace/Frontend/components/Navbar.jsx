@@ -147,6 +147,7 @@
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import MuiNextLink from "./MuiNextLink";
+import Connect from "./Connect";
 
 const Navbar = ({ navLinks }) => {
   return (
@@ -167,6 +168,7 @@ const Navbar = ({ navLinks }) => {
             {title}
           </MuiNextLink>
         ))}
+        <Connect />
       </Stack>
     </Toolbar>
   );
