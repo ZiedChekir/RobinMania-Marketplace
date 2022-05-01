@@ -35,14 +35,13 @@ const Connect = () => {
             method: "wallet_addEthereumChain",
             params: [{
                 chainId: "0x7A69",
-                rpcUrls: ["http://127.0.0.1:8545/"],
+                rpcUrls: ["https://127.0.0.1:8545/"],
                 chainName: "Hardhat",
                 nativeCurrency: {
                     name: "KAI",
                     symbol: "KAI",
                     decimals: 18
-                },
-                blockExplorerUrls: [""]
+                }
             }]
         });
     }
