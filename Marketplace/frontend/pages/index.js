@@ -3,8 +3,12 @@ import Hero from '../components/Hero'
 
 const Homepage = () => {
   return (
-    <Container maxWidth="sm">
+    <Container >
+
+
     <Hero />
+
+    
     </Container>
   );
 };

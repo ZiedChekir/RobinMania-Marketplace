@@ -60,7 +60,6 @@ const SideDrawer = ({ navLinks }) => {
           display: { xs: `inline`, md: `none` },
         }}
       >
-           <Connect />
        
         <Menu fontSize="large" />
       </IconButton>
