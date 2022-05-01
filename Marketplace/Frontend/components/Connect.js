@@ -31,6 +31,20 @@ const Connect = () => {
             if(accounts.length>0) setCurrentAccount(accounts[0])
         })
         .catch((e)=>console.log(e))
+        window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+                chainId: "0x7A69",
+                rpcUrls: ["http://127.0.0.1:8545/"],
+                chainName: "Hardhat",
+                nativeCurrency: {
+                    name: "KAI",
+                    symbol: "KAI",
+                    decimals: 18
+                },
+                blockExplorerUrls: [""]
+            }]
+        });
     }
     return (
         <>
