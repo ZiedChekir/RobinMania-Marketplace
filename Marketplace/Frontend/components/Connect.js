@@ -1,14 +1,16 @@
 import React from 'react';
 import { ethers } from "ethers";
 import {useState,useEffect} from 'react';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { Snackbar } from '@mui/material';
+import Alert from '@mui/material/Alert'
 const Connect = () => {
     const [balance,setBalance] = useState("")
     const [currentAccount, setCurrentAccount] = useState("")
     const [chainId,setChainId] = useState(null)
     const [chainName,setChainName] = useState("")
     const [provider,setProvider] = useState(null)
+    const [openSnackBar, setOpenSnackBar] = useState(false);
     useEffect(()=>{
         if(!window.ethereum) return
         const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -18,11 +20,13 @@ const Connect = () => {
         })
         .catch((e)=>console.log(e))
         if(!currentAccount || !ethers.utils.isAddress(currentAccount)) return
+        if(chainName !== "Hardhat") setOpenSnackBar(true)
+        else setOpenSnackBar(false)
         ethereum.on('accountsChanged', (accounts) => {
             setCurrentAccount(accounts[0])
           });
         window.ethereum.on("chainChanged", (network) => {
-            provider = new ethers.providers.Web3Provider(window.ethereum);
+            provider = new ethers.providers.Web3Provider(window.ethereum)
             setProvider(provider)
           });
         
@@ -47,9 +51,9 @@ const Connect = () => {
                         decimals: 18
                     }
                 }]
-            });
+            }).then((p) => {setOpenSnackBar(false)})
         }
-    },[currentAccount,provider])
+    },[currentAccount,provider,openSnackBar])
     const onClickConnect = ()=> {
         if(!window.ethereum){
             console.log("please install MetaMask!")
@@ -69,6 +73,10 @@ const Connect = () => {
         :   
         <h4>{currentAccount}</h4>
         }
+        <Snackbar
+        open={openSnackBar}>
+            <Alert severity="warning">Please switch network!</Alert>
+        </Snackbar>
         </>
     )
 }
