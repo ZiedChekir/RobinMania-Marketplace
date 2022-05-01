@@ -1,179 +1,78 @@
-export default () => {
+import { MarketplaceABI, MarketplaceAddress } from "../config";
+import OrdersTable from "../components/OrdersTable"
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
 
-    const posts = [
-        {
-            price:5,
-            tokenID:1,
-            
-        },
+const Dashboard = () => {
+  const [orders, setOrders] = useState([])
+  const [avatars, setAvatars] = useState([])
+  const [currentAccount, setCurrentAccount] = useState("")
+  useEffect(() => {
+    ethereum.on('accountsChanged', (accounts) => {
+        setCurrentAccount(accounts[0])
+    });
+    const fetchAvatars = async () => {
+      const _avatars = [];
+      for(let i = 1; i< 6; i++){
+        const response = await fetch("https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/"+(i)+".json", {
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        const responseJson = await response.json()
+        _avatars.push(responseJson.image)
         
-    ]
-    
-    return (
-        <section className="cards-primary">
-            <div className="cards-header">
-                <h1>
-                    Orders
-                </h1>
-                <p>
-                    Your placed orders.
-                </p>
-            </div>
-            {
-                posts.map((items, key) => (
-                    <div className="overflow-x-auto w-full">
-                    <table className="table w-full">
-                        {/* head */}
-                        <thead>
-                        <tr>
-                            <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                            </th>
-                            <th>Name</th>
-                            <th>tokenID</th>
-                            <th>price</th>
-                            <th />
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {/* row 1 */}
-                        <tr>
-                            <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                            </th>
-                            <td>
-                            <div className="flex items-center space-x-3">
-                                <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                    <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
-                                </div>
-                                </div>
-                                <div>
-                                <div className="font-bold">Hart Hagerty</div>
-                                <div className="text-sm opacity-50">United States</div>
-                                </div>
-                            </div>
-                            </td>
-                            <td>
-                            Zemlak, Daniel and Leannon
-                            <br />
-                            <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                            </td>
-                            <td>Purple</td>
-                            <th>
-                            <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        {/* row 2 */}
-                        <tr>
-                            <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                            </th>
-                            <td>
-                            <div className="flex items-center space-x-3">
-                                <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                    <img src="/tailwind-css-component-profile-3@56w.png" alt="Avatar Tailwind CSS Component" />
-                                </div>
-                                </div>
-                                <div>
-                                <div className="font-bold">Brice Swyre</div>
-                                <div className="text-sm opacity-50">China</div>
-                                </div>
-                            </div>
-                            </td>
-                            <td>
-                            Carroll Group
-                            <br />
-                            <span className="badge badge-ghost badge-sm">Tax Accountant</span>
-                            </td>
-                            <td>Red</td>
-                            <th>
-                            <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        {/* row 3 */}
-                        <tr>
-                            <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                            </th>
-                            <td>
-                            <div className="flex items-center space-x-3">
-                                <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                    <img src="/tailwind-css-component-profile-4@56w.png" alt="Avatar Tailwind CSS Component" />
-                                </div>
-                                </div>
-                                <div>
-                                <div className="font-bold">Marjy Ferencz</div>
-                                <div className="text-sm opacity-50">Russia</div>
-                                </div>
-                            </div>
-                            </td>
-                            <td>
-                            Rowe-Schoen
-                            <br />
-                            <span className="badge badge-ghost badge-sm">Office Assistant I</span>
-                            </td>
-                            <td>Crimson</td>
-                            <th>
-                            <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        {/* row 4 */}
-                        <tr>
-                            <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                            </th>
-                            <td>
-                            <div className="flex items-center space-x-3">
-                                <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                    <img src="/tailwind-css-component-profile-5@56w.png" alt="Avatar Tailwind CSS Component" />
-                                </div>
-                                </div>
-                                <div>
-                                <div className="font-bold">Yancy Tear</div>
-                                <div className="text-sm opacity-50">Brazil</div>
-                                </div>
-                            </div>
-                            </td>
-                            <td>
-                            Wyman-Ledner
-                            <br />
-                            <span className="badge badge-ghost badge-sm">Community Outreach Specialist</span>
-                            </td>
-                            <td>Indigo</td>
-                            <th>
-                            <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        </tbody>
-                        {/* foot */}
-                        <tfoot>
-                        <tr>
-                            <th />
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th />
-                        </tr>
-                        </tfoot>
-                    </table>
-                    </div>
-                ))
-            }
-            
-        </section>
-    )
+      }
+      setAvatars(_avatars);
+
+    }
+    const fetchOrders = async () => {
+      //fetching orders here
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const Contract = new ethers.Contract(
+        MarketplaceAddress,
+        MarketplaceABI,
+        signer
+      );
+      const data = []
+      for(let tokenID=1;tokenID<6;tokenID++){
+        const ordersData = await Contract.getOrdersOf(tokenID);
+        const ownerAddress = await signer.getAddress()
+        const ownerOrders = ordersData.filter((order) => order.seller == ownerAddress)
+        ownerOrders.map((order) => {
+          const orderJson = {
+            index: order.index.toString(),
+            tokenID: order.tokenID.toString(),
+            price: ethers.utils.formatEther(order.price),
+          };
+          data.push(orderJson);
+        });
+  
+      }
+      setOrders(data)
+    }
+    fetchOrders();
+    fetchAvatars();
+  }, [currentAccount])
+  const removeItem = async (index,tokenID) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const Contract = new ethers.Contract(
+      MarketplaceAddress,
+      MarketplaceABI,
+      signer
+    );
+    await Contract.removeListing(tokenID,index)
+    setOrders(orders.filter((order) => 
+    order.tokenID.toString() != tokenID.toString() || order.index.toString() != index.toString()
+    ))
+
+  }
+  
+  return (
+    <OrdersTable orders={orders} removeItem={removeItem} avatars={avatars}/>
+  )
 }
+
+export default Dashboard

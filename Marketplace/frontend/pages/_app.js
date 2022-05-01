@@ -1,27 +1,32 @@
-import '../styles/dashboard.css'
-import '../styles/globals.css'
-import '../styles/Navbar.css'
-import '../styles/card.css'
-import '../styles/priceModal.css'
+import Head from 'next/head';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { CacheProvider } from '@emotion/react';
+import createEmotionCache from '../styles/createEmotionCache';
+import Header from "../components/Header";
 
-import {Web3ReactProvider} from '@web3-react/core'
-import { ethers } from 'ethers'
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import "/styles/globals.css";
+import theme from '../styles/theme';
 
-import Navbar from "../components/navbar"
 
-function getLibrary(provider, connector){
-  return new ethers.providers.Web3Provider(provider)
-}
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp(props) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
   return (
-    <>
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <Navbar/>
-      <Component {...pageProps} />
-    </Web3ReactProvider>
-    </>)
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <title>ZNS Marketplace</title>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <Header />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </CacheProvider>
+  );
 }
-
-export default MyApp
