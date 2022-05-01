@@ -6,6 +6,7 @@ import web3 from "web3";
 export default function Metamask() {
   const { active, account, library, connector, chainId, activate, deactivate } =
     useWeb3React();
+
   const KARDIA_TESTNET = 242;
   async function CheckAndRequestNetworkSwitch() {
     //kardiachain rpc data
