@@ -8,9 +8,20 @@ contract NftAuction  is ERC1155Holder{
     mapping(uint256 => mapping(uint256 => Bid[])) public BidsOf;//BidsOf[_tokenId][AuctionIndex]
     address public admin;
 
+    //for reentrancy attacks
+    bool internal locked;
+
+    modifier reentrancyLock(){
+        require(!locked,"the contract vault is locked");
+        locked = true;
+        _;
+        locked = false;
+    }
+
     constructor() {
 
         admin = msg.sender;
+        locked = false;
     }
     enum AuctionState {
         OPEN,
@@ -121,8 +132,7 @@ contract NftAuction  is ERC1155Holder{
         AuctionOf[_tokenId].push(newAuction);
         emit NftAuctionCreated(_tokenId, msg.sender, _startPrice, _auctionBidPeriod,_minBidIncrement);
     }
-    function placeBid(uint _tokenId,uint index) public payable priceGreaterThanZero(msg.value) {
-        
+    function placeBid(uint _tokenId,uint index) public payable priceGreaterThanZero(msg.value) reentrancyLock(){
         require(AuctionOf[_tokenId][index].highestBid+AuctionOf[_tokenId][index].minBidIncrement <=msg.value,"bid price is less than the minimum required bid increment");
         require(AuctionOf[_tokenId][index].state == AuctionState.OPEN);
         require(AuctionOf[_tokenId][index].seller != msg.sender,"cant bid on own auction");
@@ -138,9 +148,7 @@ contract NftAuction  is ERC1155Holder{
         //update the new highest bidder
         AuctionOf[_tokenId][index].highestBidder = msg.sender;
         AuctionOf[_tokenId][index].highestBid = msg.value;
-        
-       // Bid memory bid = Bid({bidder:msg.sender,ammount:msg.value,bidTime:block.timestamp});
-         
+       // Bid memory bid = Bid({bidder:msg.sender,ammount:msg.value,bidTime:block.timestamp}); 
       //  AuctionOf[_tokenId][index].bids.push(bid);
 
      emit BidMade( _tokenId,
@@ -149,14 +157,10 @@ contract NftAuction  is ERC1155Holder{
     }
 
 
-    function AuctionEnd(IGameItems nft, uint _tokenId, uint index)external payable{
+    function AuctionEnd(IGameItems nft, uint _tokenId, uint index)external payable reentrancyLock(){
         require(msg.sender == AuctionOf[_tokenId][index].seller || msg.sender ==AuctionOf[_tokenId][index].highestBidder, "you need to be the owner or the highest bidder");
         require(getAuctionState(_tokenId,index)==AuctionState.ENDED,"the auction is still open");
         require(AuctionOf[_tokenId][index].state == AuctionState.OPEN); //it means this is the first time the auction is claimed
-        require(
-            nft.isApprovedForAll(msg.sender, address(this)),
-            "NFT not approved for Marketplace"
-            );
         require(nft.balanceOf(address(this),_tokenId) >0,"Errorrrita");
 
 
