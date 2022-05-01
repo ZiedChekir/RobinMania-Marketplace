@@ -7,6 +7,7 @@ const dashboard = () => {
   const { active, account } = useWeb3React();
   const [orders, setOrders] = useState([])
   const [avatars, setAvatars] = useState([])
+  // Force page refreshes on network changes
   useEffect(() => {
     const fetchAvatars = async () => {
       const _avatars = [];
@@ -41,7 +42,7 @@ const dashboard = () => {
           const orderJson = {
             index: order.index.toString(),
             tokenID: order.tokenID.toString(),
-            price: order.price.toString(),
+            price: ethers.utils.formatEther(order.price),
           };
           data.push(orderJson);
         });

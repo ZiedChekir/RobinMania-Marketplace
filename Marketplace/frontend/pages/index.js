@@ -1,25 +1,14 @@
 import Metamask from '../components/metamask'
 import Button from '@mui/material/Button';
 import Hero from '../components/Hero';
+import ConnectMetamask from '../components/connector';
 export default function Home() {
   return (
     <div>
-      <Hero />
-      <Button variant="contained">Hello World</Button>
-      <button className='btn'>Btt</button>
+    {/* <ConnectMetamask /> */}
+    <h4>ddd</h4>
+    </div>
     
-      <button
-    className="btn-primary-sm"
->
-    Button
-</button>
-<button
-    className="px-4 py-2 text-sm text-white duration-150 bg-indigo-600 rounded-md hover:bg-indigo-700 active:shadow-lg"
->
-  <Metamask/>
-    Button
-</button>
-      </div>
   )
   
 }
