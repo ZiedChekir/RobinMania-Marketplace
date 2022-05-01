@@ -20,6 +20,8 @@ module.exports = {
   defaultNetwork: "hardhat",//change this to kardiachain when testing on testnet (but give accounts KAI)
   networks: {
     hardhat: {
+      blockGasLimit: 100000000420 // whatever you want here
+
     },
     kardiachain: {
       url: "https://rpc.kardiachain.io",
