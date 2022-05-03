@@ -7,7 +7,7 @@ import Header from "../components/Header";
 
 import "/styles/globals.css";
 import theme from '../styles/theme';
-
+import AuctionCard from '../components/AuctionCard';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
