@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 
  import { useEffect, useState } from "react";
  import { ethers } from "ethers";
-
+import AuctionCard from "../components/AuctionCard";
 
 const explore =  ()=> {
 
@@ -34,6 +34,11 @@ const explore =  ()=> {
         setLoadingState("loaded");
       };
     
-    return <h2>explore page</h2>
+    return (
+    <>
+    <h2>explore page</h2>
+    <AuctionCard />
+    </>
+    )
 }
 export default explore; 
