@@ -14,7 +14,7 @@ export const navLinks = [
     { title: `Home`, path: `/` },
     { title: `Collection`, path: `/collection` },
     { title: `Explore`, path: `/explore` },
-    { title: `Dashboard`, path: `/dashboard` },
+    { title: `Auction`, path: `/auction` },
   ];
 
 const Header = () => {
