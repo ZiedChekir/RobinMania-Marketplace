@@ -23,18 +23,21 @@ async function main(){
     console.log(await nft.uri(1));
     console.log("1.mint tokens 1-5 to account 0 with quantity of 10");
     for(let i=1;i<6;i++){
-        await nft.increaseSupply(i,10,[]);
+        await nft.increaseSupply(i,1000,[]);
+        await nft.setSupplyPerPlayer(i,1000);
     }
 
     console.log("2.list tokens 1-5 to market with value 1000000000000");
     await nft.setApprovalForAll(MPlace.address, true);
     for(let i=1; i<6;i++){
         await MPlace.listItem(nft.address,i,"1000000000000000000");
+        await MPlace.listItem(nft.address,i,"2000000000000000000");
+        await MPlace.listItem(nft.address,i,"5000000000000000000");
     }
 
     console.log("3.mint tokens 1-5 to account 1 with quantity of 5");
     for(let i=1;i<6;i++){
-        await nft.increaseSupply(i,5,[]);
+        await nft.increaseSupply(i,1000,[]);
         await nft.safeTransferFrom(
             address0,
             address1,
