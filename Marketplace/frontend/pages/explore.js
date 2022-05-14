@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
  import { useEffect, useState } from "react";
  import { ethers } from "ethers";
 import AuctionCard from "../components/AuctionCard";
-import MultiActionAreaCard from "../components/AuctionCardd";
+import MultiActionAreaCard from "../components/AuctionCard";
 import { Grid } from "@mui/material";
 
 const explore =  ()=> {
