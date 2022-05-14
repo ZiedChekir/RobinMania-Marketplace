@@ -1,3 +1,21 @@
 .active {
   opacity: 1;
 }
+
+.explore{
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.nftGrid{
+  padding-left: 30px;
+}
+body{
+  color: rgb(23,18,18);
+}
+.NftPage{
+  margin-top: 70px;
+
+}
+.NftDetails {
+  margin-bottom: 70px;
+}
