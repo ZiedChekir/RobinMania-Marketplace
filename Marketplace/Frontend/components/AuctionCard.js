@@ -1,35 +1,37 @@
-import { Paper } from "@mui/material";
-import { Box, width } from "@mui/system";
-import { Stack } from "@mui/material";
-import { Typography } from "@mui/material";
-import { LinearProgress } from "@mui/material";
-const AuctionCard = () => {
-    
-    return(
-    <Paper  elevation={3} sx={{
-        width: 320,
-    }}>
-        <Stack spacing={2} alignItems="center" margin={2} sx={{
-            border:1,
-            color: 'green'
-        }}>
-            <Box component="img" sx={{
-                height: 334.4,
-                width: 256,                
-            }}
-            src="https://raw.githubusercontent.com/SamiKammoun/robinmania/main/Bow.png"
-            />
-            <Box sx={{
-                position : 'relative',
-                bottom : 85,
-                opacity : 0.5,
-                width:'65%',
-                paddingLeft:1
-            }}>
-                <Paper sx={{
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Button, CardActionArea, CardActions } from '@mui/material';
+import { blue } from '@mui/material/colors';
+import { Stack } from '@mui/material';
+import { Box } from '@mui/system';
+import { LinearProgress } from '@mui/material';
+import { Paper } from '@mui/material';
+export default function MultiActionAreaCard({img,auctionEnd,}) {
+    const ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    const truncateAddress = (address) => {
+        return address.substring(0,4)+"..." + address.substring(39,address.length);
+    }
+  return (
+    <Card sx={{ maxWidth: 320 ,color:"#1EB854", backgroundColor:"#272935",}} elevation={10}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          image="https://raw.githubusercontent.com/SamiKammoun/robinmania/main/Bow.png"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Bow
+          </Typography>
+          <Typography variant="body2" color="white">
+            3 points of dmg
+          </Typography>
+          <Paper sx={{
                     width:'100%',
                     height: 50,
-                    backgroundColor : 'black'
+                    backgroundColor : '#110e0e'
                 }}>
                     <Stack alignItems="center">
                         <Typography color={'white'} fontSize={15}>15Hrs:20Mins:22Sec</Typography>
@@ -38,24 +40,22 @@ const AuctionCard = () => {
                         </Box>
                     </Stack>
                 </Paper>
-                <Stack sx={{
-                    position:'absolute',
-                    top: 85
-                }}>
-                    <Stack direction="row" spacing={6}>
-                        <Typography >Bow</Typography>
-                        <Typography >Robin Mania</Typography>
-                        
-                    </Stack>
-                    
-                    
-                </Stack>
-            </Box>
-            
-
+        </CardContent>
+      </CardActionArea>
+      <CardActions >
+        <Button size="small" sx={{backgroundColor:"#1EB854"}} variant="contained">
+          Place Bid
+        </Button>
+        <Stack style={{paddingLeft:100}}>
+        <Typography>
+            NFT Owner :
+        </Typography>
+        <Typography>
+            {truncateAddress(ownerAddress)}
+        </Typography>
         </Stack>
         
-    </Paper>
-    )
+      </CardActions>
+    </Card>
+  );
 }
-export default AuctionCard
