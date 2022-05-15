@@ -38,6 +38,8 @@ const nft = () => {
   const [SellState, setSellState] = useState(false);
   const [BuyState, setBuyState] = useState(false);
   const [AuctionState, setAuctionState] = useState(false);
+  const [OrderState, setOrderState] = useState(false);
+
 
   useEffect(() => {
     setShowing(true);
@@ -45,7 +47,7 @@ const nft = () => {
       FetchOrders();
       FetchNftData();
     }
-  }, [query]);
+  }, [query,OrderState]);
 
   if (!showing) {
     return null;
@@ -113,6 +115,7 @@ const nft = () => {
     } else {
       toast.error("error");
     }
+    setOrderState(!OrderState)
   };
 
   const createAuction = async () => {
@@ -183,9 +186,6 @@ const nft = () => {
       signer
     );
     const ordersData = await Contract.getOrdersOf(tokenId);
-    console.log(ordersData[0].price.toString());
-    console.log(ordersData[0].seller);
-    console.log(ordersData[0].index.toString());
     const tempArray = [];
     ordersData.map((order) => {
       const orderJson = {
