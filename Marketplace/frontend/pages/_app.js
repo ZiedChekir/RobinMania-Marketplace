@@ -11,6 +11,7 @@ import AuctionCard from '../components/AuctionCard';
 import { makeStyles } from '@mui/styles';
 import Footer from '../components/Footer';
 
+import { Toaster } from 'react-hot-toast';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -35,6 +36,8 @@ export default function MyApp(props) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Header />
+        <Toaster />
+
         <Component {...pageProps} />
         
       </ThemeProvider>

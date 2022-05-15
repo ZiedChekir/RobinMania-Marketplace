@@ -1,3 +1,32 @@
 .active {
   opacity: 1;
 }
+
+.explore{
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.nftGrid{
+  padding-left: 30px;
+}
+body{
+  color: rgb(23,18,18);
+}
+.NftPage{
+  margin-top: 70px;
+
+}
+.NftDetails .OrderTable{
+  margin-bottom: 70px;
+}
+
+
+.seeOrders{
+  padding-bottom: 70px;
+  padding-top: 70px;
+}
+.Buttons{
+  position: relative;
+  bottom: -250px;
+  right: 0px;
+}

@@ -26,7 +26,7 @@ async function main() {
     await nft.setApprovalForAll(auction.address, true);
     for(let i=1; i<6;i++){
         
-        await auction.createNewAuctionItem(nft.address,i,"100000000",10,"1000");
+        await auction.createNewAuctionItem(nft.address,i,"100000000",10*60,"1000");
     }
 
 

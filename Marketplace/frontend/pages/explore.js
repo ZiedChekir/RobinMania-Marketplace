@@ -1,60 +1,69 @@
 import { useWeb3React } from "@web3-react/core";
- import { GameABI, GameAddress } from "../config";
- import { useEffect, useState } from "react";
- import { ethers } from "ethers";
+import { GameABI, GameAddress } from "../config";
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
 import AuctionCard from "../components/AuctionCard";
-import MultiActionAreaCard from "../components/AuctionCard";
+
 import { Grid } from "@mui/material";
+import NftCard from "../components/MuiCard";
+import { Typography } from "@mui/material";
 
-const explore =  ()=> {
+const explore = () => {
+  const [Nfts, setNfts] = useState([]);
 
-    const loadCollection = async () => {
-        if(!active) return ;
-        const provider = new ethers.providers.JsonRpcProvider();
-        const signer = provider.getSigner();
-        const Contract = new ethers.Contract(GameAddress, GameABI,signer);
-        const data = await Contract.balanceOfBatch([account, account,account,account,account], [1, 2,3,4,5]);
-    
-        let nftArray = [];
-        for (let i = 0; i < 5; i++) {
-          let BalanceOfTokenID = data[i].toNumber();
-          
-          if(BalanceOfTokenID ==0) return;
-          const response = await fetch("https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/"+(i+1)+".json", {
-            headers: {
-              'Accept': 'application/json'
-            }
-          })
-          const responseJson = await response.json();
-           nftArray.push(responseJson)
-          
-          
+  useEffect(() => {
+    loadNfts();
+  }, []);
+
+  const loadNfts = async () => {
+    const provider = new ethers.providers.JsonRpcProvider();
+    const signer = provider.getSigner();
+    const Contract = new ethers.Contract(GameAddress, GameABI, signer);
+    //  const data = await Contract.balanceOfBatch([account, account,account,account,account], [1, 2,3,4,5]);
+
+    let nftArray = [];
+    for (let i = 0; i < 5; i++) {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/" +
+          (i + 1) +
+          ".json",
+        {
+          headers: {
+            Accept: "application/json",
+          },
         }
-    
-        setNfts(nftArray);
-        setLoadingState("loaded");
-      };
-    
-    return (
+      );
+      const responseJson = await response.json();
+      nftArray.push(responseJson);
+    }
+    console.log(nftArray);
+    setNfts(nftArray);
+  };
+
+  return (
     <>
-    <h2>explore page</h2>
-    <AuctionCard />
-    <Grid container rowSpacing={3}>
-      <Grid item xs={3}>
-      <MultiActionAreaCard />
+     
+          <Typography className="explore" variant="h1" align="center">Explore RobinMania NFTs</Typography>
+         
+      <Grid className="nftGrid" container rowSpacing={3}>
+      
+      {Nfts.map((nft, i) => {
+          
+          return  (
+          <Grid item xs={3}>
+              <NftCard
+                key={nft.name}
+                title={nft.name}
+                description={nft.description}
+                image={nft.image}
+                link={"/nft/" + (i + 1)}
+              />
+             </Grid>)
+         })}
+        
+        
       </Grid>
-      <Grid item xs={3}>
-      <MultiActionAreaCard />
-      </Grid>
-      <Grid item xs={3}>
-      <MultiActionAreaCard />
-      </Grid>
-      <Grid item xs={3}>
-      <MultiActionAreaCard />
-      </Grid>
-    
-    </Grid>
     </>
-    )
-}
-export default explore; 
+  );
+};
+export default explore;
