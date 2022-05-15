@@ -181,7 +181,7 @@ contract NftAuction  is ERC1155Holder{
         return AuctionOf[_tokenId][index];
     }
 
-    function getAuctionOf(uint _tokenId) public view returns(Auction memory){
+    function getAuctionOf(uint _tokenId) public view returns(Auction[] memory){
         return AuctionOf[_tokenId];
     }
 

@@ -3,8 +3,9 @@ import { useWeb3React } from "@web3-react/core";
  import { useEffect, useState } from "react";
  import { ethers } from "ethers";
 import AuctionCard from "../components/AuctionCard";
-import MultiActionAreaCard from "../components/AuctionCard";
+
 import { Grid } from "@mui/material";
+import Auctions from "./Auctions";
 
 const explore =  ()=> {
 
@@ -38,22 +39,7 @@ const explore =  ()=> {
     return (
     <>
     <h2>explore page</h2>
-    <AuctionCard />
-    <Grid container rowSpacing={3}>
-      <Grid item xs={3}>
-      <MultiActionAreaCard />
-      </Grid>
-      <Grid item xs={3}>
-      <MultiActionAreaCard />
-      </Grid>
-      <Grid item xs={3}>
-      <MultiActionAreaCard />
-      </Grid>
-      <Grid item xs={3}>
-      <MultiActionAreaCard />
-      </Grid>
-    
-    </Grid>
+    <Auctions/>
     </>
     )
 }

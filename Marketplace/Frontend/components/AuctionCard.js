@@ -3,19 +3,19 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea, CardActions, Grid } from '@mui/material';
 import { blue } from '@mui/material/colors';
 import { Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import { LinearProgress } from '@mui/material';
 import { Paper } from '@mui/material';
-export default function MultiActionAreaCard({img,auctionEnd,}) {
+export default function AuctionCard({Auction}) {
     const ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
     const truncateAddress = (address) => {
         return address.substring(0,4)+"..." + address.substring(39,address.length);
     }
   return (
-    <Card sx={{ maxWidth: 320 ,color:"#1EB854", backgroundColor:"#272935",}} elevation={10}>
+    <Card sx={{ maxWidth: 320 ,color:"#1EB854", backgroundColor:"#272935"}} elevation={10}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -33,13 +33,35 @@ export default function MultiActionAreaCard({img,auctionEnd,}) {
                     height: 50,
                     backgroundColor : '#110e0e'
                 }}>
-                    <Stack alignItems="center">
-                        <Typography color={'white'} fontSize={15}>15Hrs:20Mins:22Sec</Typography>
-                        <Box sx={{width: '90%' , paddingTop:1}}>
-                            <LinearProgress variant="determinate" value={50} />
-                        </Box>
-                    </Stack>
-                </Paper>
+            <Stack alignItems="center">
+                <Typography color={'white'} fontSize={15}>15Hrs:20Mins:22Sec</Typography>
+                <Box sx={{width: '90%' , paddingTop:1}}>
+                    <LinearProgress variant="determinate" value={50} />
+                </Box>
+            </Stack>
+          </Paper>
+          <Grid container>
+            <Grid item xs={6}>
+              <Stack>
+              <Typography>
+                Starting Price :
+              </Typography>
+              <Typography>
+                5 KAI
+              </Typography>
+              </Stack>
+            </Grid>
+            <Grid item xs={6}>
+            <Stack>
+              <Typography>
+                Current Price :
+              </Typography>
+              <Typography>
+                5 KAI
+              </Typography>
+              </Stack>
+            </Grid>
+          </Grid>
         </CardContent>
       </CardActionArea>
       <CardActions >

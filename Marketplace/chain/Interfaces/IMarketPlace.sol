@@ -37,7 +37,7 @@ interface IMarketPlace{
         uint256 index
     ) external payable;
     
-   function getOrdersOf(uint256 tokenID) external  ;
+   
 }
 
 
