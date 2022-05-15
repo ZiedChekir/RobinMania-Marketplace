@@ -161,7 +161,7 @@ export default function AuctionCard({auction}) {
         <DialogTitle>Confirmation</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Name your Bid in KAI! it sould be higher than {ethers.utils.formatEther(auction.highestBid + auction.minBidIncrement)} KAI
+            Name your Bid in KAI! it sould be higher than {ethers.utils.formatEther(auction.highestBid.add(auction.minBidIncrement))} KAI
           </DialogContentText>
           <TextField
             autoFocus

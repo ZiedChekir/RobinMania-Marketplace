@@ -243,9 +243,9 @@ export const NftAuctionABI = [
         "type": "uint256"
       },
       {
-        "internalType": "uint128",
+        "internalType": "uint256",
         "name": "_startPrice",
-        "type": "uint128"
+        "type": "uint256"
       },
       {
         "internalType": "uint32",
@@ -253,9 +253,9 @@ export const NftAuctionABI = [
         "type": "uint32"
       },
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "_minBidIncrement",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "createNewAuctionItem",

@@ -35,7 +35,7 @@ const nft = () => {
   const [price, setPrice] = useState("");
   const [StartingPrice, setStartingPrice] = useState("");
   const [BidPeriod, setBidPeriod] = useState("");
-  const [MinIncriment, setMinIncriment] = useState("");
+  const [MinIncrement, setMinIncriment] = useState("");
   const [SellState, setSellState] = useState(false);
   const [BuyState, setBuyState] = useState(false);
   const [AuctionState, setAuctionState] = useState(false);
@@ -131,7 +131,7 @@ const nft = () => {
       tokenId,
       ethers.utils.parseEther(StartingPrice).toString(),
       BidPeriod,
-      MinIncriment
+      ethers.utils.parseEther(MinIncrement).toString()
     );
     toast.dismiss(toastId);
 
@@ -226,7 +226,7 @@ const nft = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={6}></Grid>
                     <Grid item xs={3}>
-                      <Button className="SellButton" onClick={() => setSellState(true)} variant="contained" sx={{backgroundColor:"#1EB854"}}>
+                    <Button className="SellButton" onClick={() => setSellState(true)} variant="contained" sx={{backgroundColor:"#1EB854"}}>
                         Sell
                       </Button>
                     </Grid>
@@ -243,14 +243,15 @@ const nft = () => {
                   </Grid>
                 ) : (
                   <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      <Button disabled variant="text">
+                    <Grid item xs={6}></Grid>
+                    <Grid item xs={3}>
+                      <Button disabled variant="contained">
                         Sell
                       </Button>
                     </Grid>
 
-                    <Grid item xs={6}>
-                      <Button disabled variant="text">
+                    <Grid item xs={3}>
+                      <Button disabled variant="contained">
                         Create Auction
                       </Button>
                     </Grid>
@@ -379,7 +380,7 @@ const nft = () => {
               type="text"
               fullWidth
               variant="standard"
-              value={MinIncriment}
+              value={MinIncrement}
               onChange={(e) => setMinIncriment(e.target.value)}
             />
           </DialogContent>
