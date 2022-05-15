@@ -143,10 +143,12 @@ const nft = () => {
   };
 
   async function FetchNftData() {
+    const _provider = new ethers.providers.JsonRpcProvider();
+    const _signer = _provider.getSigner();
+    const gameContract = new ethers.Contract(GameAddress,GameABI,_signer);
+    const URI = await gameContract.uri(tokenId)
     const response = await fetch(
-      "https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/" +
-        tokenId +
-        ".json",
+      URI,
       {
         headers: {
           Accept: "application/json",
