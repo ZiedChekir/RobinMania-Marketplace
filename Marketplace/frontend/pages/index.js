@@ -1,5 +1,6 @@
 import Container from "@mui/material/Container";
 import Hero from '../components/Hero'
+import LiveAuctions from "../components/LiveAuctions";
 
 const Homepage = () => {
   return (
@@ -7,6 +8,8 @@ const Homepage = () => {
 
 
     <Hero />
+
+    <LiveAuctions />
 
     
     </Container>

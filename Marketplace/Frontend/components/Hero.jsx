@@ -1,87 +1,118 @@
-import { Box, Grid } from "@mui/material";
-import Image from "next/image";
-import Typography from "@mui/material/Typography";
-import MuiNextLink from "../components/MuiNextLink";
-import Button from "@mui/material/Button";
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
+import {Collapse } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { Grid, Box } from '@mui/material';
+import ReactPlayer from 'react-player';
 
-const useStyles = makeStyles(theme => ({
+
+const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    height: '80vh',
-    position: 'relative',
-    '& video': {
-      objectFit: 'cover',
-    },
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    height: '100vh',
+    fontFamily: 'Nunito',
   },
-  
+  gridContainer: {
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  appbar: {
+    background: 'none',
+  },
+  appbarWrapper: {
+    width: '80%',
+    margin: '0 auto',
+  },
+  appbarTitle: {
+    flexGrow: '1',
+  },
+  icon: {
+    color: '#fff',
+    // fontSize: '2rem',
+  },
+  colorText: {
+    color: '#5AFF3D',
+  },
+  container: {
+    textAlign: 'left',
+  },
+  title: {
+    color: '#fff',
+    // fontSize: '4.5rem',
+  },
+  goDown: {
+    color: '#5AFF3D',
+    // fontSize: '4rem',
+  },
 }));
-
-const Hero = () => {
+export default function Hero() {
   const classes = useStyles();
+  const [checked, setChecked] = useState(false);
+  useEffect(() => {
+    setChecked(true);
+  }, []);
   return (
-    <section className={classes.root}>
-      <Grid container spacing={5} justifyContent="space-around" alignItems="center">
+    <div className={classes.root} id="hero">
+      <Box className={classes.heroBox}>
+      <Grid container className={classes.gridContainer}>
+      <Grid item xs={12} md={9}>
+      <Collapse
+        in={checked}
+        {...(checked ? { timeout: 1000 } : {})}
+        collapsedheight={50}
+      >
+        <div className={classes.container}>
+          <Typography variant="h1" className={classes.title}>
+            Welcome to <br />
+            Our<span className={classes.colorText}> Marketplace.</span>
+          </Typography>
+          {/* <Scroll to="place-to-visit" smooth={true}>
+            <IconButton>
+              <ExpandMoreIcon className={classes.goDown} />
+            </IconButton>
+          </Scroll> */}
+        </div>
+      </Collapse>
 
-        <Grid
-         item 
-        xs={12} 
-        sm={7} 
-        md={7}
-        lg={7}
-        container 
-        flexDirection="column" 
-        justifyContent="center" 
-        alignItems="flex-start" 
-        >
-            <Typography component="h2" variant="h4" textAlign="flex-start" gutterBottom>
-                A Japanese Chef Who Love Western Food
-            </Typography>
-            <Typography textAlign="flex-start" sx={{ mb: 5 }}>
-                {`We mix Japanese and Western ingredients and cooking methods. Provide you
-                    with a different tasting dimension with the fusion food in our restaurant.
-                    Don't miss the chance to surprise your tongue!`}
-            </Typography>
-            <MuiNextLink href="/explore" underline="none">
-                <Button variant="outlined" size="large">
-                    Explore
-                </Button>
-            </MuiNextLink>
-        </Grid>
+      <Button
+      variant="contained"
+      color="primary"
+      sx={{ width: '200px', fontSize: '16px' }}
+    >
+      Explore
+    </Button>
+  </Grid>
 
-        <Grid
-         item  
-        sm={1} 
-        md={1}
-        lg={1}
-        container 
-        flexDirection="column" 
-        justifyContent="center" 
-        alignItems="center"
-        ></Grid>
+  <Grid item xs={12} md={3}>
+  <Box
+      sx={{
+        width: 512,
+        height: 288,
+        backgroundColor: 'primary.dark',
+        '&:hover': {
+          backgroundColor: 'primary.main',
+          opacity: [0.9, 0.8, 0.7],
+        },
+      }}
+    >
+      <ReactPlayer
+  url={"./some-action-2_PUXcq8Mh.mp4"}
+  playing
+  loop
+  muted
+  width="100%"
+  height="100%"
+/>
+</Box>
+  </Grid>
+</Grid>
+    </Box>
 
-        <Grid 
-        item 
-        xs={12} 
-        sm={4} 
-        md={4}
-        lg={4}>
-            <Image
-            src="/peepo-peepoblush.gif"
-            alt="peepoblush"
-            layout="responsive"
-            width={800}
-            height={600}
-            />
-        </Grid>
-        
-      </Grid>
-      </section>
+    </div>
   );
-};
-
-export default Hero;
-
-
+}
 
 
