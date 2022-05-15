@@ -9,7 +9,7 @@ import { Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import { LinearProgress } from '@mui/material';
 import { Paper } from '@mui/material';
-export default function AuctionCard({Auction}) {
+export default function AuctionCard({auction}) {
     const ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
     const truncateAddress = (address) => {
         return address.substring(0,4)+"..." + address.substring(39,address.length);
