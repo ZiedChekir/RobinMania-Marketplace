@@ -43,7 +43,7 @@ const explore = () => {
   return (
     <>
      
-          <Typography className="explore" variant="h1" align="center">Explore RobinMania NFTs</Typography>
+          <Typography sx={{color:"white"}} className="explore" variant="h1" align="center">Explore RobinMania NFTs</Typography>
          
       <Grid className="nftGrid" container rowSpacing={3}>
       

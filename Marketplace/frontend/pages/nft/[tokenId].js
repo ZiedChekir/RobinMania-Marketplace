@@ -71,7 +71,7 @@ const nft = () => {
     if (!approved) {
       await NFTContract.setApprovalForAll(MarketplaceAddress, true);
     }
-    const toastId = toast.loading("Waiting...");
+    const toastId = toast.loading("Waiting...",{duration:3000});
 
     const result = await MarketplaceContract.listItem(
       GameAddress,
@@ -97,7 +97,7 @@ const nft = () => {
     );
     // const NFTContract = new ethers.Contract(GameAddress,GameABI,signer)
     //await NFTContract.setApprovalForAll(MarketplaceAddress, true);
-    const toastId = toast.loading("waiting...");
+    const toastId = toast.loading("waiting...",{duration:3000});
 
     const result = await MarketplaceContract.buyItem(
       GameAddress,
@@ -124,7 +124,7 @@ const nft = () => {
       NftAuctionABI,
       signer
     );
-    const toastId = toast.loading("Waiting...");
+    const toastId = toast.loading("Waiting...",{duration:3000});
 
     const result = await AuctionContract.createNewAuctionItem(
       GameAddress,
@@ -243,15 +243,16 @@ const nft = () => {
                   </Grid>
                 ) : (
                   <Grid container spacing={2}>
-                    <Grid item xs={6}></Grid>
-                    <Grid item xs={3}>
-                      <Button disabled variant="contained">
+                    <Grid item xs={6}>
+                      <Button  variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} disabled >
                         Sell
                       </Button>
                     </Grid>
 
-                    <Grid item xs={3}>
-                      <Button disabled variant="contained">
+                    <Grid item xs={6}>
+                      <Button  variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} disabled>
                         Create Auction
                       </Button>
                     </Grid>
@@ -262,19 +263,19 @@ const nft = () => {
           </Grid>
         </Grid>
 
-        <Typography className="seeOrders" variant="h3" align="center">
+        <Typography sx={{color:"white"}} className="seeOrders" variant="h3" align="center">
           See Orders
         </Typography>
         <div className="OrderTable">
           <table border="1" width="100%" cellspacing="0" cellpadding="6">
             <tr>
-              <td width="50%" bgcolor="#000000">
+              <td width="50%" bgcolor="#272935">
                 <font color="#FFFFFF">Seller</font>
               </td>
-              <td width="50%" bgcolor="#000000">
+              <td width="50%" bgcolor="#272935">
                 <font color="#FFFFFF">Price</font>
               </td>
-              <td width="50%" bgcolor="#000000">
+              <td width="50%" bgcolor="#272935">
                 <font color="#FFFFFF">Buy</font>
               </td>
             </tr>
@@ -282,10 +283,11 @@ const nft = () => {
             {Orders.map((x) => {
               return (
                 <tr>
-                  <td width="50%">{x.seller}</td>
-                  <td width="50%">{x.price}</td>
-                  <td width="50%">
-                    <Button onClick={() => buy(x.orderIndex, x.price)}>
+                  <td bgcolor="#FFFFFF" width="50%">{x.seller}</td>
+                  <td  bgcolor="#FFFFFF" width="50%">{x.price}</td>
+                  <td  bgcolor="#FFFFFF" width="50%">
+                    <Button variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} onClick={() => buy(x.orderIndex, x.price)}>
                       Buy
                     </Button>
                   </td>
@@ -308,8 +310,10 @@ const nft = () => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setBuyState(false)}>No</Button>
-            <Button onClick={() => setBuyState(false)} autoFocus>
+            <Button  variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} onClick={() => setBuyState(false)}>No</Button>
+            <Button  variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} onClick={() => setBuyState(false)} autoFocus>
               Confirm
             </Button>
           </DialogActions>
@@ -332,8 +336,10 @@ const nft = () => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setSellState(false)}>Cancel</Button>
-            <Button onClick={sell}>Sell</Button>
+            <Button variant="contained"
+                          onClick={() => setSellState(false)}>Cancel</Button>
+            <Button variant="contained"
+                        sx={{backgroundColor:"#1EB854"}}  onClick={sell}>Sell</Button>
           </DialogActions>
         </Dialog>
 
@@ -385,8 +391,10 @@ const nft = () => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setAuctionState(false)}>Cancel</Button>
-            <Button onClick={() => createAuction()}>Create Auction</Button>
+            <Button variant="contained"
+                        onClick={() => setAuctionState(false)}>Cancel</Button>
+            <Button variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} onClick={() => createAuction()}>Create Auction</Button>
           </DialogActions>
         </Dialog>
       </Container>

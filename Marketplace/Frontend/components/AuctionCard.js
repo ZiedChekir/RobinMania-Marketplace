@@ -61,7 +61,7 @@ export default function AuctionCard({auction}) {
       NftAuctionABI,
       signer
     )
-    const toastId = toast.loading('Waiting...');
+    const toastId = toast.loading('Waiting...',{duration:3000});
     const result = await contract.placeBid(auction.tokenID,auction.index,{value: ethers.utils.parseEther(bid)})
     toast.dismiss(toastId);
     if(result["hash"].length == 66) toast.success('Successfully placed bid!');

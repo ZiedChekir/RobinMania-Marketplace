@@ -51,7 +51,7 @@ const Collection = () => {
   if(Nfts.length == 0) return <h4>you don't have any items</h4>
   return (
     <section className="cards-primary">
-        <Typography className="explore" variant="h1" align="center">Owned Items</Typography>
+        <Typography sx={{color:"white"}} className="explore" variant="h1" align="center">Owned Items</Typography>
 
         <Grid className="nftGrid" container rowSpacing={3}>
       
