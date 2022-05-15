@@ -19,6 +19,12 @@ const Auctions = () => {
             }))
             _auctions = [..._auctions,...data]
         }
+        const now = Math.floor((new Date().getTime()) / 1000);
+        _auctions = _auctions.filter((auction) => {
+            return (
+                auction.auctionEnd - now > 0 
+            )
+        })
         setAuctions(_auctions)
     }
     useLayoutEffect(() => {

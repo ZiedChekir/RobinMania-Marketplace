@@ -9,36 +9,40 @@ import { Box } from '@mui/system';
 import { LinearProgress } from '@mui/material';
 import { Paper } from '@mui/material';
 import { useState,useEffect,useRef } from 'react';
-import { GameABI, GameAddress } from '../config';
+import { GameABI, GameAddress, NftAuctionABI, NftAuctionAddress } from '../config';
 import { ethers } from 'ethers';
+import toast from 'react-hot-toast';
+import { Dialog,DialogTitle,DialogContent,DialogContentText,TextField,DialogActions } from '@mui/material';
 export default function AuctionCard({auction}) {
   const [timerDays,setTimerDays] = useState('00');
   const [timerHours,setTimerHours] = useState('00');
   const [timerMinutes,setTimerMinutes] = useState('00');
   const [timerSeconds,setTimerSeconds] = useState('00');
+  const [progress,setProgress] = useState(100);
   const [tokenImg, setTokenImg] = useState("")
   const [tokenName,setTokenName] = useState("")
   const [tokenDescription,setTokenDescription] = useState("")
+  const [bid,setBid] = useState("")
+  const [placeBidStatus,setPlaceBidStatus] = useState(false)
   let interval = useRef()
   const startTimer = () => { 
     interval = setInterval(()=> {
       const now = Math.floor((new Date().getTime()) / 1000);
-      console.log(now)
-      
       const distance = auction.auctionEnd.toNumber() - now;
-      console.log(distance)
       const days = Math.floor(distance / (60*60*24))
       const hours = Math.floor((distance % (60*60*24)) / (60*60))
       const minutes = Math.floor((distance % (60*60))/60)
       const seconds = Math.floor(distance % (60))
-      if(distance > 0){
+      if(distance >= 0){
         setTimerDays(days)
         setTimerHours(hours)
         setTimerMinutes(minutes)
         setTimerSeconds(seconds)
+        setProgress((100*(now-auction.auctionStartedAt))/(auction.auctionEnd-auction.auctionStartedAt))
       }else {
         clearInterval(interval.current)
       }
+      
       
     },1000)
     
@@ -46,6 +50,24 @@ export default function AuctionCard({auction}) {
   useEffect(()=> {
     startTimer()
   })
+  const handlePlaceBid = () => {
+    setPlaceBidStatus(true)
+  }
+  const placeBid = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(
+      NftAuctionAddress,
+      NftAuctionABI,
+      signer
+    )
+    const toastId = toast.loading('Waiting...');
+    const result = await contract.placeBid(auction.tokenID,auction.index,{value: ethers.utils.parseEther(bid)})
+    toast.dismiss(toastId);
+    if(result["hash"].length == 66) toast.success('Successfully placed bid!');
+    else toast.error("error")
+    setPlaceBidStatus(false)
+  }
   const truncateAddress = (address) => {
       return address.substring(0,4)+"..." + address.substring(39,address.length);
   }
@@ -93,7 +115,7 @@ export default function AuctionCard({auction}) {
             <Stack alignItems="center">
                 <Typography color={'white'} fontSize={15}>{timerDays}:{timerHours}:{timerMinutes}:{timerSeconds}</Typography>
                 <Box sx={{width: '90%' , paddingTop:1}}>
-                    <LinearProgress variant="determinate" value={50} />
+                    <LinearProgress variant="determinate" value={progress} />
                 </Box>
             </Stack>
           </Paper>
@@ -122,7 +144,7 @@ export default function AuctionCard({auction}) {
         </CardContent>
       </CardActionArea>
       <CardActions >
-        <Button size="small" sx={{backgroundColor:"#1EB854"}} variant="contained">
+        <Button onClick={handlePlaceBid} size="small" sx={{backgroundColor:"#1EB854"}} variant="contained">
           Place Bid
         </Button>
         <Stack style={{paddingLeft:100}}>
@@ -135,6 +157,29 @@ export default function AuctionCard({auction}) {
         </Stack>
         
       </CardActions>
+      <Dialog open={placeBidStatus} onClose={()=>setPlaceBidStatus(false)}>
+        <DialogTitle>Confirmation</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Name your Bid in KAI! it sould be higher than {ethers.utils.formatEther(auction.highestBid + auction.minBidIncrement)} KAI
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Bid"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={bid}
+            onChange={(e)=>setBid(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={()=>setPlaceBidStatus(false)}>Cancel</Button>
+          <Button onClick={placeBid}>Place Bid</Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 }

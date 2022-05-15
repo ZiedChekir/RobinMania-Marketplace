@@ -45,7 +45,7 @@ async function main(){
 console.log("creating auctions ")
     for(let i=1; i<6;i++){
         
-        await auction.createNewAuctionItem(nft.address,i,"100000000",86400,"1000");
+        await auction.createNewAuctionItem(nft.address,i,"100000000",600,"1000");
     }
     console.log("3.mint tokens 1-5 to account 1 with quantity of 5");
     for(let i=1;i<6;i++){
