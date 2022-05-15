@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Connect from "./Connect";
 import MuiNextLink from "./MuiNextLink";
-
+import Link from "next/link";
 // const settings = ['Logout',currentAccount];
 
 const ResponsiveAppBar = ({ navLinks }) => {
@@ -74,6 +74,7 @@ const ResponsiveAppBar = ({ navLinks }) => {
             >
               {navLinks.map(({ title, path }, i) => (
             <MenuItem  onClick={handleCloseNavMenu}>   
+            
           <MuiNextLink
             key={`${title}${i}`}
             href={path}
@@ -98,14 +99,18 @@ const ResponsiveAppBar = ({ navLinks }) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {navLinks.map(({ title, path }, i) => (
+            <Link
+            href={path}
+            >
               <Button
                 key={`${title}${i}`}
-                href={path}
+                
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {title}
               </Button>
+              </Link>
             ))}
           </Box>
 

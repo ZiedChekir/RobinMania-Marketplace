@@ -12,7 +12,7 @@ export default function NftCard(props) {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="430"
+          height="460"
           image={props.image}
           alt="green iguana"
         />
