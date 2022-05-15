@@ -3,6 +3,7 @@ import { NftAuctionABI, NftAuctionAddress } from "../config";
 import { useLayoutEffect, useState } from "react";
 import { Container, Grid } from "@mui/material";
 import AuctionCard from "../components/AuctionCard";
+import { Typography } from "@mui/material";
 
 const Auctions = () => {
     const [auctions,setAuctions] = useState([])
@@ -31,17 +32,22 @@ const Auctions = () => {
       loadAuctions()
     },[])
     return (
-        <Container>
+        <>
+            <Typography sx={{color:"white"}} variant="h1" align="center">Active Auctions</Typography>
+            <Container>
+            
             <Grid container rowSpacing={3} columnSpacing={3}>
             {
                 auctions.map((auction) => (
-                    <Grid key={[auction.tokenID,auction.index]} item xs={3}>
+                    <Grid key={[auction.tokenID,auction.index]} item xs={12} md={6} lg={4}>
                         <AuctionCard auction={auction} />
                     </Grid>
                 ))
             }
         </Grid>
         </Container>
+        </>
+        
             
         
         

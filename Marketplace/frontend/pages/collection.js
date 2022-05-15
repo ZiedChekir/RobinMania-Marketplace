@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CardItem from "../components/Card";
 import { ethers } from "ethers";
 import NftCard from "../components/MuiCard";
-import { Typography,Grid } from "@mui/material";
+import { Typography,Grid, Container } from "@mui/material";
 
 const Collection = () => {
   const [Nfts, setNfts] = useState([]);
@@ -52,13 +52,13 @@ const Collection = () => {
   return (
     <section className="cards-primary">
         <Typography sx={{color:"white"}} className="explore" variant="h1" align="center">Owned Items</Typography>
-
-        <Grid className="nftGrid" container rowSpacing={3}>
+      <Container>
+      <Grid className="nftGrid" container rowSpacing={3} columnSpacing={3}>
       
       {Nfts.map((nft, i) => {
           
           return  (
-          <Grid item xs={3}>
+          <Grid item xs={12} md={6} lg={4}>
               <NftCard
                 key={nft.name}
                 title={nft.name}
@@ -72,6 +72,8 @@ const Collection = () => {
         
         
       </Grid>
+      </Container>
+        
 
 
         
