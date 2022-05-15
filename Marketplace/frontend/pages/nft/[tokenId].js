@@ -129,7 +129,7 @@ const nft = () => {
     const result = await AuctionContract.createNewAuctionItem(
       GameAddress,
       tokenId,
-      StartingPrice,
+      ethers.utils.parseEther(StartingPrice).toString(),
       BidPeriod,
       MinIncriment
     );

@@ -2,6 +2,7 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import AuctionCard from './AuctionCard';
+import Auctions from '../pages/auctions';
 
 const useStyles = makeStyles({
   auctionCardGrid: {
@@ -15,7 +16,8 @@ const LiveAuctions = () => {
   const classes = useStyles();
   return (
     <div style={{ maxWidth: '100%' }}>
-      <Grid container className={classes.auctionCardGrid} wrap="nowrap">
+      <Auctions />
+      {/* <Grid container className={classes.auctionCardGrid} wrap="nowrap">
           <Grid item>
         <AuctionCard />
         </Grid>
@@ -28,7 +30,7 @@ const LiveAuctions = () => {
         <Grid item>
         <AuctionCard />
         </Grid>
-      </Grid>
+      </Grid> */}
     </div>
   );
 };
