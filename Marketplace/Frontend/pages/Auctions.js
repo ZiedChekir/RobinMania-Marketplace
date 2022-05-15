@@ -10,14 +10,16 @@ const Auctions = () => {
         const provider = new ethers.providers.JsonRpcProvider();
         const signer = provider.getSigner();
         const contract = new ethers.Contract(NftAuctionAddress,NftAuctionABI,signer);
+        let _auctions = []
         for(let i=0;i<5;i++){
             let data = await contract.getAuctionOf(i)
             data = data.map((auction) => ({
                 ...auction,
                 tokenID: i
             }))
-            setAuctions((prevAuctions) => [...prevAuctions,...data])
+            _auctions = [..._auctions,...data]
         }
+        setAuctions(_auctions)
     }
     useLayoutEffect(() => {
       loadAuctions()
@@ -26,7 +28,7 @@ const Auctions = () => {
         <Grid container rowSpacing={3} columnSpacing={3}>
             {
                 auctions.map((auction) => (
-                    <Grid key={auction.auctionStartedAt} item xs={3}>
+                    <Grid key={[auction.tokenID,auction.index]} item xs={3}>
                         <AuctionCard auction={auction} />
                     </Grid>
                 ))

@@ -9,17 +9,34 @@ import { Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import { LinearProgress } from '@mui/material';
 import { Paper } from '@mui/material';
+import { useState,useEffect } from 'react';
+import { GameABI, GameAddress } from '../config';
+import { ethers } from 'ethers';
 export default function AuctionCard({auction}) {
-    const ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
-    const truncateAddress = (address) => {
-        return address.substring(0,4)+"..." + address.substring(39,address.length);
-    }
+  const [tokenImg, setTokenImg] = useState("")
+  const ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+  const truncateAddress = (address) => {
+      return address.substring(0,4)+"..." + address.substring(39,address.length);
+  }
+  const fetchTokenImg = async (tokenID) => {
+    const provider = new ethers.providers.JsonRpcProvider();
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(GameAddress,GameABI,signer);
+    // const imgURI = await contract.uri(tokenID)
+    // setTokenImg(imgURI)
+    const balance = await contract.ownerAddress()
+    console.log(balance)
+  }
+  useEffect(() => {
+    fetchTokenImg(auction.tokenID)
+  }, [])
+  
   return (
     <Card sx={{ maxWidth: 320 ,color:"#1EB854", backgroundColor:"#272935"}} elevation={10}>
       <CardActionArea>
         <CardMedia
           component="img"
-          image="https://raw.githubusercontent.com/SamiKammoun/robinmania/main/Bow.png"
+          image={tokenImg}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
