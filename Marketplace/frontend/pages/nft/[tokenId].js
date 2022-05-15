@@ -24,7 +24,6 @@ import toast from "react-hot-toast";
 import CardItem from "../../components/Card";
 import { fontSize } from "@mui/system";
 //import priceModal from "../../components/priceModal";
-
 const nft = () => {
   const { query, isReady } = useRouter();
   const [showing, setShowing] = useState(false);
@@ -60,9 +59,9 @@ const nft = () => {
       MarketplaceABI,
       signer
     );
-    const account = await signer.getAddress();
 
     const NFTContract = new ethers.Contract(GameAddress, GameABI, signer);
+    const account = await signer.getAddress();
 
     let approved = await NFTContract.isApprovedForAll(
       account,
@@ -125,7 +124,16 @@ const nft = () => {
       signer
     );
     const toastId = toast.loading("Waiting...",{duration:3000});
+    const account = await signer.getAddress();
+    const NFTContract = new ethers.Contract(GameAddress, GameABI, signer);
 
+    let approved = await NFTContract.isApprovedForAll(
+      account,
+      MarketplaceAddress
+    );
+    if (!approved) {
+      await NFTContract.setApprovalForAll(MarketplaceAddress, true);
+    }
     const result = await AuctionContract.createNewAuctionItem(
       GameAddress,
       tokenId,
@@ -276,7 +284,7 @@ const nft = () => {
                 <font color="#FFFFFF">Seller</font>
               </td>
               <td width="50%" bgcolor="#272935">
-                <font color="#FFFFFF">Price</font>
+                <font color="#FFFFFF">Price in KAI</font>
               </td>
               <td width="50%" bgcolor="#272935">
                 <font color="#FFFFFF">Buy</font>
@@ -287,7 +295,7 @@ const nft = () => {
               return (
                 <tr>
                   <td bgcolor="#FFFFFF" width="50%">{x.seller}</td>
-                  <td  bgcolor="#FFFFFF" width="50%">{x.price}</td>
+                  <td  bgcolor="#FFFFFF" width="50%">{ethers.utils.formatEther(x.price)}</td>
                   <td  bgcolor="#FFFFFF" width="50%">
                     <Button variant="contained"
                         sx={{backgroundColor:"#1EB854"}} onClick={() => buy(x.orderIndex, x.price)}>
@@ -330,7 +338,7 @@ const nft = () => {
               autoFocus
               margin="dense"
               id="name"
-              label="price"
+              label="price In Kai"
               type="text"
               fullWidth
               variant="standard"
@@ -357,7 +365,7 @@ const nft = () => {
                   autoFocus
                   margin="dense"
                   id="name"
-                  label="Starting Price"
+                  label="Starting Price in KAI"
                   type="text"
                   fullWidth
                   variant="standard"
@@ -385,7 +393,7 @@ const nft = () => {
               autoFocus
               margin="dense"
               id="name"
-              label="Minimum Bid Incriment"
+              label="Minimum Bid Incriment In KAI"
               type="text"
               fullWidth
               variant="standard"
