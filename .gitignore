@@ -68,3 +68,4 @@ crashlytics-build.properties
 Marketplace/chain/yarn.lock
 Marketplace/chain/yarn.lock
 Marketplace/frontend/yarn.lock
+Marketplace/Frontend/components/AuctionCard.js
