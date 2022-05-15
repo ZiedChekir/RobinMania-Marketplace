@@ -39,7 +39,7 @@ const Auctions = () => {
             <Grid container rowSpacing={3} columnSpacing={3}>
             {
                 auctions.map((auction) => (
-                    <Grid key={[auction.tokenID,auction.index]} item xs={12} md={6} lg={3}>
+                    <Grid key={[auction.tokenID,auction.index]} item xs={12} md={6} lg={4}>
                         <AuctionCard auction={auction} />
                     </Grid>
                 ))
