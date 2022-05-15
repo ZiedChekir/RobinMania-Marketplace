@@ -1,7 +1,7 @@
 import {  ethers } from "ethers"
 import { NftAuctionABI, NftAuctionAddress } from "../config";
 import { useLayoutEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import AuctionCard from "../components/AuctionCard";
 
 const Auctions = () => {
@@ -31,7 +31,8 @@ const Auctions = () => {
       loadAuctions()
     },[])
     return (
-        <Grid container rowSpacing={3} columnSpacing={3}>
+        <Container>
+            <Grid container rowSpacing={3} columnSpacing={3}>
             {
                 auctions.map((auction) => (
                     <Grid key={[auction.tokenID,auction.index]} item xs={3}>
@@ -40,6 +41,10 @@ const Auctions = () => {
                 ))
             }
         </Grid>
+        </Container>
+            
+        
+        
     )
 }
 export default Auctions

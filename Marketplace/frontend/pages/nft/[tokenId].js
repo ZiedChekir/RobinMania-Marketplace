@@ -76,7 +76,7 @@ const nft = () => {
     const result = await MarketplaceContract.listItem(
       GameAddress,
       tokenId,
-      price.toString()
+      ethers.utils.parseEther(price)
     );
     toast.dismiss(toastId);
 
@@ -243,14 +243,15 @@ const nft = () => {
                   </Grid>
                 ) : (
                   <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={6}></Grid>
+                    <Grid item xs={3}>
                       <Button  variant="contained"
                         sx={{backgroundColor:"#1EB854"}} disabled >
                         Sell
                       </Button>
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={3}>
                       <Button  variant="contained"
                         sx={{backgroundColor:"#1EB854"}} disabled>
                         Create Auction
