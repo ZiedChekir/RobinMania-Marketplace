@@ -113,9 +113,9 @@ export default function AuctionCard({auction}) {
                     backgroundColor : '#110e0e'
                 }}>
             <Stack alignItems="center">
-                <Typography color={'white'} fontSize={15}>{timerDays}:{timerHours}:{timerMinutes}:{timerSeconds}</Typography>
+                <Typography color={'white'} fontSize={15}>{timerDays}D:{timerHours}H:{timerMinutes}M:{timerSeconds}S</Typography>
                 <Box sx={{width: '90%' , paddingTop:1}}>
-                    <LinearProgress variant="determinate" value={progress} />
+                    <LinearProgress variant="determinate" value={progress} color='secondary'/>
                 </Box>
             </Stack>
           </Paper>
