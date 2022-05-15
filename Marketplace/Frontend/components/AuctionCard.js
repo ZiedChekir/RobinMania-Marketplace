@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,24 +8,67 @@ import { Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import { LinearProgress } from '@mui/material';
 import { Paper } from '@mui/material';
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useRef } from 'react';
 import { GameABI, GameAddress } from '../config';
 import { ethers } from 'ethers';
 export default function AuctionCard({auction}) {
+  const [timerDays,setTimerDays] = useState('00');
+  const [timerHours,setTimerHours] = useState('00');
+  const [timerMinutes,setTimerMinutes] = useState('00');
+  const [timerSeconds,setTimerSeconds] = useState('00');
   const [tokenImg, setTokenImg] = useState("")
-  const ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+  const [tokenName,setTokenName] = useState("")
+  const [tokenDescription,setTokenDescription] = useState("")
+  let interval = useRef()
+  const startTimer = () => { 
+    interval = setInterval(()=> {
+      const now = Math.floor((new Date().getTime()) / 1000);
+      console.log(now)
+      
+      const distance = auction.auctionEnd.toNumber() - now;
+      console.log(distance)
+      const days = Math.floor(distance / (60*60*24))
+      const hours = Math.floor((distance % (60*60*24)) / (60*60))
+      const minutes = Math.floor((distance % (60*60))/60)
+      const seconds = Math.floor(distance % (60))
+      if(distance > 0){
+        setTimerDays(days)
+        setTimerHours(hours)
+        setTimerMinutes(minutes)
+        setTimerSeconds(seconds)
+      }else {
+        clearInterval(interval.current)
+      }
+      
+    },1000)
+    
+  }
+  useEffect(()=> {
+    startTimer()
+  })
   const truncateAddress = (address) => {
       return address.substring(0,4)+"..." + address.substring(39,address.length);
   }
-  const fetchTokenImg = async (tokenID) => {
+  const fetchToken = async (tokenID) => {
     const provider = new ethers.providers.JsonRpcProvider();
     const signer = provider.getSigner();
     const contract = new ethers.Contract(GameAddress,GameABI,signer);
-    const imgURI = await contract.uri(tokenID)
-    setTokenImg(imgURI)
+    const URI = await contract.uri(tokenID)
+    const response = await fetch(
+      URI,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    const responseJson = await response.json();
+    setTokenImg(responseJson.image)
+    setTokenName(responseJson.name)
+    setTokenDescription(responseJson.description)
   }
   useEffect(() => {
-    fetchTokenImg(auction.tokenID)
+    fetchToken(auction.tokenID)
   }, [])
   
   return (
@@ -38,10 +80,10 @@ export default function AuctionCard({auction}) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Bow
+            {tokenName}
           </Typography>
           <Typography variant="body2" color="white">
-            3 points of dmg
+            {tokenDescription}
           </Typography>
           <Paper sx={{
                     width:'100%',
@@ -49,7 +91,7 @@ export default function AuctionCard({auction}) {
                     backgroundColor : '#110e0e'
                 }}>
             <Stack alignItems="center">
-                <Typography color={'white'} fontSize={15}>15Hrs:20Mins:22Sec</Typography>
+                <Typography color={'white'} fontSize={15}>{timerDays}:{timerHours}:{timerMinutes}:{timerSeconds}</Typography>
                 <Box sx={{width: '90%' , paddingTop:1}}>
                     <LinearProgress variant="determinate" value={50} />
                 </Box>
@@ -62,7 +104,7 @@ export default function AuctionCard({auction}) {
                 Starting Price :
               </Typography>
               <Typography>
-                5 KAI
+                {ethers.utils.formatEther(auction.startPrice)}
               </Typography>
               </Stack>
             </Grid>
@@ -72,7 +114,7 @@ export default function AuctionCard({auction}) {
                 Current Price :
               </Typography>
               <Typography>
-                5 KAI
+                {ethers.utils.formatEther(auction.highestBid)}
               </Typography>
               </Stack>
             </Grid>
@@ -88,7 +130,7 @@ export default function AuctionCard({auction}) {
             NFT Owner :
         </Typography>
         <Typography>
-            {truncateAddress(ownerAddress)}
+            {truncateAddress(auction.seller)}
         </Typography>
         </Stack>
         

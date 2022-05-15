@@ -1,4 +1,4 @@
-import { BigNumber, ethers } from "ethers"
+import {  ethers } from "ethers"
 import { NftAuctionABI, NftAuctionAddress } from "../config";
 import { useLayoutEffect, useState } from "react";
 import { Grid } from "@mui/material";
