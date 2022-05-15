@@ -2,6 +2,8 @@ import { GameABI, GameAddress } from "../config";
 import { useEffect, useState } from "react";
 import CardItem from "../components/Card";
 import { ethers } from "ethers";
+import NftCard from "../components/MuiCard";
+import { Typography,Grid } from "@mui/material";
 
 const Collection = () => {
   const [Nfts, setNfts] = useState([]);
@@ -24,6 +26,7 @@ const Collection = () => {
     
     let nftArray = [];
     for (let i = 0; i < 5; i++) {
+
       let BalanceOfTokenID = data[i].toNumber();
       if(BalanceOfTokenID ==0) break;
      
@@ -33,9 +36,10 @@ const Collection = () => {
         }
       })
       
+
       
       const responseJson = await response.json();
-      
+      responseJson["quantity"] = BalanceOfTokenID;
        nftArray.push(responseJson)
      
       
@@ -47,26 +51,30 @@ const Collection = () => {
   if(Nfts.length == 0) return <h4>you don't have any items</h4>
   return (
     <section className="cards-primary">
-        <div className="cards-header">
-            <h1>
-                My Collection
-            </h1>
-            <p>
-                  Owned NFTs
-            </p>
-        </div>
-        <div className="card-container">
-        {Nfts.map((card,i)=>{
-     
-      return  <CardItem
-        key={card.name}
-        title={card.name}
-        description={card.description}
-        image={card.image}
-        link ={"/nft/"+(i+1)}
-      />
-    })}
-        </div>
+        <Typography className="explore" variant="h1" align="center">Owned Items</Typography>
+
+        <Grid className="nftGrid" container rowSpacing={3}>
+      
+      {Nfts.map((nft, i) => {
+          
+          return  (
+          <Grid item xs={3}>
+              <NftCard
+                key={nft.name}
+                title={nft.name}
+                description={nft.description}
+                quantity={nft.quantity}
+                image={nft.image}
+                link={"/nft/" + (i + 1)}
+              />
+             </Grid>)
+         })}
+        
+        
+      </Grid>
+
+
+        
     </section>
 )
 

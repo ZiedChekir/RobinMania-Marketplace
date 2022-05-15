@@ -22,6 +22,8 @@ export default function NftCard(props) {
           </Typography>
           <Typography variant="body2"  color={'white'}>
             {props.description}
+            <br/>
+            {props.quantity ? "Quantity: "+ props.quantity : ""}
           </Typography>
         </CardContent>
       </CardActionArea>

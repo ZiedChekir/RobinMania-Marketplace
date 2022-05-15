@@ -3,53 +3,13 @@ import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { MarketplaceABI, MarketplaceAddress } from "../../config";
 import { GameABI, GameAddress } from "../../config";
-import { Grid,Container ,Box,Typography,Button} from "@mui/material";
+import { Grid,Container ,Box,Typography,MenuItem,Button,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,TextField} from "@mui/material";
 import { ethers } from "ethers";
-
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
+import { NftAuctionABI, NftAuctionAddress } from "../../config";
+import toast from "react-hot-toast";
 //import { Button } from 'react-bootstrap';
 import CardItem from "../../components/Card";
 //import priceModal from "../../components/priceModal";
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-]
-
 
 const nft = () => {
   const { query, isReady } = useRouter();
@@ -59,7 +19,13 @@ const nft = () => {
   const [nft, setNft] = useState({});
   const [Orders, setOrders] = useState([]);
   const [price, setPrice] = useState("");
-  const [state, setState] = useState(false);
+  const [StartingPrice, setStartingPrice] = useState("");
+  const [BidPeriod, setBidPeriod] = useState("");
+  const [MinIncriment, setMinIncriment] = useState("");
+  const [SellState, setSellState] = useState(false);
+  const [BuyState, setBuyState] = useState(false);
+  const [AuctionState, setAuctionState] = useState(false);
+
 
   useEffect(() => {
     setShowing(true);
@@ -81,9 +47,27 @@ const nft = () => {
       MarketplaceABI,
       signer
     );
+        const account = await signer.getAddress()
+
     const NFTContract = new ethers.Contract(GameAddress, GameABI, signer);
-    await NFTContract.setApprovalForAll(MarketplaceAddress, true);
-    await MarketplaceContract.listItem(GameAddress, tokenId, price.toString());
+
+    let approved = await NFTContract.isApprovedForAll(account,MarketplaceAddress);
+    if(!approved)
+    {
+
+      await NFTContract.setApprovalForAll(MarketplaceAddress, true);
+    }
+   const toastId =  toast.loading('Waiting...');
+
+    const result = await MarketplaceContract.listItem(GameAddress, tokenId, price.toString());
+    toast.dismiss(toastId);
+
+    if(result["hash"].length == 66)
+        toast.success('Successfully listed for sale!');
+    else 
+    toast.error("error")
+
+    setSellState(false)
   };
 
   const buy = async (orderIndex, price) => {
@@ -96,8 +80,9 @@ const nft = () => {
     );
     // const NFTContract = new ethers.Contract(GameAddress,GameABI,signer)
     //await NFTContract.setApprovalForAll(MarketplaceAddress, true);
+    const toastId = toast.loading("waiting...")
 
-    await MarketplaceContract.buyItem(
+   const result =  await MarketplaceContract.buyItem(
       GameAddress,
       tokenId,
       parseInt(orderIndex),
@@ -105,9 +90,33 @@ const nft = () => {
         value: price.toString(),
       }
     );
+    toast.dismiss(toastId);
+
+    if(result["hash"].length == 66){
+      toast.success("Item successfully bought")
+    }
+    else{
+      toast.error("error")
+    }
+
   };
 
-  
+  const createAuction = async ()=>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const AuctionContract = new ethers.Contract(NftAuctionAddress,NftAuctionABI,signer);
+    const toastId = toast.loading('Waiting...');
+
+    const result =  await AuctionContract.createNewAuctionItem(GameAddress,tokenId,StartingPrice,BidPeriod,MinIncriment)
+    toast.dismiss(toastId);
+
+   if(result["hash"].length == 66)
+        toast.success('Auction successfully created!');
+    else 
+    toast.error("error")
+
+    setAuctionState(false)
+  }
 
   async function FetchNftData() {
     const response = await fetch(
@@ -157,8 +166,8 @@ const nft = () => {
   const handleChange = (e) => {
     setPrice(e.target.value);
   };
-  const OpenPriceModel = () => {
-    setState(true);
+  const OpenSellModel = () => {
+    setSellState(true);
   };
   if (typeof window === "undefined") {
     return <></>;
@@ -185,11 +194,11 @@ const nft = () => {
 
                   <Grid item xs={6} >
 
-                      <Button  variant="text">Sell</Button>
+                      <Button onClick={()=>setSellState(true)} variant="text">Sell</Button>
                   </Grid>
               
                   <Grid item xs={6} >
-                      <Button  variant="text">Create Auction</Button>
+                      <Button  onClick={()=>setAuctionState(true)} variant="text">Create Auction</Button>
                   </Grid>
             </Grid> 
             :
@@ -206,29 +215,14 @@ const nft = () => {
       </Grid> 
                 }
                 
-                {/* <Grid container spacing={2}>
-
-                      <Grid item xs={6} >
-
-                          <Button disabled variant="text">Sell</Button>
-                      </Grid>
-                  
-                      <Grid item xs={6} >
-                          <Button disabled variant="text">Create Auction</Button>
-                      </Grid>
-                </Grid> */}
+             
 
           </Box>
           </Grid>
         </Grid>
-        {/* <CardItem
-          key={1}
-          title={nft.name}
-          description={nft.description}
-          image={nft.image}
-          link={"/nft/" + 1}
-        /> */}
-        <div>
+       
+          <Typography variant="h1" align="center">See Orders</Typography>
+        <div className="OrderTable">
           <table border="1" width="100%" cellspacing="0" cellpadding="6">
             <tr>
               <td width="50%" bgcolor="#000000">
@@ -248,94 +242,136 @@ const nft = () => {
                   <td width="50%">{x.seller}</td>
                   <td width="50%">{x.price}</td>
                   <td width="50%">
-                    <button onClick={() => buy(x.orderIndex, x.price)}>
+                    <Button onClick={() => buy(x.orderIndex, x.price)}>
                       Buy
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               );
             })}
           </table>
         </div>
+        
+        <Dialog
+        open={BuyState}
+        onClose={()=>setBuyState(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Confirmation"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to buy this item?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={()=>setBuyState(false)}>No</Button>
+          <Button onClick={()=>setBuyState(false)} autoFocus>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
 
 
 
+      <Dialog open={SellState} onClose={()=>setSellState(false)}>
+        <DialogTitle>Confirmation</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Name your price!
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="price"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={price}
+            onChange={(e)=>setPrice(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={()=>setSellState(false)}>Cancel</Button>
+          <Button onClick={sell}>Sell</Button>
+        </DialogActions>
+      </Dialog>
 
 
+      
+      <Dialog open={AuctionState} onClose={()=>setAuctionState(false)}>
+        <DialogTitle>Confirmation</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Create auction
+          </DialogContentText>
 
+          <Grid container spacing={2}>
+          <Grid item xs={8}>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Starting Price"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={StartingPrice}
+            onChange={(e)=>setStartingPrice(e.target.value)}
+          />
+          </Grid>
+          <Grid item xs={4}>
+          <TextField
+          id="outlined-select-currency"
+          select
+          label="Select"
+          value={BidPeriod}
+          onChange={(e)=>setBidPeriod(e.target.value)}
+          helperText="Select the Auction Period"
+        >
+          
+            <MenuItem  value="43200">
+              12 Hours
+            </MenuItem>
 
-        {state ? (
-          <div className="modal-success">
-            <div className="modal-cover" onClick={() => setState(false)}></div>
-            <div className="modal-container">
-              <div className="modal">
-                <div className="modal-header">
-                  <div className="modal-details">
-                    <h4>Selling Item</h4>
-                    <p>Name your price</p>
-                    <div className="email-primary">
-                      <label for="email">Price</label>
-                      <div className="email-container">
-                        <input
-                          type="email"
-                          placeholder="wei"
-                          id="email"
-                          className="email-input"
-                          onChange={handleChange}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button className="btn-primary" onClick={() => sell()}>
-                    Sell
-                  </button>
-                  <button
-                    className="btn-secondary"
-                    onClick={() => setState(false)}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
+            <MenuItem  value="84600">
+              1 Day
+            </MenuItem>
+            <MenuItem  value="172800">
+              2 Days
+            </MenuItem>
+       
+        </TextField>
+        </Grid>
+        </Grid >
+             <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Minimum Bid Incriment"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={MinIncriment}
+            onChange={(e)=>setMinIncriment(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={()=>setAuctionState(false)}>Cancel</Button>
+          <Button onClick={()=>createAuction()}>Create Auction</Button>
+        </DialogActions>
+      </Dialog>
 
-
-
-<TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Seller</StyledTableCell>
-            <StyledTableCell align="right">Price</StyledTableCell>
-            <StyledTableCell align="right">Buy</StyledTableCell>
-            
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
 
 
       </Container>
+
+            
+
+
     );
   }
 };
