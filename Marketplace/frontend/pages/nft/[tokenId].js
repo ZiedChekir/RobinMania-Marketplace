@@ -129,7 +129,7 @@ const nft = () => {
     const result = await AuctionContract.createNewAuctionItem(
       GameAddress,
       tokenId,
-      StartingPrice,
+      ethers.utils.parseEther(StartingPrice).toString(),
       BidPeriod,
       MinIncriment
     );
@@ -226,7 +226,7 @@ const nft = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={6}></Grid>
                     <Grid item xs={3}>
-                      <Button className="SellButton" onClick={() => setSellState(true)} variant="text">
+                      <Button className="SellButton" onClick={() => setSellState(true)} variant="contained" sx={{backgroundColor:"#1EB854"}}>
                         Sell
                       </Button>
                     </Grid>
@@ -234,7 +234,8 @@ const nft = () => {
                     <Grid item xs={3}>
                       <Button ClassName="CreateAuctionButton"
                         onClick={() => setAuctionState(true)}
-                        variant="text"
+                        variant="contained"
+                        sx={{backgroundColor:"#1EB854"}}
                       >
                         Create Auction
                       </Button>
