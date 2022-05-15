@@ -22,10 +22,8 @@ export default function AuctionCard({auction}) {
     const provider = new ethers.providers.JsonRpcProvider();
     const signer = provider.getSigner();
     const contract = new ethers.Contract(GameAddress,GameABI,signer);
-    // const imgURI = await contract.uri(tokenID)
-    // setTokenImg(imgURI)
-    const balance = await contract.ownerAddress()
-    console.log(balance)
+    const imgURI = await contract.uri(tokenID)
+    setTokenImg(imgURI)
   }
   useEffect(() => {
     fetchTokenImg(auction.tokenID)
