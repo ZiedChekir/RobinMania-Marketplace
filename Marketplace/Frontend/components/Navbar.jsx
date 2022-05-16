@@ -30,8 +30,8 @@ const ResponsiveAppBar = ({ navLinks }) => {
 
   return (
     <AppBar position="fixed">
-      <Container textAlign='center'>
-        <Toolbar disablegutters>
+      <Container textalign='center'>
+        <Toolbar disableGutters={true}>
           <Typography
             variant="h6"
             noWrap
@@ -54,7 +54,7 @@ const ResponsiveAppBar = ({ navLinks }) => {
               <MenuIcon />
             </IconButton>
             <Menu
-            textAlign='center'
+            textalign='center'
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -73,14 +73,13 @@ const ResponsiveAppBar = ({ navLinks }) => {
               }}
             >
               {navLinks.map(({ title, path }, i) => (
-            <MenuItem  onClick={handleCloseNavMenu}>   
+            <MenuItem key={`${title}${i}`}  onClick={handleCloseNavMenu}>   
             
           <MuiNextLink
-            key={`${title}${i}`}
             href={path}
             variant="button"
             sx={{color: 'rgba(255,255,255)', opacity: 0.7 }}
-            textAlign='center'
+            textalign='center'
           >
             {title}
           </MuiNextLink>
@@ -100,10 +99,11 @@ const ResponsiveAppBar = ({ navLinks }) => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {navLinks.map(({ title, path }, i) => (
             <Link
+            key={`${title}${i}`}
             href={path}
             >
               <Button
-                key={`${title}${i}`}
+                
                 
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}

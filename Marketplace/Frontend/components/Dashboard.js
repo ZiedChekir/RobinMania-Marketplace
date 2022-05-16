@@ -7,26 +7,22 @@ const Dashboard = () => {
   const [orders, setOrders] = useState([])
   const [avatars, setAvatars] = useState([])
   const [currentAccount, setCurrentAccount] = useState("")
-  useEffect(() => {
-    ethereum.on('accountsChanged', (accounts) => {
-        setCurrentAccount(accounts[0])
-    });
-    const fetchAvatars = async () => {
-      const _avatars = [];
-      for(let i = 1; i< 6; i++){
-        const response = await fetch("https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/"+(i)+".json", {
-          headers: {
-            'Accept': 'application/json'
-          }
-        })
-        const responseJson = await response.json()
-        _avatars.push(responseJson.image)
-        
-      }
-      setAvatars(_avatars);
-
+  const fetchAvatars = async () => {
+    const _avatars = [];
+    for(let i = 1; i< 6; i++){
+      const response = await fetch("https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/"+(i)+".json", {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      const responseJson = await response.json()
+      _avatars.push(responseJson.image)
+      
     }
-    const fetchOrders = async () => {
+    setAvatars(_avatars);
+
+  }
+  const fetchOrders = async () => {
       //fetching orders here
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
@@ -52,6 +48,10 @@ const Dashboard = () => {
       }
       setOrders(data)
     }
+  useEffect(() => {
+    ethereum.on('accountsChanged', (accounts) => {
+        setCurrentAccount(accounts[0])
+    });
     fetchOrders();
     fetchAvatars();
   }, [currentAccount])

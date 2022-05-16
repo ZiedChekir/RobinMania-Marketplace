@@ -45,7 +45,9 @@ const Auctions = () => {
                 ))
             }
         </Grid>
+        
         </Container>
+        
         </>
         
             
