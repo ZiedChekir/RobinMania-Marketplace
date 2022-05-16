@@ -70,7 +70,8 @@ const nft = () => {
       MarketplaceAddress
     );
     if (!approved) {
-      await NFTContract.setApprovalForAll(MarketplaceAddress, true);
+      const x = await NFTContract.setApprovalForAll(MarketplaceAddress, true);
+      x.wait()
     }
     const toastId = toast.loading("Waiting...",{duration:3000});
 
@@ -79,6 +80,7 @@ const nft = () => {
       tokenId,
       ethers.utils.parseEther(price)
     );
+    result.wait()
     toast.dismiss(toastId);
 
     if (result["hash"].length == 66)
@@ -135,7 +137,8 @@ const nft = () => {
       NftAuctionAddress
     );
     if (!approved) {
-      await NFTContract.setApprovalForAll(NftAuctionAddress, true);
+      const x = await NFTContract.setApprovalForAll(NftAuctionAddress, true);
+      x.wait()
     }
     const result = await AuctionContract.createNewAuctionItem(
       GameAddress,

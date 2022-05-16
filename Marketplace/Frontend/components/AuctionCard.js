@@ -13,7 +13,7 @@ import { GameABI, GameAddress, NftAuctionABI, NftAuctionAddress } from '../confi
 import { ethers } from 'ethers';
 import toast from 'react-hot-toast';
 import { Dialog,DialogTitle,DialogContent,DialogContentText,TextField,DialogActions } from '@mui/material';
-export default function AuctionCard({auction}) {
+export default function AuctionCard({ CardType,auction,loadEndedAuctions,loadAuctions}) {
   const [timerDays,setTimerDays] = useState('00');
   const [timerHours,setTimerHours] = useState('00');
   const [timerMinutes,setTimerMinutes] = useState('00');
@@ -49,7 +49,7 @@ export default function AuctionCard({auction}) {
   }
   useEffect(()=> {
     startTimer()
-  })
+  },[])
   const handlePlaceBid = () => {
     setPlaceBidStatus(true)
   }
@@ -63,14 +63,38 @@ export default function AuctionCard({auction}) {
     )
     const toastId = toast.loading('Waiting...',{duration:3000});
     const result = await contract.placeBid(auction.tokenID,auction.index,{value: ethers.utils.parseEther(bid)})
+    result.wait()
     toast.dismiss(toastId);
     if(result["hash"].length == 66) toast.success('Successfully placed bid!');
     else toast.error("error")
+    
     setPlaceBidStatus(false)
+    
+    
   }
+
+  const Claim = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(
+      NftAuctionAddress,
+      NftAuctionABI,
+      signer
+    )
+    const toastId = toast.loading('Waiting...',{duration:3000});
+    const result = await contract.AuctionEnd(GameAddress,auction.tokenID,auction.index)
+    result.wait()
+    toast.dismiss(toastId);
+    if(result["hash"].length == 66) toast.success('Successfully claimed the item!');
+    else toast.error("error")
+    setPlaceBidStatus(false)
+
+  }
+
   const truncateAddress = (address) => {
       return address.substring(0,4)+"..." + address.substring(39,address.length);
   }
+  
   const fetchToken = async (tokenID) => {
     const provider = new ethers.providers.JsonRpcProvider();
     const signer = provider.getSigner();
@@ -92,8 +116,11 @@ export default function AuctionCard({auction}) {
   useEffect(() => {
     fetchToken(auction.tokenID)
   }, [])
+    
+  
   
   return (
+    
     <Card sx={{ maxWidth: 320 ,color:"#1EB854", backgroundColor:"#272935"}} elevation={10}>
       <CardActionArea>
         <CardMedia
@@ -144,9 +171,13 @@ export default function AuctionCard({auction}) {
         </CardContent>
       </CardActionArea>
       <CardActions >
-        <Button onClick={handlePlaceBid} size="small" sx={{backgroundColor:"#1EB854"}} variant="contained">
+
+      {CardType == 0 && <Button onClick={handlePlaceBid} size="small" sx={{backgroundColor:"#1EB854"}} variant="contained">
           Place Bid
-        </Button>
+        </Button>}
+          {CardType == 1 && <Button onClick={handlePlaceBid} size="small" sx={{backgroundColor:"#1EB854"}} variant="contained">
+          Claim
+        </Button>}
         <Stack style={{paddingLeft:100}}>
         <Typography>
             NFT Owner :
@@ -159,7 +190,9 @@ export default function AuctionCard({auction}) {
       </CardActions>
       <Dialog open={placeBidStatus} onClose={()=>setPlaceBidStatus(false)}>
         <DialogTitle>Confirmation</DialogTitle>
+        {CardType == 0 && 
         <DialogContent>
+       
           <DialogContentText>
             Name your Bid in KAI! it sould be higher than {ethers.utils.formatEther(auction.highestBid.add(auction.minBidIncrement))} KAI
           </DialogContentText>
@@ -174,10 +207,26 @@ export default function AuctionCard({auction}) {
             value={bid}
             onChange={(e)=>setBid(e.target.value)}
           />
+
         </DialogContent>
+}
+
+{CardType == 1 && 
+        <DialogContent sx={{width:250}}>
+       
+          <DialogContentText>
+            Claim your item 
+          </DialogContentText>
+       
+
+        </DialogContent>
+}
         <DialogActions>
           <Button onClick={()=>setPlaceBidStatus(false)}>Cancel</Button>
-          <Button onClick={placeBid}>Place Bid</Button>
+
+          {CardType == 0 && <Button onClick={loadAuctions}>Place a Bid</Button>}
+          {CardType == 1 && <Button onClick={Claim}>Claim</Button>}
+
         </DialogActions>
       </Dialog>
     </Card>

@@ -63,7 +63,8 @@ const Dashboard = () => {
       MarketplaceABI,
       signer
     );
-    await Contract.removeListing(tokenID,index)
+   const result =  await Contract.removeListing(tokenID,index)
+   result.wait()
     setOrders(orders.filter((order) => 
     order.tokenID.toString() != tokenID.toString() || order.index.toString() != index.toString()
     ))
