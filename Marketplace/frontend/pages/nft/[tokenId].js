@@ -108,8 +108,8 @@ const nft = () => {
         value: price.toString(),
       }
     );
+    
     toast.dismiss(toastId);
-
     if (result["hash"].length == 66) {
       toast.success("Item successfully bought");
     } else {
@@ -132,10 +132,10 @@ const nft = () => {
 
     let approved = await NFTContract.isApprovedForAll(
       account,
-      MarketplaceAddress
+      NftAuctionAddress
     );
     if (!approved) {
-      await NFTContract.setApprovalForAll(MarketplaceAddress, true);
+      await NFTContract.setApprovalForAll(NftAuctionAddress, true);
     }
     const result = await AuctionContract.createNewAuctionItem(
       GameAddress,
@@ -197,12 +197,7 @@ const nft = () => {
     });
     setOrders(tempArray);
   }
-  const handleChange = (e) => {
-    setPrice(e.target.value);
-  };
-  const OpenSellModel = () => {
-    setSellState(true);
-  };
+  
   if (typeof window === "undefined") {
     return <></>;
   } else {

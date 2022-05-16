@@ -85,7 +85,7 @@ contract NftAuction  is ERC1155Holder{
         require(nft.balanceOf(msg.sender,_tokenId)>0," you need to own this NFT to auction it ");
         require(
             nft.isApprovedForAll(msg.sender, address(this)),
-            "NFT not approved for Marketplace"
+            "NFT not approved for Auction"
             );
 
         
