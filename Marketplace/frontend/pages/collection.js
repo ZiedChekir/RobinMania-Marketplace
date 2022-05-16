@@ -6,6 +6,7 @@ import NftCard from "../components/MuiCard";
 import { Typography, Grid, Container,Button } from "@mui/material";
 import { NftAuctionABI, NftAuctionAddress } from "../config";
 import nft from "./nft/[tokenId]";
+import Dashboard from "../components/Dashboard";
 
 const Collection = () => {
   const [Nfts, setNfts] = useState([]);
@@ -93,6 +94,12 @@ const Collection = () => {
         </Grid>
 
       </Container>
+        <Container sx={{paddingTop:20}}>
+          <Dashboard/>
+        </Container>
+
+
+        
     </section>
   );
 };

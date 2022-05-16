@@ -118,7 +118,9 @@ const Auctions = () => {
           ))}
         </Grid>
         
-      </Container>
+        </Container>
+        
+        
 
       <Typography className="ActiveAuctions" sx={{ color: "white" }} variant="h1" align="center">
         Active Auctions
