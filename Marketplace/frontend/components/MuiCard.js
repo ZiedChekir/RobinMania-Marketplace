@@ -8,13 +8,11 @@ import Link from 'next/link';
 export default function NftCard(props) {
   return (
       <Link href={props.link}>
-    <Card sx={{ maxWidth: 345,color:"#1EB854", backgroundColor:"#272935",}}>
+    <Card sx={{ maxWidth: 320,color:"#1EB854", backgroundColor:"#272935",}}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="430"
           image={props.image}
-          alt="green iguana"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

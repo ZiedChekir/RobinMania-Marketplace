@@ -76,9 +76,9 @@ contract NftAuction  is ERC1155Holder{
     function createNewAuctionItem(
         IGameItems nft,
         uint256 _tokenId,
-        uint128 _startPrice,
+        uint256 _startPrice,
         uint32 _auctionBidPeriod,
-        uint32 _minBidIncrement
+        uint256 _minBidIncrement
     ) external
     priceGreaterThanZero(_startPrice) 
     {

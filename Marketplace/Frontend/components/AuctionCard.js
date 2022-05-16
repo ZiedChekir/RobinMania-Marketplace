@@ -61,7 +61,7 @@ export default function AuctionCard({auction}) {
       NftAuctionABI,
       signer
     )
-    const toastId = toast.loading('Waiting...');
+    const toastId = toast.loading('Waiting...',{duration:3000});
     const result = await contract.placeBid(auction.tokenID,auction.index,{value: ethers.utils.parseEther(bid)})
     toast.dismiss(toastId);
     if(result["hash"].length == 66) toast.success('Successfully placed bid!');
@@ -161,7 +161,7 @@ export default function AuctionCard({auction}) {
         <DialogTitle>Confirmation</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Name your Bid in KAI! it sould be higher than {ethers.utils.formatEther(auction.highestBid + auction.minBidIncrement)} KAI
+            Name your Bid in KAI! it sould be higher than {ethers.utils.formatEther(auction.highestBid.add(auction.minBidIncrement))} KAI
           </DialogContentText>
           <TextField
             autoFocus

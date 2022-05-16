@@ -3,7 +3,7 @@ import { GameABI, GameAddress } from "../config";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import AuctionCard from "../components/AuctionCard";
-
+import { Container } from "@mui/material";
 import { Grid } from "@mui/material";
 import NftCard from "../components/MuiCard";
 import { Typography } from "@mui/material";
@@ -43,14 +43,14 @@ const explore = () => {
   return (
     <>
      
-          <Typography className="explore" variant="h1" align="center">Explore RobinMania NFTs</Typography>
-         
-      <Grid className="nftGrid" container rowSpacing={3}>
+          <Typography sx={{color:"white"}} className="explore" variant="h1" align="center">Explore RobinMania NFTs</Typography>
+      <Container>
+      <Grid className="nftGrid" container rowSpacing={3} columnSpacing={3}>
       
       {Nfts.map((nft, i) => {
           
           return  (
-          <Grid item xs={3}>
+          <Grid item xs={12} md={6} lg={4}>
               <NftCard
                 key={nft.name}
                 title={nft.name}
@@ -63,7 +63,10 @@ const explore = () => {
         
         
       </Grid>
+    
+      </Container>   
     </>
+      
   );
 };
 export default explore;

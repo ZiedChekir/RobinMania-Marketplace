@@ -24,7 +24,6 @@ import toast from "react-hot-toast";
 import CardItem from "../../components/Card";
 import { fontSize } from "@mui/system";
 //import priceModal from "../../components/priceModal";
-
 const nft = () => {
   const { query, isReady } = useRouter();
   const [showing, setShowing] = useState(false);
@@ -35,10 +34,12 @@ const nft = () => {
   const [price, setPrice] = useState("");
   const [StartingPrice, setStartingPrice] = useState("");
   const [BidPeriod, setBidPeriod] = useState("");
-  const [MinIncriment, setMinIncriment] = useState("");
+  const [MinIncrement, setMinIncriment] = useState("");
   const [SellState, setSellState] = useState(false);
   const [BuyState, setBuyState] = useState(false);
   const [AuctionState, setAuctionState] = useState(false);
+  const [OrderState, setOrderState] = useState(false);
+
 
   useEffect(() => {
     setShowing(true);
@@ -46,7 +47,7 @@ const nft = () => {
       FetchOrders();
       FetchNftData();
     }
-  }, [query]);
+  }, [query,OrderState]);
 
   if (!showing) {
     return null;
@@ -60,9 +61,9 @@ const nft = () => {
       MarketplaceABI,
       signer
     );
-    const account = await signer.getAddress();
 
     const NFTContract = new ethers.Contract(GameAddress, GameABI, signer);
+    const account = await signer.getAddress();
 
     let approved = await NFTContract.isApprovedForAll(
       account,
@@ -71,12 +72,12 @@ const nft = () => {
     if (!approved) {
       await NFTContract.setApprovalForAll(MarketplaceAddress, true);
     }
-    const toastId = toast.loading("Waiting...");
+    const toastId = toast.loading("Waiting...",{duration:3000});
 
     const result = await MarketplaceContract.listItem(
       GameAddress,
       tokenId,
-      price.toString()
+      ethers.utils.parseEther(price)
     );
     toast.dismiss(toastId);
 
@@ -97,7 +98,7 @@ const nft = () => {
     );
     // const NFTContract = new ethers.Contract(GameAddress,GameABI,signer)
     //await NFTContract.setApprovalForAll(MarketplaceAddress, true);
-    const toastId = toast.loading("waiting...");
+    const toastId = toast.loading("waiting...",{duration:3000});
 
     const result = await MarketplaceContract.buyItem(
       GameAddress,
@@ -114,6 +115,7 @@ const nft = () => {
     } else {
       toast.error("error");
     }
+    setOrderState(!OrderState)
   };
 
   const createAuction = async () => {
@@ -124,14 +126,23 @@ const nft = () => {
       NftAuctionABI,
       signer
     );
-    const toastId = toast.loading("Waiting...");
+    const toastId = toast.loading("Waiting...",{duration:3000});
+    const account = await signer.getAddress();
+    const NFTContract = new ethers.Contract(GameAddress, GameABI, signer);
 
+    let approved = await NFTContract.isApprovedForAll(
+      account,
+      MarketplaceAddress
+    );
+    if (!approved) {
+      await NFTContract.setApprovalForAll(MarketplaceAddress, true);
+    }
     const result = await AuctionContract.createNewAuctionItem(
       GameAddress,
       tokenId,
       ethers.utils.parseEther(StartingPrice).toString(),
       BidPeriod,
-      MinIncriment
+      ethers.utils.parseEther(MinIncrement).toString()
     );
     toast.dismiss(toastId);
 
@@ -143,10 +154,12 @@ const nft = () => {
   };
 
   async function FetchNftData() {
+    const _provider = new ethers.providers.JsonRpcProvider();
+    const _signer = _provider.getSigner();
+    const gameContract = new ethers.Contract(GameAddress,GameABI,_signer);
+    const URI = await gameContract.uri(tokenId)
     const response = await fetch(
-      "https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/" +
-        tokenId +
-        ".json",
+      URI,
       {
         headers: {
           Accept: "application/json",
@@ -173,9 +186,6 @@ const nft = () => {
       signer
     );
     const ordersData = await Contract.getOrdersOf(tokenId);
-    console.log(ordersData[0].price.toString());
-    console.log(ordersData[0].seller);
-    console.log(ordersData[0].index.toString());
     const tempArray = [];
     ordersData.map((order) => {
       const orderJson = {
@@ -226,7 +236,7 @@ const nft = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={6}></Grid>
                     <Grid item xs={3}>
-                      <Button className="SellButton" onClick={() => setSellState(true)} variant="contained" sx={{backgroundColor:"#1EB854"}}>
+                    <Button className="SellButton" onClick={() => setSellState(true)} variant="contained" sx={{backgroundColor:"#1EB854"}}>
                         Sell
                       </Button>
                     </Grid>
@@ -243,14 +253,17 @@ const nft = () => {
                   </Grid>
                 ) : (
                   <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      <Button disabled variant="text">
+                    <Grid item xs={6}></Grid>
+                    <Grid item xs={3}>
+                      <Button  variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} disabled >
                         Sell
                       </Button>
                     </Grid>
 
-                    <Grid item xs={6}>
-                      <Button disabled variant="text">
+                    <Grid item xs={3}>
+                      <Button  variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} disabled>
                         Create Auction
                       </Button>
                     </Grid>
@@ -261,19 +274,19 @@ const nft = () => {
           </Grid>
         </Grid>
 
-        <Typography className="seeOrders" variant="h3" align="center">
+        <Typography sx={{color:"white"}} className="seeOrders" variant="h3" align="center">
           See Orders
         </Typography>
         <div className="OrderTable">
           <table border="1" width="100%" cellspacing="0" cellpadding="6">
             <tr>
-              <td width="50%" bgcolor="#000000">
+              <td width="50%" bgcolor="#272935">
                 <font color="#FFFFFF">Seller</font>
               </td>
-              <td width="50%" bgcolor="#000000">
-                <font color="#FFFFFF">Price</font>
+              <td width="50%" bgcolor="#272935">
+                <font color="#FFFFFF">Price in KAI</font>
               </td>
-              <td width="50%" bgcolor="#000000">
+              <td width="50%" bgcolor="#272935">
                 <font color="#FFFFFF">Buy</font>
               </td>
             </tr>
@@ -281,10 +294,11 @@ const nft = () => {
             {Orders.map((x) => {
               return (
                 <tr>
-                  <td width="50%">{x.seller}</td>
-                  <td width="50%">{x.price}</td>
-                  <td width="50%">
-                    <Button onClick={() => buy(x.orderIndex, x.price)}>
+                  <td bgcolor="#FFFFFF" width="50%">{x.seller}</td>
+                  <td  bgcolor="#FFFFFF" width="50%">{ethers.utils.formatEther(x.price)}</td>
+                  <td  bgcolor="#FFFFFF" width="50%">
+                    <Button variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} onClick={() => buy(x.orderIndex, x.price)}>
                       Buy
                     </Button>
                   </td>
@@ -307,8 +321,10 @@ const nft = () => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setBuyState(false)}>No</Button>
-            <Button onClick={() => setBuyState(false)} autoFocus>
+            <Button  variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} onClick={() => setBuyState(false)}>No</Button>
+            <Button  variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} onClick={() => setBuyState(false)} autoFocus>
               Confirm
             </Button>
           </DialogActions>
@@ -322,7 +338,7 @@ const nft = () => {
               autoFocus
               margin="dense"
               id="name"
-              label="price"
+              label="price In Kai"
               type="text"
               fullWidth
               variant="standard"
@@ -331,8 +347,10 @@ const nft = () => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setSellState(false)}>Cancel</Button>
-            <Button onClick={sell}>Sell</Button>
+            <Button variant="contained"
+                          onClick={() => setSellState(false)}>Cancel</Button>
+            <Button variant="contained"
+                        sx={{backgroundColor:"#1EB854"}}  onClick={sell}>Sell</Button>
           </DialogActions>
         </Dialog>
 
@@ -347,7 +365,7 @@ const nft = () => {
                   autoFocus
                   margin="dense"
                   id="name"
-                  label="Starting Price"
+                  label="Starting Price in KAI"
                   type="text"
                   fullWidth
                   variant="standard"
@@ -375,17 +393,19 @@ const nft = () => {
               autoFocus
               margin="dense"
               id="name"
-              label="Minimum Bid Incriment"
+              label="Minimum Bid Incriment In KAI"
               type="text"
               fullWidth
               variant="standard"
-              value={MinIncriment}
+              value={MinIncrement}
               onChange={(e) => setMinIncriment(e.target.value)}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setAuctionState(false)}>Cancel</Button>
-            <Button onClick={() => createAuction()}>Create Auction</Button>
+            <Button variant="contained"
+                        onClick={() => setAuctionState(false)}>Cancel</Button>
+            <Button variant="contained"
+                        sx={{backgroundColor:"#1EB854"}} onClick={() => createAuction()}>Create Auction</Button>
           </DialogActions>
         </Dialog>
       </Container>
