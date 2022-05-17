@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   auctionCardGrid: {
     margin: 0,
     display: 'flex',
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
 });
 

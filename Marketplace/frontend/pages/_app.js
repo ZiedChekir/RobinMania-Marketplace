@@ -9,8 +9,6 @@ import "/styles/globals.css";
 import theme from '../styles/theme';
 import AuctionCard from '../components/AuctionCard';
 import { makeStyles } from '@mui/styles';
-import Footer from '../components/Footer';
-
 import { Toaster } from 'react-hot-toast';
 
 // Client-side cache, shared for the whole session of the user in the browser.
