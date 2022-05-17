@@ -20,7 +20,6 @@ const Collection = () => {
       setCurrentAccount(accounts[0]);
     });
     loadCollection();
-    console.log("updated");
   }, [currentAccount]);
   const loadCollection = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -78,9 +77,9 @@ const Collection = () => {
         <Grid className="nftGrid" container rowSpacing={3} columnSpacing={3}>
           {Nfts.map((nft, i) => {
             return (
-              <Grid item xs={12} md={6} lg={4}>
+              <Grid key={nft.name} item xs={12} md={6} lg={4}>
                 <NftCard
-                  key={nft.name}
+                  
                   title={nft.name}
                   description={nft.description}
                   quantity={nft.quantity}

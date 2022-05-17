@@ -68,7 +68,7 @@ const Auctions = () => {
   };
 
   async function  loadAuctions(){
-    console.log("sami")
+    
 
     const provider = new ethers.providers.JsonRpcProvider();
     const signer = provider.getSigner();

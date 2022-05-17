@@ -224,7 +224,7 @@ export default function AuctionCard({ CardType,auction,loadEndedAuctions,loadAuc
         <DialogActions>
           <Button onClick={()=>setPlaceBidStatus(false)}>Cancel</Button>
 
-          {CardType == 0 && <Button onClick={loadAuctions}>Place a Bid</Button>}
+          {CardType == 0 && <Button onClick={placeBid}>Place a Bid</Button>}
           {CardType == 1 && <Button onClick={Claim}>Claim</Button>}
 
         </DialogActions>
