@@ -70,7 +70,7 @@ const auctions = () => {
   };
 
   async function  loadAuctions(){
-    console.log("sami")
+    
 
     const provider = new ethers.providers.JsonRpcProvider("https://dev.kardiachain.io/");
     const signer = provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");

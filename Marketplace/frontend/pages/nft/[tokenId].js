@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useWeb3React } from "@web3-react/core";
 import { MarketplaceABI, MarketplaceAddress } from "../../config";
 import { GameABI, GameAddress } from "../../config";
 import {
@@ -24,7 +23,7 @@ import toast from "react-hot-toast";
 import CardItem from "../../components/Card";
 import { fontSize } from "@mui/system";
 //import priceModal from "../../components/priceModal";
-const nft = () => {
+const Nft = () => {
   const { query, isReady } = useRouter();
   const [showing, setShowing] = useState(false);
 
@@ -279,7 +278,7 @@ const nft = () => {
           See Orders
         </Typography>
         <div className="OrderTable">
-          <table border="1" width="100%" cellspacing="0" cellpadding="6">
+          <table border="1" width="100%" >
             <tr>
               <td width="50%" bgcolor="#272935">
                 <font color="#FFFFFF">Seller</font>
@@ -292,9 +291,9 @@ const nft = () => {
               </td>
             </tr>
 
-            {Orders.map((x) => {
+            {Orders.map((x,i) => {
               return (
-                <tr>
+                <tr key={i}>
                   <td bgcolor="#FFFFFF" width="50%">{x.seller}</td>
                   <td  bgcolor="#FFFFFF" width="50%">{ethers.utils.formatEther(x.price)}</td>
                   <td  bgcolor="#FFFFFF" width="50%">
@@ -414,4 +413,4 @@ const nft = () => {
   }
 };
 
-export default nft;
+export default Nft;

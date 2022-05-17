@@ -8,7 +8,7 @@ import { Grid } from "@mui/material";
 import NftCard from "../components/MuiCard";
 import { Typography } from "@mui/material";
 
-const explore = () => {
+const Explore = () => {
   const [Nfts, setNfts] = useState([]);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const explore = () => {
       const responseJson = await response.json();
       nftArray.push(responseJson);
     }
-    console.log(nftArray);
+    
     setNfts(nftArray);
   };
 
@@ -50,9 +50,9 @@ const explore = () => {
       {Nfts.map((nft, i) => {
           
           return  (
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid key={nft.name} item xs={12} md={6} lg={4}>
               <NftCard
-                key={nft.name}
+                
                 title={nft.name}
                 description={nft.description}
                 image={nft.image}
@@ -69,4 +69,4 @@ const explore = () => {
       
   );
 };
-export default explore;
+export default Explore;
