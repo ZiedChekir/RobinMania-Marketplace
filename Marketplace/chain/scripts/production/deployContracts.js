@@ -19,12 +19,12 @@ async function main(){
     console.log("nftContractAddress:",nft.address);
     console.log("marketplaceAddress:",MPlace.address);
     console.log("auction address : ",auction.address);
-    console.log("1.mint tokens 1-5 to account 0 with quantity of 10");
-    for(let i=1;i<6;i++){
-        let j = ethers.BigNumber.from(i)
-        await nft.increaseSupply(j,totalSupply,[]);
-        await nft.setSupplyPerPlayer(j,supplyPerPlayer);
-    }
+    // console.log("1.mint tokens 1-5 to account 0 with quantity of 10");
+    // for(let i=1;i<6;i++){
+    //     let j = ethers.BigNumber.from(i)
+    //     await nft.increaseSupply(j,totalSupply,[]);
+    //     await nft.setSupplyPerPlayer(j,supplyPerPlayer);
+    // }
 }
 main().catch((error) => {
     console.error(error)

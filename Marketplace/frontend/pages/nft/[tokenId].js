@@ -242,7 +242,7 @@ const Nft = () => {
                     </Grid>
 
                     <Grid item xs={3}>
-                      <Button ClassName="CreateAuctionButton"
+                      <Button className="CreateAuctionButton"
                         onClick={() => setAuctionState(true)}
                         variant="contained"
                         sx={{backgroundColor:"#1EB854"}}

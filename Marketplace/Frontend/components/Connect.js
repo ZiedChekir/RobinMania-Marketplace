@@ -37,15 +37,14 @@ const Connect = () => {
         })
         .catch((e)=>console.log(e))
         if(!currentAccount || !ethers.utils.isAddress(currentAccount)) return
-        if(chainId !== "0xf2") setOpenSnackBar(true)
-        else setOpenSnackBar(false)
         ethereum.on('accountsChanged', (accounts) => {
             setCurrentAccount(accounts[0])
           });
         window.ethereum.on("chainChanged", (network) => {
             provider = new ethers.providers.Web3Provider(window.ethereum)
             setProvider(provider)
-            console.log(chainId)
+            setChainId(network)
+            setOpenSnackBar(true)
           });
         
         
@@ -72,9 +71,11 @@ const Connect = () => {
                       decimals: 18
                   }
                 }]
-            }).then((p) => {setOpenSnackBar(false)})
+            })
+        }else{
+          setOpenSnackBar(false)
         }
-    },[currentAccount,provider,openSnackBar])
+    },[currentAccount,provider])
     const onClickConnect = ()=> {
         if(!window.ethereum){
             console.log("please install MetaMask!")
