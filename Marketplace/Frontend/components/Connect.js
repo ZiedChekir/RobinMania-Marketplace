@@ -37,7 +37,7 @@ const Connect = () => {
         })
         .catch((e)=>console.log(e))
         if(!currentAccount || !ethers.utils.isAddress(currentAccount)) return
-        if(chainName !== "Hardhat") setOpenSnackBar(true)
+        if(chainId !== "0xf2") setOpenSnackBar(true)
         else setOpenSnackBar(false)
         ethereum.on('accountsChanged', (accounts) => {
             setCurrentAccount(accounts[0])
@@ -45,6 +45,7 @@ const Connect = () => {
         window.ethereum.on("chainChanged", (network) => {
             provider = new ethers.providers.Web3Provider(window.ethereum)
             setProvider(provider)
+            console.log(chainId)
           });
         
         
@@ -55,18 +56,21 @@ const Connect = () => {
             setChainId(result.chainId)
             setChainName(result.name)
         })
-        if(chainName != "Hardhat"){
+        if(chainId != "0xf2"){
             window.ethereum.request({
-                method: "wallet_addEthereumChain",
-                params: [{
-                    chainId: "0x7A69",
-                    rpcUrls: ["https://127.0.0.1:8545/"],
-                    chainName: "Hardhat",
-                    nativeCurrency: {
-                        name: "KAI",
-                        symbol: "KAI",
-                        decimals: 18
-                    }
+              id: 1,
+              jsonrpc: "2.0",
+              method: "wallet_addEthereumChain",
+              params: [{
+                  chainId: "0xF2",
+                  rpcUrls: ["https://dev.kardiachain.io/"],
+                  chainName: "Kardiachain Testnet",
+                  blockExplorerUrls: ["https://explorer-dev.kardiachain.io"],
+                  nativeCurrency: {
+                      name: "KAI",
+                      symbol: "KAI",
+                      decimals: 18
+                  }
                 }]
             }).then((p) => {setOpenSnackBar(false)})
         }

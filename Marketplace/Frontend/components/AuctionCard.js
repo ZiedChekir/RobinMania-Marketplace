@@ -96,8 +96,8 @@ export default function AuctionCard({ CardType,auction,loadEndedAuctions,loadAuc
   }
   
   const fetchToken = async (tokenID) => {
-    const provider = new ethers.providers.JsonRpcProvider();
-    const signer = provider.getSigner();
+    const provider = new ethers.providers.JsonRpcProvider("https://dev.kardiachain.io/");
+    const signer = provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
     const contract = new ethers.Contract(GameAddress,GameABI,signer);
     const URI = await contract.uri(tokenID)
     const response = await fetch(
@@ -172,7 +172,7 @@ export default function AuctionCard({ CardType,auction,loadEndedAuctions,loadAuc
       </CardActionArea>
       <CardActions >
 
-      {CardType == 0 && <Button onClick={handlePlaceBid} size="small" sx={{backgroundColor:"#1EB854"}} variant="contained">
+      {CardType == 0 && <Button disabled={!window.ethereum} onClick={handlePlaceBid} size="small" sx={{backgroundColor:"#1EB854"}} variant="contained">
           Place Bid
         </Button>}
           {CardType == 1 && <Button onClick={handlePlaceBid} size="small" sx={{backgroundColor:"#1EB854"}} variant="contained">
@@ -224,7 +224,7 @@ export default function AuctionCard({ CardType,auction,loadEndedAuctions,loadAuc
         <DialogActions>
           <Button onClick={()=>setPlaceBidStatus(false)}>Cancel</Button>
 
-          {CardType == 0 && <Button onClick={loadAuctions}>Place a Bid</Button>}
+          {CardType == 0 && <Button onClick={placeBid}>Place a Bid</Button>}
           {CardType == 1 && <Button onClick={Claim}>Claim</Button>}
 
         </DialogActions>

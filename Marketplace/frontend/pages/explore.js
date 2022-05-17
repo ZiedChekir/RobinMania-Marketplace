@@ -16,8 +16,8 @@ const explore = () => {
   }, []);
 
   const loadNfts = async () => {
-    const provider = new ethers.providers.JsonRpcProvider();
-    const signer = provider.getSigner();
+    const provider = new ethers.providers.JsonRpcProvider("https://dev.kardiachain.io/");
+    const signer = provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
     const Contract = new ethers.Contract(GameAddress, GameABI, signer);
     //  const data = await Contract.balanceOfBatch([account, account,account,account,account], [1, 2,3,4,5]);
 

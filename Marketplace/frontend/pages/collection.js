@@ -16,6 +16,7 @@ const Collection = () => {
 
 
   useEffect(() => {
+    if(!window.ethereum) return
     ethereum.on("accountsChanged", (accounts) => {
       setCurrentAccount(accounts[0]);
     });

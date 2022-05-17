@@ -157,8 +157,8 @@ const nft = () => {
   };
 
   async function FetchNftData() {
-    const _provider = new ethers.providers.JsonRpcProvider();
-    const _signer = _provider.getSigner();
+    const _provider = new ethers.providers.JsonRpcProvider("https://dev.kardiachain.io/");
+    const _signer = _provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
     const gameContract = new ethers.Contract(GameAddress,GameABI,_signer);
     const URI = await gameContract.uri(tokenId)
     const response = await fetch(
@@ -170,7 +170,10 @@ const nft = () => {
       }
     );
     const nftjson = await response.json();
-    console.log(nftjson);
+    if(!window.ethereum){
+      setNft(nftjson);
+      return
+    }
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const Contract = new ethers.Contract(GameAddress, GameABI, signer);
@@ -181,8 +184,8 @@ const nft = () => {
   }
 
   async function FetchOrders() {
-    const provider = new ethers.providers.JsonRpcProvider();
-    const signer = provider.getSigner();
+    const provider = new ethers.providers.JsonRpcProvider("https://dev.kardiachain.io/");
+    const signer = provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
     const Contract = new ethers.Contract(
       MarketplaceAddress,
       MarketplaceABI,

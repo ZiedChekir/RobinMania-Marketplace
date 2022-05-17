@@ -6,14 +6,15 @@ import AuctionCard from "../components/AuctionCard";
 import { Typography, Button } from "@mui/material";
 import { AssuredWorkload } from "@mui/icons-material";
 
-const Auctions = () => {
+const auctions = () => {
   const [auctions, setAuctions] = useState([]);
   const [UserEndedAuctions, setUserEndedAuctions] = useState([]);
   const [UserNotEndedAuctions, setUserNotEndedAuctions] = useState([]);
 
   async function loadEndedAuctionsForThisAccount () {
-    const provider = new ethers.providers.JsonRpcProvider();
-    const signer = provider.getSigner();
+    if(!window.ethereum) return
+    const provider = new ethers.providers.JsonRpcProvider("https://dev.kardiachain.io/");
+    const signer = provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
     const contract = new ethers.Contract(
       NftAuctionAddress,
       NftAuctionABI,
@@ -40,8 +41,9 @@ const Auctions = () => {
     setUserEndedAuctions(_auctions);
   };
   async function loadNotEndedAuctionsForThisAccount () {
-    const provider = new ethers.providers.JsonRpcProvider();
-    const signer = provider.getSigner();
+    if(!window.ethereum) return
+    const provider = new ethers.providers.JsonRpcProvider("https://dev.kardiachain.io/");
+    const signer = provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
     const contract = new ethers.Contract(
       NftAuctionAddress,
       NftAuctionABI,
@@ -70,15 +72,15 @@ const Auctions = () => {
   async function  loadAuctions(){
     console.log("sami")
 
-    const provider = new ethers.providers.JsonRpcProvider();
-    const signer = provider.getSigner();
+    const provider = new ethers.providers.JsonRpcProvider("https://dev.kardiachain.io/");
+    const signer = provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
     const contract = new ethers.Contract(
       NftAuctionAddress,
       NftAuctionABI,
       signer
     );
     let _auctions = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 1; i < 6; i++) {
       let data = await contract.getAuctionOf(i);
       data = data.map((auction) => ({
         ...auction,
@@ -144,4 +146,4 @@ const Auctions = () => {
     </>
   );
 };
-export default Auctions;
+export default auctions;

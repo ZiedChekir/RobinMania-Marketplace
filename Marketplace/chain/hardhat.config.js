@@ -1,5 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
-
+var env = require('./env.json')
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -17,15 +17,16 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork: "hardhat",//change this to kardiachain when testing on testnet (but give accounts KAI)
+  defaultNetwork: "Kardiachain",//change this to kardiachain when testing on testnet (but give accounts KAI)
   networks: {
     hardhat: {
       blockGasLimit: 100000000420 // whatever you want here
 
     },
-    kardiachain: {
-      url: "https://rpc.kardiachain.io",
-      accounts: ["12f46ce2e81adad7650d6a90673f8b5ff7fabab429a358fe36c07bc5063b83a5"]
+    Kardiachain: {
+      url: "https://dev.kardiachain.io/",
+      accounts: ["0xa10f6af85c7540e4ac1be6ca74b06b9c56c69eb49b88506dd8b425ae92fe22db","0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d","0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a"],
+
     }
   },
   solidity: {
