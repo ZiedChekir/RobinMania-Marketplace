@@ -78,7 +78,7 @@ const ResponsiveAppBar = ({ navLinks }) => {
           <MuiNextLink
             href={path}
             variant="button"
-            sx={{color: 'rgba(255,255,255)', opacity: 0.7 }}
+            sx={{color: 'rgba(0,0,0)', opacity: 1 }}
             textalign='center'
           >
             {title}

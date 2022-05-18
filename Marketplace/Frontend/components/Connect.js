@@ -2,7 +2,7 @@ import React from 'react';
 import { ethers } from "ethers";
 import {useState,useEffect} from 'react';
 import Button from '@mui/material/Button';
-import { Snackbar } from '@mui/material';
+import { Icon, Snackbar, SvgIcon } from '@mui/material';
 import Alert from '@mui/material/Alert'
 
 import Tooltip from '@mui/material/Tooltip';
@@ -21,7 +21,10 @@ const Connect = () => {
     const [chainName,setChainName] = useState("")
     const [provider,setProvider] = useState(null)
     const [openSnackBar, setOpenSnackBar] = useState(false);
-    const settings = [currentAccount.substring(0,16)+'XXXX'];
+    const truncateAddress = (address) => {
+      return address.substring(0,8)+"..." + address.substring(39,address.length);
+  }
+    const settings = [truncateAddress(currentAccount)];
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
       };
@@ -96,9 +99,11 @@ const Connect = () => {
         // <h4>{currentAccount}</h4>
 
         <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="See address">
+            <Tooltip title="See address" sx={{backgroundColor:'black'}}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar img='Marketplace\Frontend\public\metamask-1.svg' />
+                <Icon style={{fontSize: 60,textAlign: 'center'}}>
+                  <img style={{height: '100%'}} src='metamask-1.svg'></img>
+                </Icon>
               </IconButton>
             </Tooltip>
             <Menu
