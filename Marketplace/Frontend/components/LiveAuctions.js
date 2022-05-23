@@ -8,14 +8,14 @@ const useStyles = makeStyles({
   auctionCardGrid: {
     margin: 0,
     display: 'flex',
-    justifyContent: "space-between",
+    justifyContent: "space-between", 
   },
 });
 
 const LiveAuctions = () => {
   const classes = useStyles();
   return (
-    <div style={{ maxWidth: '100%' }}>
+    <div style={{ maxWidth: '100%' , overflow:'hidden'}}>
       <Auctions />
       {/* <Grid container className={classes.auctionCardGrid} wrap="nowrap">
           <Grid item>

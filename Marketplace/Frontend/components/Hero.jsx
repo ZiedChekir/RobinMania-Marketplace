@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Grid, Box, Container } from '@mui/material';
 import ReactPlayer from 'react-player';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    height: '100vh',
+    height: '90vh',
     fontFamily: 'Nunito',
   },
   gridContainer: {
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: '#fff',
     // fontSize: '4.5rem',
+    textAlign: 'left',
   },
   goDown: {
     color: '#5AFF3D',
@@ -59,7 +61,7 @@ export default function Hero() {
     <div className={classes.root} id="hero">
       <Box className={classes.heroBox}>
         <Grid container className={classes.gridContainer}>
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={8} lg={8}>
             <Collapse
               in={checked}
               {...(checked ? { timeout: 1000 } : {})}
@@ -80,14 +82,16 @@ export default function Hero() {
 
             <Button
               variant="contained"
-              color="primary"
-              sx={{ width: '200px', fontSize: '16px' }}
+              color="secondary"
+              sx={{ width: '200px', fontSize: '20px' }}
+              href="/explore"
             >
-              Explore
+              Explore 
+              <ArrowRightAltIcon />
             </Button>
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={4}>
             <Box
               sx={{
                 width: 512,

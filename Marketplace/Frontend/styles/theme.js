@@ -14,6 +14,9 @@ let theme = createTheme({
       main: '#1EB854',
       dark: '#D99330',
     },
+    lighter:{
+      main:'#D99330',
+    },
     background: {
       default: "#110E0E"
     }

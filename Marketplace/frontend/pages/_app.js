@@ -4,8 +4,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '../styles/createEmotionCache';
 import Header from "../components/Header";
+import Footer from '../components/Footer';
 
 import "/styles/globals.css";
+import "/styles/slider.css";
+import '/styles/Footer.css';
 import theme from '../styles/theme';
 import AuctionCard from '../components/AuctionCard';
 import { makeStyles } from '@mui/styles';
@@ -37,6 +40,8 @@ export default function MyApp(props) {
         <Toaster />
 
         <Component {...pageProps} />
+
+        <Footer />
         
       </ThemeProvider>
     </CacheProvider>

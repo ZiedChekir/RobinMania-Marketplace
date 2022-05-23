@@ -10,6 +10,9 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import VideoLabelIcon from '@mui/icons-material/VideoLabel';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import ExploreIcon from '@mui/icons-material/Explore';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -133,9 +136,9 @@ function ColorlibStepIcon(props) {
   const { active, completed, className } = props;
 
   const icons = {
-    1: <SettingsIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />,
+    1: <AccountBalanceWalletIcon />,
+    2: <ExploreIcon />,
+    3: <StorefrontIcon />,
   };
 
   return (
@@ -163,18 +166,12 @@ ColorlibStepIcon.propTypes = {
   icon: PropTypes.node,
 };
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const steps = ['Connect your wallet', 'Explore collections', 'Trade items'];
 
 export default function CustomizedSteppers() {
   return (
     <Stack sx={{ width: '100%' }} spacing={4}>
-      <Stepper alternativeLabel activeStep={1} connector={<QontoConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+    
       <Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
         {steps.map((label) => (
           <Step key={label}>
