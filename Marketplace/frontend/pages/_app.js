@@ -7,8 +7,8 @@ import Header from "../components/Header";
 import Footer from '../components/Footer';
 
 import "/styles/globals.css";
-import "/styles/slider.css";
 import '/styles/Footer.css';
+import "/styles/slider.css";
 import theme from '../styles/theme';
 import AuctionCard from '../components/AuctionCard';
 import { makeStyles } from '@mui/styles';

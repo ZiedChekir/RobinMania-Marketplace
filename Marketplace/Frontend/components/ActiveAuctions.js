@@ -103,7 +103,7 @@ const Aauctions = () => {
   return (
     <>
       <Container>
-        <Grid container rowSpacing={3} columnSpacing={3} overflow='hidden'>
+        <Grid container rowSpacing={3} columnSpacing={3} overflow='hidden' alignItems="stretch">
           {auctions.map((auction) => (
             <Grid
               key={[auction.tokenID, auction.index]}
@@ -111,6 +111,7 @@ const Aauctions = () => {
               xs={12}
               md={6}
               lg={4}
+              style={{display: 'flex'}}
             >
               <AuctionCard CardType={0} auction={auction} />
             </Grid>

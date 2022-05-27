@@ -111,7 +111,7 @@ return (
         My Auctions
       </Typography>}
       <Container>
-        <Grid container rowSpacing={3} columnSpacing={3}>
+        <Grid container rowSpacing={3} columnSpacing={3} alignItems="stretch">
           {UserEndedAuctions.map((auction) => (
             <Grid
               key={[auction.tokenID, auction.index]}
@@ -119,6 +119,7 @@ return (
               xs={12}
               md={6}
               lg={4}
+              style={{display: 'flex'}}
             >
               <AuctionCard loadEndedAuctions={loadEndedAuctionsForThisAccount} loadAuctions={loadAuctions} CardType={1} auction={auction} />
             </Grid>

@@ -8,7 +8,7 @@ import Link from 'next/link';
 export default function NftCard(props) {
   return (
       <Link href={props.link}>
-    <Card sx={{ maxWidth: 320,color:"#1EB854", backgroundColor:"#272935",}}>
+    <Card style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}} sx={{ maxWidth: 320 ,color:"#1EB854", backgroundColor:"#272935"}} elevation={10}>
       <CardActionArea>
         <CardMedia
           component="img"

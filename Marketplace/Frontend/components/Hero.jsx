@@ -80,8 +80,17 @@ export default function Hero() {
               </div>
             </Collapse>
 
+            <Box  >
             <Button
               variant="contained"
+              color="lighter"
+              sx={{ width: '200px', fontSize: '20px' }}
+              href="/explore"
+            >
+              Play Now!
+            </Button>
+            <Button
+              variant="outlined"
               color="secondary"
               sx={{ width: '200px', fontSize: '20px' }}
               href="/explore"
@@ -89,6 +98,7 @@ export default function Hero() {
               Explore 
               <ArrowRightAltIcon />
             </Button>
+            </Box>
           </Grid>
 
           <Grid item xs={12} md={4}>

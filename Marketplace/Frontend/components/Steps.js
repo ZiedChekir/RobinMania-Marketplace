@@ -1,184 +1,153 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Check from '@mui/icons-material/Check';
-import SettingsIcon from '@mui/icons-material/Settings';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import VideoLabelIcon from '@mui/icons-material/VideoLabel';
-import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Icon, IconButton, Container, Grid } from '@mui/material';
+
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import ExploreIcon from '@mui/icons-material/Explore';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
-const QontoConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 10,
-    left: 'calc(-50% + 16px)',
-    right: 'calc(50% + 16px)',
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: '#784af4',
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: '#784af4',
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
-    borderTopWidth: 3,
-    borderRadius: 1,
-  },
-}));
+const steps = ['Setup your wallet', 'Explore NFTs', 'Place a bid or buy', 'List your items for sale'];
 
-const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
-  color: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#eaeaf0',
-  display: 'flex',
-  height: 22,
-  alignItems: 'center',
-  ...(ownerState.active && {
-    color: '#784af4',
-  }),
-  '& .QontoStepIcon-completedIcon': {
-    color: '#784af4',
-    zIndex: 1,
-    fontSize: 18,
-  },
-  '& .QontoStepIcon-circle': {
-    width: 8,
-    height: 8,
-    borderRadius: '50%',
-    backgroundColor: 'currentColor',
-  },
-}));
+const description=["Once You've Set Up Your Wallet, Connect it by Clicking the CONNECT WALLET Button in The Top Right Corner",
+                  "Set Up Your Collection. Explore items and Collections",
+                  "Choose Your Items and place a Higher Bid or Buy Them",
+                  "Choose Between Auctions, Price Listings. You Choose How You Want To Sell Your NFTs. & We Help You!"];
 
-function QontoStepIcon(props) {
-  const { active, completed, className } = props;
-
-  return (
-    <QontoStepIconRoot ownerState={{ active }} className={className}>
-      {completed ? (
-        <Check className="QontoStepIcon-completedIcon" />
-      ) : (
-        <div className="QontoStepIcon-circle" />
-      )}
-    </QontoStepIconRoot>
-  );
-}
-
-QontoStepIcon.propTypes = {
-  /**
-   * Whether this step is active.
-   * @default false
-   */
-  active: PropTypes.bool,
-  className: PropTypes.string,
-  /**
-   * Mark the step as completed. Is passed to child components.
-   * @default false
-   */
-  completed: PropTypes.bool,
+const icons={
+  1: <AccountBalanceWalletIcon />,
+  2: <ExploreIcon />,
+  3: <StorefrontIcon />,
+  4: <MonetizationOnIcon />,
 };
 
-const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 22,
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    height: 3,
-    border: 0,
-    backgroundColor:
-      theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
-    borderRadius: 1,
-  },
-}));
-
-const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#ccc',
-  zIndex: 1,
-  color: '#fff',
-  width: 50,
-  height: 50,
-  display: 'flex',
-  borderRadius: '50%',
-  justifyContent: 'center',
-  alignItems: 'center',
-  ...(ownerState.active && {
-    backgroundImage:
-      'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
-    boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
-  }),
-  ...(ownerState.completed && {
-    backgroundImage:
-      'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
-  }),
-}));
-
-function ColorlibStepIcon(props) {
-  const { active, completed, className } = props;
-
-  const icons = {
-    1: <AccountBalanceWalletIcon />,
-    2: <ExploreIcon />,
-    3: <StorefrontIcon />,
-  };
-
+export default function Steps() {
   return (
-    <ColorlibStepIconRoot ownerState={{ completed, active }} className={className}>
-      {icons[String(props.icon)]}
-    </ColorlibStepIconRoot>
-  );
-}
+    <Container>
+    <Grid container alignItems="stretch" rowSpacing={3} columnSpacing={3} >
 
-ColorlibStepIcon.propTypes = {
-  /**
-   * Whether this step is active.
-   * @default false
-   */
-  active: PropTypes.bool,
-  className: PropTypes.string,
-  /**
-   * Mark the step as completed. Is passed to child components.
-   * @default false
-   */
-  completed: PropTypes.bool,
-  /**
-   * The label displayed in the step icon.
-   */
-  icon: PropTypes.node,
-};
+        <Grid 
+          item
+          xs={12}
+          md={6}
+          lg={3}
+          style={{display: 'flex'}}
+        >
+    <Card sx={{ minWidth: 275, backgroundColor:"#272935" }} variant="outlined" style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column', }}>
+      <CardContent>
+      <IconButton sx={{ p: 0, color:"#1EB854" }} style={{variant:"contained" }}>
+                <Icon style={{fontSize: 60,textAlign: 'center'}}>
+                  <AccountBalanceWalletIcon fontSize="large" style={{height: '100%'}}/>
+                </Icon>
+              </IconButton>
+        <Typography variant="h5" component="div" sx={{color:"white"}}>
+        Setup your wallet
+        </Typography>
+        <br />
+        <Typography variant="body2" sx={{color:"white"}}>
+        Once You've Set Up Your Wallet, Connect it by Clicking the CONNECT WALLET Button in The Top Right Corner
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" color="secondary">Learn More</Button>
+      </CardActions> 
+    </Card>
+    </Grid>
+  
 
-const steps = ['Connect your wallet', 'Explore collections', 'Trade items'];
+<Grid
+item
+xs={12}
+md={6}
+lg={3}
+style={{display: 'flex'}}
+>
+<Card sx={{ minWidth: 275, backgroundColor:"#272935" }} variant="outlined" style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+<CardContent>
+<IconButton sx={{ p: 0, color:"#1EB854" }}>
+      <Icon style={{fontSize: 60,textAlign: 'center'}}>
+        <ExploreIcon fontSize="large" style={{height: '100%'}}/>
+      </Icon>
+    </IconButton>
+<Typography variant="h5" component="div" sx={{color:"white"}}>
+Explore NFTs
+</Typography>
+<br />
+<Typography variant="body2" sx={{color:"white"}}>
+Set Up Your Collection. Explore items and Collections
+</Typography>
+</CardContent>
+<CardActions>
+<Button size="small" color="secondary">Learn More</Button>
+</CardActions> 
+</Card>
+</Grid>
 
-export default function CustomizedSteppers() {
-  return (
-    <Stack sx={{ width: '100%' }} spacing={4}>
-    
-      <Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Stack>
-  );
-}
+
+<Grid
+item
+xs={12}
+md={6}
+lg={3}
+style={{display: 'flex'}}
+>
+<Card sx={{ minWidth: 275, backgroundColor:"#272935" }} variant="outlined" style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+<CardContent>
+<IconButton sx={{ p: 0, color:"#1EB854" }}>
+      <Icon style={{fontSize: 60,textAlign: 'center'}}>
+        <StorefrontIcon fontSize="large" style={{height: '100%'}}/>
+      </Icon>
+    </IconButton>
+<Typography variant="h5" component="div" sx={{color:"white"}}>
+Place a bid or buy
+</Typography>
+<br />
+<Typography variant="body2" sx={{color:"white"}}>
+Choose Your Items and place a Higher Bid or Buy Them
+</Typography>
+</CardContent>
+<CardActions>
+<Button size="small" color="secondary">Learn More</Button>
+</CardActions> 
+</Card>
+</Grid>
+
+<Grid
+item
+xs={12}
+md={6}
+lg={3}
+style={{display: 'flex'}}
+>
+<Card sx={{ minWidth: 275, backgroundColor:"#272935" }} variant="outlined" style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+<CardContent>
+<IconButton sx={{ p: 0, color:"#1EB854" }}>
+      <Icon style={{fontSize: 60,textAlign: 'center'}}>
+        <MonetizationOnIcon fontSize="large" style={{height: '100%'}} />
+      </Icon>
+    </IconButton>
+<Typography variant="h5" component="div" sx={{color:"white"}}>
+List your items for sale
+</Typography>
+<br />
+<Typography variant="body2" sx={{color:"white"}}>
+Choose Between Auctions, Price Listings. You Choose How You Want To Sell Your NFTs. & We Help You!
+</Typography>
+</CardContent>
+<CardActions>
+<Button size="small" color="secondary">Learn More</Button>
+</CardActions> 
+</Card>
+</Grid>
+
+
+</Grid>
+</Container>
+  )
+    };
+  

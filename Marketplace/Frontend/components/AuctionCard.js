@@ -121,7 +121,7 @@ export default function AuctionCard({ CardType,auction,loadEndedAuctions,loadAuc
   
   return (
     
-    <Card sx={{ maxWidth: 320 ,color:"#1EB854", backgroundColor:"#272935"}} elevation={10}>
+    <Card style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}} sx={{ maxWidth: 320 ,color:"#1EB854", backgroundColor:"#272935"}} elevation={10}>
       <CardActionArea>
         <CardMedia
           component="img"

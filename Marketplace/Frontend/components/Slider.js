@@ -7,6 +7,12 @@ import { Typography, Button } from "@mui/material";
 import { AssuredWorkload } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
+import React from "react";
+import Slider from "react-slick";
+
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+ 
 
 const Cards = () => {
   const [auctions, setAuctions] = useState([]);

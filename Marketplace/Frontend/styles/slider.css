@@ -1,5 +1,5 @@
 .cards {
-    /* padding: 4rem; */
+    
     background: transparent;
     display:flex;
     flex-direction:column;
@@ -139,7 +139,7 @@
     padding: 5px;
     width: 200px;
     text-align: center;
-    -webkit-transition-duration: 0.4s; /* Safari */
+    -webkit-transition-duration: 0.4s; 
     transition-duration: 0.4s;
     text-decoration: none;
     overflow: hidden;
@@ -149,9 +149,6 @@
     background: #0768b881;
     box-shadow: 0px 1px 5px 2px #FFFFFF;
     color: #000;
-  }
-  /*@media-breakpoint-only(lg) {
-    .cards__items{
-      column-count: 3;
-    }
-  }*/
+  } 
+  
+  ::-webkit-scrollbar {display:none;}
