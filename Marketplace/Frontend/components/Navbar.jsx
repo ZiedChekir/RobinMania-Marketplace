@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Connect from "./Connect";
 import MuiNextLink from "./MuiNextLink";
 import Link from "next/link";
+import {makeStyles}  from '@mui/styles';
 // const settings = ['Logout',currentAccount];
 
 const ResponsiveAppBar = ({ navLinks }) => {
@@ -28,18 +29,20 @@ const ResponsiveAppBar = ({ navLinks }) => {
     setAnchorElNav(null);
   };
 
+ 
+
   return (
     <AppBar position="fixed">
       <Container textalign='center'>
         <Toolbar disableGutters={true}>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
-            LOGO
-          </Typography>
+        <Box
+            component="img"
+            sx={{
+            height: 64,
+            }}
+            alt="Marketplace"
+            src={'logofinal_transparent.png'}
+        />
 
           <Box 
           sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -88,14 +91,6 @@ const ResponsiveAppBar = ({ navLinks }) => {
 
             </Menu>
           </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          >
-            LOGO
-          </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {navLinks.map(({ title, path }, i) => (
             <Link

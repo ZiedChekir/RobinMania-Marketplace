@@ -44,35 +44,24 @@ const Trending = () => {
   function CardsContainerNFT(props) {
 
     return (
-<section className="cards-primary">
-     
-        <div>
-        <div className='cards'>
-
-        <div className='card-columns' >
-          <div className='cards__wrapper' >
+<Grid container alignItems="stretch" rowSpacing={3} columnSpacing={3}>
+            {Nfts.map((nft, i) => {
+              if(i>3)
+              return;
+             
+             return ( <Grid key={nft.name} item xs={12} md={6} lg={3} style={{display: 'flex'}}>
+                <NftCard
+                  
+                  title={nft.name}
+                  description={nft.description}
+                  quantity={nft.quantity}
+                  image={nft.image}
+                  link={"/nft/" + (i + 1)}
+                />
+            </Grid>)
+  })}
   
-            <ul className='cards__items' >
-            {Nfts.map((nft, i) => (
-              <Grid key={nft.name} item xs={12} md={6} lg={4} style={{display: 'flex'}}>
-              <NftCard
-                
-                title={nft.name}
-                description={nft.description}
-                quantity={nft.quantity}
-                image={nft.image}
-                link={"/nft/" + (i + 1)}
-              />
             </Grid>
-              ))}
-  
-            </ul>
-  
-          </div>
-        </div>
-      </div>
-      </div>
-      </section>
   
 )
 

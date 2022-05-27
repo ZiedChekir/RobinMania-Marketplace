@@ -33,3 +33,8 @@ body{
 .ActiveAuctions{
   padding-top:70px;
 }
+
+.logo{
+  maxWidth: 160,
+
+}
