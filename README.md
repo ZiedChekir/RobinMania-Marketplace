@@ -16,4 +16,4 @@ Auction Contract address: ``0xA04A01946bD1F12043adb5000cfAB12045898eAa``
 
 
 TO-DO:
--[x] Deploy NFT Smart contract
+- [x] Deploy NFT Smart contract
