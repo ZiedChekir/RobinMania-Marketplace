@@ -1,8 +1,7 @@
 # Some Useful Resources
 
 [![Game github repository](https://user-images.githubusercontent.com/20319127/170844594-3d038136-996c-4ff1-82f8-e078cd19cbd0.png)](https://github.com/ZiedChekir/Robin)   [![Marketplace](https://user-images.githubusercontent.com/20319127/170844732-666424ee-d0d3-4dc9-bfa8-c619ced4a159.png)](https://robinmania.vercel.app/)   [![Game](https://user-images.githubusercontent.com/20319127/170844827-26bd6b8d-baa5-46bc-9339-bf1d2d0c5ed2.png)](https://acazied.itch.io/robinmaniakardiachain)
-
-Discord link: https://discord.gg/Hvfhw5de
+[![Discord](https://user-images.githubusercontent.com/20319127/170844896-14bdc34e-bdc6-4f67-93f7-8410e98b01d5.png)](https://discord.gg/Hvfhw5de)
 
 #### Kardiachain Pioneer program 2.0 video
 
