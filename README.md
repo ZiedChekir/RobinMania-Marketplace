@@ -7,11 +7,12 @@ Game link : https://acazied.itch.io/robinmaniakardiachain
 
 Discord link: https://discord.gg/Hvfhw5de
 
+#### Kardiachain Pioneer program 2.0 video
+
 [![Presentation Video](https://img.youtube.com/vi/HbmDbXKUB0s/0.jpg)](https://youtu.be/HbmDbXKUB0s)
 
-presentation video: https://www.youtube.com/watch?v=HbmDbXKUB0s
 
-## Smart Contracts
+#### Smart Contracts
 
 Game contract address: ``0xe159Fab0B7cAaD03d8F7ed47e81D0Ef26BBf8aB1``
 
