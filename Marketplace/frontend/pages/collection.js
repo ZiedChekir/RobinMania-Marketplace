@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CardItem from "../components/Card";
 import { ethers } from "ethers";
 import NftCard from "../components/MuiCard";
-import { Typography, Grid, Container,Button } from "@mui/material";
+import { Typography, Grid, Container, Button } from "@mui/material";
 import { NftAuctionABI, NftAuctionAddress } from "../config";
 import nft from "./nft/[tokenId]";
 import Dashboard from "../components/Dashboard";
@@ -14,9 +14,8 @@ const Collection = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   const [auctions, setAuctions] = useState([]);
 
-
   useEffect(() => {
-    if(!window.ethereum) return
+    if (!window.ethereum) return;
     ethereum.on("accountsChanged", (accounts) => {
       setCurrentAccount(accounts[0]);
     });
@@ -31,11 +30,11 @@ const Collection = () => {
       [account, account, account, account, account],
       [1, 2, 3, 4, 5]
     );
-    
+
     let nftArray = [];
     for (let i = 0; i < 5; i++) {
       let BalanceOfTokenID = data[i].toNumber();
-      
+
       if (BalanceOfTokenID == 0) continue;
 
       const response = await fetch(
@@ -51,20 +50,23 @@ const Collection = () => {
 
       const responseJson = await response.json();
       responseJson["quantity"] = BalanceOfTokenID;
-      responseJson["tokenID"] = i+1;
+      responseJson["tokenID"] = i + 1;
       nftArray.push(responseJson);
     }
     setNfts(nftArray);
     setLoadingState("loaded");
   };
-  if (Nfts.length == 0) return <Typography
-  sx={{ color: "white" }}
-  className="explore"
-  variant="h1"
-  align="center"
->
-  You have no item
-</Typography>
+  if (Nfts.length == 0)
+    return (
+      <Typography
+        sx={{ color: "white" }}
+        className="explore"
+        variant="h1"
+        align="center"
+      >
+        You have no item
+      </Typography>
+    );
   return (
     <section className="cards-primary">
       <Typography
@@ -76,12 +78,24 @@ const Collection = () => {
         Owned Items
       </Typography>
       <Container>
-        <Grid className="nftGrid" container rowSpacing={3} columnSpacing={3} alignItems="stretch">
+        <Grid
+          className="nftGrid"
+          container
+          rowSpacing={3}
+          columnSpacing={3}
+          alignItems="stretch"
+        >
           {Nfts.map((nft, i) => {
             return (
-              <Grid key={nft.name} item xs={12} md={6} lg={4} style={{display: 'flex'}}>
+              <Grid
+                key={nft.name}
+                item
+                xs={12}
+                md={6}
+                lg={4}
+                style={{ display: "flex" }}
+              >
                 <NftCard
-                  
                   title={nft.name}
                   description={nft.description}
                   quantity={nft.quantity}
@@ -91,16 +105,11 @@ const Collection = () => {
               </Grid>
             );
           })}
-
         </Grid>
-
       </Container>
-        <Container sx={{paddingTop:20}}>
-          <Dashboard/>
-        </Container>
-
-
-        
+      <Container sx={{ paddingTop: 20 }}>
+        <Dashboard />
+      </Container>
     </section>
   );
 };

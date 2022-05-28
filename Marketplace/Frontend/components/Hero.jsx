@@ -72,11 +72,6 @@ export default function Hero() {
                   Welcome to <br />
                   Our<span className={classes.colorText}> Marketplace.</span>
                 </Typography>
-                {/* <Scroll to="place-to-visit" smooth={true}>
-            <IconButton>
-              <ExpandMoreIcon className={classes.goDown} />
-            </IconButton>
-          </Scroll> */}
               </div>
             </Collapse>
 

@@ -131,13 +131,10 @@ contract NftAuction is ERC1155Holder {
         // refund the previous bid to the previous highest bidder
         if (auction.highestBidder != auction.seller) {
             payable(prevHighestBidder).transfer(prevHighestBid);
-            //address(prevHighestBidder).transfer(prevHighestBid);
         }
         //update the new highest bidder
         AuctionOf[_tokenId][index].highestBidder = msg.sender;
         AuctionOf[_tokenId][index].highestBid = msg.value;
-        // Bid memory bid = Bid({bidder:msg.sender,ammount:msg.value,bidTime:block.timestamp});
-        //  AuctionOf[_tokenId][index].bids.push(bid);
 
         emit BidMade(_tokenId, msg.sender, msg.value);
     }

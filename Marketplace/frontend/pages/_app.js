@@ -1,18 +1,18 @@
-import Head from 'next/head';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { CacheProvider } from '@emotion/react';
-import createEmotionCache from '../styles/createEmotionCache';
+import Head from "next/head";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { CacheProvider } from "@emotion/react";
+import createEmotionCache from "../styles/createEmotionCache";
 import Header from "../components/Header";
-import Footer from '../components/Footer';
+import Footer from "../components/Footer";
 
 import "/styles/globals.css";
-import '/styles/Footer.css';
+import "/styles/Footer.css";
 import "/styles/slider.css";
-import theme from '../styles/theme';
-import AuctionCard from '../components/AuctionCard';
-import { makeStyles } from '@mui/styles';
-import { Toaster } from 'react-hot-toast';
+import theme from "../styles/theme";
+import AuctionCard from "../components/AuctionCard";
+import { makeStyles } from "@mui/styles";
+import { Toaster } from "react-hot-toast";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -22,8 +22,8 @@ export default function MyApp(props) {
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      minHeight: '100vh',
-      backgroundColor: '#110E0E'
+      minHeight: "100vh",
+      backgroundColor: "#110E0E",
     },
   }));
 
@@ -34,7 +34,6 @@ export default function MyApp(props) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Header />
         <Toaster />
@@ -42,7 +41,6 @@ export default function MyApp(props) {
         <Component {...pageProps} />
 
         <Footer />
-        
       </ThemeProvider>
     </CacheProvider>
   );

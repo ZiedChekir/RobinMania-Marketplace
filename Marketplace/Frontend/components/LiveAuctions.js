@@ -17,20 +17,6 @@ const LiveAuctions = () => {
   return (
     <div style={{ maxWidth: '100%' , overflow:'hidden'}}>
       <Auctions />
-      {/* <Grid container className={classes.auctionCardGrid} wrap="nowrap">
-          <Grid item>
-        <AuctionCard />
-        </Grid>
-        <Grid item>
-        <AuctionCard />
-        </Grid>
-        <Grid item>
-        <AuctionCard />
-        </Grid>
-        <Grid item>
-        <AuctionCard />
-        </Grid>
-      </Grid> */}
     </div>
   );
 };
