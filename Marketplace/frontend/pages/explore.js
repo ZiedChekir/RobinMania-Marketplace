@@ -55,10 +55,10 @@ const Explore = () => {
         Explore RobinMania NFTs
       </Typography>
       <Container>
-        <Grid className="nftGrid" container rowSpacing={3} columnSpacing={3}>
+        <Grid className="nftGrid" container rowSpacing={3} columnSpacing={3} alignItems="stretch">
           {Nfts.map((nft, i) => {
             return (
-              <Grid key={nft.name} item xs={12} md={6} lg={4}>
+              <Grid key={nft.name} item xs={12} md={6} lg={4} style={{ display: "flex" }}>
                 <NftCard
                   title={nft.name}
                   description={nft.description}
