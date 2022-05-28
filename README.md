@@ -15,3 +15,5 @@ Marketplace contract  adress: ``0x7faFA0A56Ffe1A776E08BC6c0c70402c1b85E347``
 Auction Contract address: ``0xA04A01946bD1F12043adb5000cfAB12045898eAa``
 
 
+TO-DO:
+-[x] Deploy NFT Smart contract
