@@ -31,12 +31,13 @@ async function main(){
     await nft.setApprovalForAll(MPlace.address, true);
     for(let i=1; i<6;i++){
         await MPlace.listItem(nft.address,i,"1000000000000000000");
-
+        await MPlace.listItem(nft.address,i,"2000000000000000000");
+        await MPlace.listItem(nft.address,i,"5000000000000000000");
     }
 
     console.log("3.mint tokens 1-5 to account 1 with quantity of 5");
     for(let i=1;i<6;i++){
-        await nft.increaseSupply(i,5,[]);
+        await nft.increaseSupply(i,1000,[]);
         await nft.safeTransferFrom(
             address0,
             address1,
