@@ -16,4 +16,14 @@ Auction Contract address: ``0xA04A01946bD1F12043adb5000cfAB12045898eAa``
 
 
 TO-DO:
-- [x] Deploy NFT Smart contract
+- [x] Deploy NFT Smart Contract
+- [x] Deploy Marketplace Smart Contract
+- [x] Deploy Auction Smart Contract
+- [x] Dungeon
+- [x] In Game Vendor
+- [x] Marketplace Frontend
+- [x] Marketplace Backend
+- [ ] Multiplayer feature
+- [ ] Quests system
+- [ ] Deploy Token Smart Contract
+- [ ] DAO Smart Contract
