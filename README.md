@@ -7,6 +7,8 @@ Game link : https://acazied.itch.io/robinmaniakardiachain
 
 Discord link: https://discord.gg/Hvfhw5de
 
+[![Presentation Video](https://img.youtube.com/vi/HbmDbXKUB0s/0.jpg)](https://youtu.be/HbmDbXKUB0s)
+
 presentation video: https://www.youtube.com/watch?v=HbmDbXKUB0s
 
 ## Smart Contracts
