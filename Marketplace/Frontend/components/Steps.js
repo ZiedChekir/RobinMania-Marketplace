@@ -50,7 +50,7 @@ export default function Steps() {
         </Typography>
         <br />
         <Typography variant="body2" sx={{color:"white"}}>
-        Once You've Set Up Your Wallet, Connect it by Clicking the CONNECT WALLET Button in The Top Right Corner
+        Once You&apos;ve Set Up Your Wallet, Connect it by Clicking the CONNECT WALLET Button in The Top Right Corner
         </Typography>
       </CardContent>
       <CardActions>

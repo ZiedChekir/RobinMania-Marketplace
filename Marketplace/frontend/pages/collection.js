@@ -51,6 +51,7 @@ const Collection = () => {
 
       const responseJson = await response.json();
       responseJson["quantity"] = BalanceOfTokenID;
+      responseJson["tokenID"] = i+1;
       nftArray.push(responseJson);
     }
     setNfts(nftArray);
@@ -85,7 +86,7 @@ const Collection = () => {
                   description={nft.description}
                   quantity={nft.quantity}
                   image={nft.image}
-                  link={"/nft/" + (i + 1)}
+                  link={"/nft/" + nft.tokenID}
                 />
               </Grid>
             );
