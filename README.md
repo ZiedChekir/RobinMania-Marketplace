@@ -1,5 +1,9 @@
 Link To the game github repository: https://github.com/ZiedChekir/Robin
 
+Marketplace Link : https://robinmania.vercel.app/
+
+Game link : https://acazied.itch.io/robinmaniakardiachain
+
 Game contract address: 0xe159Fab0B7cAaD03d8F7ed47e81D0Ef26BBf8aB1
 
 Marketplace contract  adress: 0x7faFA0A56Ffe1A776E08BC6c0c70402c1b85E347
