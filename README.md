@@ -1,10 +1,6 @@
 # Some Useful Resources
 
-[![Game github repository](https://user-images.githubusercontent.com/20319127/170844594-3d038136-996c-4ff1-82f8-e078cd19cbd0.png)](https://github.com/ZiedChekir/Robin)
-
-Link To the game github repository: https://github.com/ZiedChekir/Robin 
-
-[![Marketplace](https://user-images.githubusercontent.com/20319127/170844732-666424ee-d0d3-4dc9-bfa8-c619ced4a159.png)](https://robinmania.vercel.app/)
+[![Game github repository](https://user-images.githubusercontent.com/20319127/170844594-3d038136-996c-4ff1-82f8-e078cd19cbd0.png)](https://github.com/ZiedChekir/Robin)[![Marketplace](https://user-images.githubusercontent.com/20319127/170844732-666424ee-d0d3-4dc9-bfa8-c619ced4a159.png)](https://robinmania.vercel.app/)
 
 Marketplace Link : https://robinmania.vercel.app/
 
