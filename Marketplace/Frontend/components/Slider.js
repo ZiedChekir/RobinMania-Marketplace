@@ -134,8 +134,9 @@ const Cards = () => {
                     xs={12}
                     md={6}
                     lg={4}
+                    sx={{margin:"10px"}}
                   >
-                    <AuctionCard CardType={0} auction={auction} />
+                    <AuctionCard CardType={0}  auction={auction} />
                   </Grid>
                 ))}
               </ul>
