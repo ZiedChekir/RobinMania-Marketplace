@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, IconButton,Icon, Typography, Grid, Container } from '@mui/material';
 import Link from './MuiNextLink';
 
 function Footer() {
@@ -10,14 +10,11 @@ function Footer() {
         <div className='footer-link-wrapper'>
           <div className='footer-link-items'>
             <h2>About Us</h2>
-            <Link href='/sign-up'>How it works</Link>
-            <Link href='/'>Terms of Service</Link>
+            <Link href='https://discord.gg/PQ2XW5EURG'>Team</Link>
           </div>
           <div className='footer-link-items'>
             <h2>Contact Us</h2>
-            <Link href='/'>Contact</Link>
-            <Link href='/'>Support</Link>
-            <Link href='/'>Sponsorships</Link>
+            <Link href='https://discord.gg/PQ2XW5EURG'>Contact</Link>
           </div>
         </div>
         <div className='footer-link-wrapper'>
@@ -27,10 +24,20 @@ function Footer() {
           </div>
           <div className='footer-link-items'>
             <h2>Social Media</h2>
-            <Link href='/'>Instagram</Link>
-            <Link href='/'>Facebook</Link>
-            <Link href='/'>Youtube</Link>
-            <Link href='/'>Twitter</Link>
+            <Link href='https://discord.gg/PQ2XW5EURG'>
+            Discord&nbsp;
+            <IconButton
+                sx={{ p: 0, color: "#1EB854" }}
+                style={{ variant: "contained" }}
+              >
+                <Icon style={{ fontSize: 30, textAlign: "center" }}>
+                  <img style={{ height: "100%" }} src='Discord.png' />
+                </Icon>
+               
+              </IconButton>
+                
+              </Link>
+            
           </div>
         </div>
       </div>
@@ -41,15 +48,11 @@ function Footer() {
         </p>
         
         <div className='input-areas'>
-          <form>
-            <input
-              className='footer-input'
-              name='email'
-              type='email'
-              placeholder='Your Email'
-            />
-          </form>
-          <Button variant="outlined" color="lighter" >Subscribe</Button>
+        <Link href='https://discord.gg/PQ2XW5EURG'>
+          <Button variant="outlined" color="lighter" Icon="Discord.png" >
+          Join us!
+          </Button>
+          </Link>
         </div>
       </section>
 
@@ -58,3 +61,5 @@ function Footer() {
 }
 
 export default Footer;
+
+
