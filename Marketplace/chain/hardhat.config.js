@@ -17,14 +17,14 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork: "Kardiachain",//change this to kardiachain when testing on testnet (but give accounts KAI)
+  defaultNetwork: "Polygon Testnet",//change this to Polygon testnet when testing on testnet (but give accounts KAI)
   networks: {
     hardhat: {
       blockGasLimit: 100000000420 // whatever you want here
 
     },
-    Kardiachain: {
-      url: "https://dev.kardiachain.io/",
+    Polygon: {
+      url: "https://matic-mumbai.chainstacklabs.com/",
       accounts: ["0xa10f6af85c7540e4ac1be6ca74b06b9c56c69eb49b88506dd8b425ae92fe22db","0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d","0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a"],
 
     }

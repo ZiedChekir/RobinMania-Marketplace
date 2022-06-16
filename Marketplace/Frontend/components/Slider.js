@@ -21,7 +21,7 @@ const Cards = () => {
   async function loadEndedAuctionsForThisAccount() {
     if (!window.ethereum) return;
     const provider = new ethers.providers.JsonRpcProvider(
-      "https://dev.kardiachain.io/"
+      "https://matic-mumbai.chainstacklabs.com/"
     );
     const signer = provider.getSigner(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
@@ -57,7 +57,7 @@ const Cards = () => {
   async function loadNotEndedAuctionsForThisAccount() {
     if (!window.ethereum) return;
     const provider = new ethers.providers.JsonRpcProvider(
-      "https://dev.kardiachain.io/"
+      "https://matic-mumbai.chainstacklabs.com/"
     );
     const signer = provider.getSigner(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
@@ -89,7 +89,7 @@ const Cards = () => {
 
   async function loadAuctions() {
     const provider = new ethers.providers.JsonRpcProvider(
-      "https://dev.kardiachain.io/"
+      "https://matic-mumbai.chainstacklabs.com/"
     );
     const signer = provider.getSigner(
       "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"

@@ -68,7 +68,7 @@ const Connect = () => {
         params: [
           {
             chainId: "0xF2",
-            rpcUrls: ["https://dev.kardiachain.io/"],
+            rpcUrls: ["https://matic-mumbai.chainstacklabs.com/"],
             chainName: "Kardiachain Testnet",
             blockExplorerUrls: ["https://explorer-dev.kardiachain.io"],
             nativeCurrency: {
