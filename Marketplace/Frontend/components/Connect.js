@@ -60,20 +60,20 @@ const Connect = () => {
       setChainId(result.chainId);
       setChainName(result.name);
     });
-    if (chainId != "0xf2") {
+    if (chainId != "0x13881") {
       window.ethereum.request({
         id: 1,
         jsonrpc: "2.0",
         method: "wallet_addEthereumChain",
         params: [
           {
-            chainId: "0xF2",
+            chainId: "0x13881",
             rpcUrls: ["https://matic-mumbai.chainstacklabs.com/"],
-            chainName: "Kardiachain Testnet",
-            blockExplorerUrls: ["https://explorer-dev.kardiachain.io"],
+            chainName: "Polygon Testnet",
+            blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
             nativeCurrency: {
-              name: "KAI",
-              symbol: "KAI",
+              name: "MATIC",
+              symbol: "MATIC",
               decimals: 18,
             },
           },

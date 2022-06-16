@@ -14,7 +14,7 @@ const MyAuctions = () => {
   async function loadEndedAuctionsForThisAccount () {
     if(!window.ethereum) return
     const provider = new ethers.providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com/");
-    const signer = provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
+    const signer = provider.getSigner();
     const contract = new ethers.Contract(
       NftAuctionAddress,
       NftAuctionABI,
@@ -43,7 +43,7 @@ const MyAuctions = () => {
   async function loadNotEndedAuctionsForThisAccount () {
     if(!window.ethereum) return
     const provider = new ethers.providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com/");
-    const signer = provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
+    const signer = provider.getSigner();
     const contract = new ethers.Contract(
       NftAuctionAddress,
       NftAuctionABI,
@@ -73,7 +73,7 @@ const MyAuctions = () => {
     
 
     const provider = new ethers.providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com/");
-    const signer = provider.getSigner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
+    const signer = provider.getSigner();
     const contract = new ethers.Contract(
       NftAuctionAddress,
       NftAuctionABI,

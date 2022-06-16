@@ -159,7 +159,7 @@ const Nft = () => {
       "https://dev.kardiachain.io/"
     );
     const _signer = _provider.getSigner(
-      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      
     );
     const gameContract = new ethers.Contract(GameAddress, GameABI, _signer);
     const URI = await gameContract.uri(tokenId);
@@ -187,7 +187,7 @@ const Nft = () => {
       "https://dev.kardiachain.io/"
     );
     const signer = provider.getSigner(
-      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      
     );
     const Contract = new ethers.Contract(
       MarketplaceAddress,
