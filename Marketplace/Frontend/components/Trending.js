@@ -21,7 +21,7 @@ const Trending = () => {
       "https://matic-mumbai.chainstacklabs.com/"
     );
     const signer = provider.getSigner(
-      
+      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
     );
     const Contract = new ethers.Contract(GameAddress, GameABI, signer);
     let nftArray = [];

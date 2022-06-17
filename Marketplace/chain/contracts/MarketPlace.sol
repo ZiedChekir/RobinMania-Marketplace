@@ -55,7 +55,7 @@ contract MarketPlace is IMarketPlace {
             nft.balanceOf(order.seller, order.tokenID) != 0,
             "Seller is not owner"
         );
-        require(order.price == msg.value, "Insufficient KAI");
+        require(order.price == msg.value, "Insufficient MATIC");
         payable(order.seller).transfer(msg.value);
         nft.safeTransferFrom(
             order.seller,

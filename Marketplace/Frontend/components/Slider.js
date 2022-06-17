@@ -24,7 +24,7 @@ const Cards = () => {
       "https://matic-mumbai.chainstacklabs.com/"
     );
     const signer = provider.getSigner(
-      
+      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
     );
     const contract = new ethers.Contract(
       NftAuctionAddress,
@@ -60,7 +60,7 @@ const Cards = () => {
       "https://matic-mumbai.chainstacklabs.com/"
     );
     const signer = provider.getSigner(
-      
+      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
     );
     const contract = new ethers.Contract(
       NftAuctionAddress,
@@ -92,7 +92,7 @@ const Cards = () => {
       "https://matic-mumbai.chainstacklabs.com/"
     );
     const signer = provider.getSigner(
-      
+      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
     );
     const contract = new ethers.Contract(
       NftAuctionAddress,
@@ -134,9 +134,9 @@ const Cards = () => {
                     xs={12}
                     md={6}
                     lg={4}
-                    sx={{margin:"10px", display:"flex"}}
+                    sx={{ margin: "10px", display: "flex" }}
                   >
-                    <AuctionCard CardType={0}  auction={auction} />
+                    <AuctionCard CardType={0} auction={auction} />
                   </Grid>
                 ))}
               </ul>

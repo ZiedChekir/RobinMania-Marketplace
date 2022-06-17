@@ -156,10 +156,10 @@ const Nft = () => {
 
   async function FetchNftData() {
     const _provider = new ethers.providers.JsonRpcProvider(
-      "https://dev.kardiachain.io/"
+      "https://matic-mumbai.chainstacklabs.com/"
     );
     const _signer = _provider.getSigner(
-      
+      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
     );
     const gameContract = new ethers.Contract(GameAddress, GameABI, _signer);
     const URI = await gameContract.uri(tokenId);
@@ -184,10 +184,10 @@ const Nft = () => {
 
   async function FetchOrders() {
     const provider = new ethers.providers.JsonRpcProvider(
-      "https://dev.kardiachain.io/"
+      "https://matic-mumbai.chainstacklabs.com/"
     );
     const signer = provider.getSigner(
-      
+      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
     );
     const Contract = new ethers.Contract(
       MarketplaceAddress,
@@ -305,7 +305,7 @@ const Nft = () => {
                 <font color="#FFFFFF">Seller</font>
               </td>
               <td width="50%" bgcolor="#272935">
-                <font color="#FFFFFF">Price in KAI</font>
+                <font color="#FFFFFF">Price in MATIC</font>
               </td>
               <td width="50%" bgcolor="#272935">
                 <font color="#FFFFFF">Buy</font>
@@ -375,7 +375,7 @@ const Nft = () => {
               autoFocus
               margin="dense"
               id="name"
-              label="price In Kai"
+              label="price In MATIC"
               type="text"
               fullWidth
               variant="standard"
@@ -408,7 +408,7 @@ const Nft = () => {
                   autoFocus
                   margin="dense"
                   id="name"
-                  label="Starting Price in KAI"
+                  label="Starting Price in MATIC"
                   type="text"
                   fullWidth
                   variant="standard"
@@ -436,7 +436,7 @@ const Nft = () => {
               autoFocus
               margin="dense"
               id="name"
-              label="Minimum Bid Incriment In KAI"
+              label="Minimum Bid Incriment In MATIC"
               type="text"
               fullWidth
               variant="standard"

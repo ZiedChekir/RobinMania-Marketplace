@@ -93,7 +93,7 @@ contract GameItems is ERC1155, Ownable, ERC1155Supply {
             balanceOf(msg.sender, id) < maxSupplyPerAddress[id],
             "you can't mint more"
         );
-        require(msg.value >= Prices[id], "not enough KAI");
+        require(msg.value >= Prices[id], "not enough MATIC");
         require(balanceOf(owner(), id) > 0, "no more to mint");
         _safeTransferFrom(owner(), msg.sender, id, 1, "");
         approved[msg.sender] = 0;
