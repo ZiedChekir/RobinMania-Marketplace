@@ -23,7 +23,7 @@ module.exports = {
       blockGasLimit: 100000000420, // whatever you want here
     },
     Polygon: {
-      url: "https://matic-mumbai.chainstacklabs.com/",
+      url: "https://matic-testnet-archive-rpc.bwarelabs.com",
       accounts: [
         "0xa10f6af85c7540e4ac1be6ca74b06b9c56c69eb49b88506dd8b425ae92fe22db",
         "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",

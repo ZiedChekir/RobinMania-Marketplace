@@ -18,7 +18,7 @@ const Trending = () => {
 
   const loadNfts = async () => {
     const provider = new ethers.providers.JsonRpcProvider(
-      "https://matic-mumbai.chainstacklabs.com/"
+      "https://matic-testnet-archive-rpc.bwarelabs.com"
     );
     const signer = provider.getSigner(
       "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"

@@ -68,7 +68,7 @@ const Connect = () => {
         params: [
           {
             chainId: "0x13881",
-            rpcUrls: ["https://matic-mumbai.chainstacklabs.com/"],
+            rpcUrls: ["https://matic-testnet-archive-rpc.bwarelabs.com"],
             chainName: "Polygon Testnet",
             blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
             nativeCurrency: {
