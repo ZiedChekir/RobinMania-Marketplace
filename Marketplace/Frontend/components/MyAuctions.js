@@ -63,7 +63,13 @@ const MyAuctions = () => {
     setAllAuctions(_auctions);
     console.log(_auctions);
   }
-
+  useEffect(() => {
+    loadAllAuctions();
+  }, []);
+  useEffect(() => {
+    loadEndedAuctionsForThisAccount();
+    loadNotEndedAuctionsForThisAccount();
+  }, [allAuctions]);
   return (
     <>
       {UserEndedAuctions.length > 0 && (

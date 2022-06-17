@@ -39,7 +39,6 @@ const Aauctions = () => {
       return auction.auctionEnd - now > 0;
     });
     setNotEndedAuctions(_auctions);
-    console.log(_auctions);
   }
   useEffect(() => {
     loadAllAuctions();
