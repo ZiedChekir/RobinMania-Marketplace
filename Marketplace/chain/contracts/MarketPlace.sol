@@ -22,7 +22,7 @@ contract MarketPlace is IMarketPlace {
         IGameItems nft,
         uint256 tokenID,
         uint256 price
-    ) external override {
+    ) public override {
         require(
             nft.balanceOf(msg.sender, tokenID) > 0,
             "Owner doesn't have the NFT"
@@ -37,10 +37,16 @@ contract MarketPlace is IMarketPlace {
             tokenID: tokenID,
             index: ordersOf[tokenID].length
         });
-        // bytes32 orderID = keccak256(abi.encodePacked(newOrder.seller,newOrder.tokenID,newOrder.price));
-        // orders[orderID] = newOrder;
         ordersOf[tokenID].push(newOrder);
         emit ItemListed(msg.sender, tokenID, price);
+    }
+
+    function listItemBatch(IGameItems nft, uint256 tokenID,uint256 price, uint256 number) external {//used for testing purposes
+        require(nft.balanceOf(msg.sender,tokenID)>=number,
+        "not enough tokens to sell");
+        for(uint256 i = 0; i<number ; i++){
+            listItem(nft,tokenID,price);
+        }
     }
 
     function buyItem(

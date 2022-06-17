@@ -17,13 +17,13 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork: "Polygon Testnet",
+  defaultNetwork: "Mumbai",
   networks: {
     hardhat: {
-      blockGasLimit: 100000000420, // whatever you want here
+      blockGasLimit: 100000000420,
     },
-    Polygon: {
-      url: "https://matic-testnet-archive-rpc.bwarelabs.com",
+    Mumbai: {
+      url: "https://apis.ankr.com/cf22a0189b6641e5a729304a86f8fa51/4f5329aedefb242bd9d597664f73330e/polygon/full/test",
       accounts: [
         "0xa10f6af85c7540e4ac1be6ca74b06b9c56c69eb49b88506dd8b425ae92fe22db",
         "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",

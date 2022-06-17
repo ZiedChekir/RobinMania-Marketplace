@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.12;
 
 import "../Interfaces/IGameItems.sol";
@@ -195,5 +196,17 @@ contract NftAuction is ERC1155Holder {
         returns (Auction[] memory)
     {
         return AuctionOf[_tokenId];
+    }
+
+    function getAllAuctions(uint256 _tokensLength)
+        public
+        view
+        returns (Auction[][] memory)
+    {
+        Auction[][] memory auctions = new Auction[][](_tokensLength);
+        for (uint256 i = 1; i <= _tokensLength; i++) {
+            auctions[i - 1] = AuctionOf[i];
+        }
+        return auctions;
     }
 }

@@ -232,11 +232,11 @@ export default function AuctionCard({
         {CardType == 0 && (
           <DialogContent>
             <DialogContentText>
-              Name your Bid in KAI! it sould be higher than{" "}
+              Name your Bid in MATIC! it sould be higher than{" "}
               {ethers.utils.formatEther(
                 auction.highestBid.add(auction.minBidIncrement)
               )}{" "}
-              KAI
+              MATIC
             </DialogContentText>
             <TextField
               autoFocus
