@@ -7,38 +7,16 @@ import { Typography, Button } from "@mui/material";
 import { AssuredWorkload } from "@mui/icons-material";
 
 const MyAuctions = () => {
-  const [auctions, setAuctions] = useState([]);
+  const [allAuctions, setAllAuctions] = useState([]);
   const [UserEndedAuctions, setUserEndedAuctions] = useState([]);
   const [UserNotEndedAuctions, setUserNotEndedAuctions] = useState([]);
-
   async function loadEndedAuctionsForThisAccount() {
-    if (!window.ethereum) return;
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://matic-testnet-archive-rpc.bwarelabs.com"
-    );
-    const signer = provider.getSigner(
-      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
-    );
-    const contract = new ethers.Contract(
-      NftAuctionAddress,
-      NftAuctionABI,
-      signer
-    );
     const account = await new ethers.providers.Web3Provider(window.ethereum)
       .getSigner()
       .getAddress();
-    let _auctions = [];
-    for (let i = 0; i < 5; i++) {
-      let data = await contract.getAuctionOf(i);
-      data = data.map((auction) => ({
-        ...auction,
-        tokenID: i,
-      }));
-      _auctions = [..._auctions, ...data];
-    }
     const now = Math.floor(new Date().getTime() / 1000);
 
-    _auctions = _auctions.filter((auction) => {
+    let _auctions = allAuctions.filter((auction) => {
       return (
         auction.auctionEnd - now < 0 &&
         auction.highestBidder == account &&
@@ -48,39 +26,19 @@ const MyAuctions = () => {
     setUserEndedAuctions(_auctions);
   }
   async function loadNotEndedAuctionsForThisAccount() {
-    if (!window.ethereum) return;
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://matic-testnet-archive-rpc.bwarelabs.com"
-    );
-    const signer = provider.getSigner(
-      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
-    );
-    const contract = new ethers.Contract(
-      NftAuctionAddress,
-      NftAuctionABI,
-      signer
-    );
     const account = await new ethers.providers.Web3Provider(window.ethereum)
       .getSigner()
       .getAddress();
-    let _auctions = [];
-    for (let i = 0; i < 5; i++) {
-      let data = await contract.getAuctionOf(i);
-      data = data.map((auction) => ({
-        ...auction,
-        tokenID: i,
-      }));
-      _auctions = [..._auctions, ...data];
-    }
+
     const now = Math.floor(new Date().getTime() / 1000);
 
-    _auctions = _auctions.filter((auction) => {
+    let _auctions = allAuctions.filter((auction) => {
       return auction.auctionEnd - now > 0 && auction.highestBidder == account;
     });
     setUserNotEndedAuctions(_auctions);
   }
 
-  async function loadAuctions() {
+  async function loadAllAuctions() {
     const provider = new ethers.providers.JsonRpcProvider(
       "https://matic-testnet-archive-rpc.bwarelabs.com"
     );
@@ -93,25 +51,18 @@ const MyAuctions = () => {
       signer
     );
     let _auctions = [];
+    let _data = await contract.getAllAuctions(5); //5 is the number of items
     for (let i = 1; i < 6; i++) {
-      let data = await contract.getAuctionOf(i);
+      let data = _data[i - 1];
       data = data.map((auction) => ({
         ...auction,
         tokenID: i,
       }));
       _auctions = [..._auctions, ...data];
     }
-    const now = Math.floor(new Date().getTime() / 1000);
-    _auctions = _auctions.filter((auction) => {
-      return auction.auctionEnd - now > 0;
-    });
-    setAuctions(_auctions);
+    setAllAuctions(_auctions);
+    console.log(_auctions);
   }
-  useEffect(() => {
-    loadAuctions();
-    loadNotEndedAuctionsForThisAccount();
-    loadEndedAuctionsForThisAccount();
-  }, []);
 
   return (
     <>

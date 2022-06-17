@@ -127,6 +127,7 @@ export default function AuctionCard({
     );
     const contract = new ethers.Contract(GameAddress, GameABI, signer);
     const URI = await contract.uri(tokenID);
+    console.log(URI);
     const response = await fetch(URI, {
       headers: {
         Accept: "application/json",
