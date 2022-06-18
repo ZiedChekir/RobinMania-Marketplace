@@ -7,7 +7,7 @@
 
 Games's Github repository: https://github.com/ZiedChekir/Robin
 
-[![Presentation Video](https://img.youtube.com/vi/HbmDbXKUB0s/0.jpg)](https://www.youtube.com/watch?v=ccdDlk4qmZE)
+Presentation Video : https://www.youtube.com/watch?v=ccdDlk4qmZE
 
 
 #### Smart Contracts
