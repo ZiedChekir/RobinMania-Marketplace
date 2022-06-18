@@ -41,11 +41,19 @@ contract MarketPlace is IMarketPlace {
         emit ItemListed(msg.sender, tokenID, price);
     }
 
-    function listItemBatch(IGameItems nft, uint256 tokenID,uint256 price, uint256 number) external {//used for testing purposes
-        require(nft.balanceOf(msg.sender,tokenID)>=number,
-        "not enough tokens to sell");
-        for(uint256 i = 0; i<number ; i++){
-            listItem(nft,tokenID,price);
+    function listItemBatch(
+        IGameItems nft,
+        uint256 tokenID,
+        uint256 price,
+        uint256 number
+    ) external {
+        //used for testing purposes
+        require(
+            nft.balanceOf(msg.sender, tokenID) >= number,
+            "not enough tokens to sell"
+        );
+        for (uint256 i = 0; i < number; i++) {
+            listItem(nft, tokenID, price);
         }
     }
 
@@ -75,6 +83,10 @@ contract MarketPlace is IMarketPlace {
     }
 
     function removeListing(uint256 tokenID, uint256 index) external {
+        require(
+            ordersOf[tokenID][index].seller == msg.sender,
+            "Only owner of listing can remove it"
+        );
         removeOrder(tokenID, index);
     }
 
