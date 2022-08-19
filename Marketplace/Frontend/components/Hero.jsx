@@ -71,6 +71,7 @@ export default function Hero() {
                 <Typography variant="h1" className={classes.title}>
                   Welcome to <br />
                   Our<span className={classes.colorText}> Marketplace.</span>
+                  
                 </Typography>
               </div>
             </Collapse>
@@ -80,7 +81,7 @@ export default function Hero() {
               variant="contained"
               color="lighter"
               sx={{ width: '200px', fontSize: '20px',margin:'10px' }}
-              href="https://acazied.itch.io/robinmaniakardiachain?fbclid=IwAR35M-yvT0Y9dF9U5Up9cpZMKjF_3VbGjDBNujV9t13d8NtlZabKEhr7JxE"
+              href="https://acazied.itch.io/robinmania"
               target="_blank"
             >
               Play Now!

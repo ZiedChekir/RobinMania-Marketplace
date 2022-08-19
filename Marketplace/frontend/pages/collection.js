@@ -102,6 +102,7 @@ const Collection = () => {
                   image={nft.image}
                   link={"/nft/" + nft.tokenID}
                 />
+                
               </Grid>
             );
           })}

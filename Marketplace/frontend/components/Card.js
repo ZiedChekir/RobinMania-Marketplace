@@ -9,6 +9,7 @@ const CardItem = (props) => {
             src={props.image}
             loading="lazy"
             className="w-full h-48 rounded-tl-md rounded-tr-md"
+            
           />
           <div className="card-header"></div>
           <div className="card-footer">

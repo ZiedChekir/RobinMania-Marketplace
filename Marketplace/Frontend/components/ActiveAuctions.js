@@ -45,6 +45,7 @@ const Aauctions = () => {
   }, []);
   useEffect(() => {
     loadNotEndedAuctions();
+    
   }, [allAuctions]);
   return (
     <>

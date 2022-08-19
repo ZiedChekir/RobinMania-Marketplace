@@ -183,11 +183,14 @@ const Nft = () => {
   }
 
   async function FetchOrders() {
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://matic-testnet-archive-rpc.bwarelabs.com"
-    );
+
+   
     const signer = provider.getSigner(
       "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
+    );
+    const provider = new ethers.providers.JsonRpcProvider(
+      
+      "https://matic-testnet-archive-rpc.bwarelabs.com"
     );
     const Contract = new ethers.Contract(
       MarketplaceAddress,
