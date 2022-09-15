@@ -30,6 +30,14 @@ module.exports = {
         "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a",
       ],
     },
+    Evmos: {
+      url: "https://eth.bd.evmos.dev:8545",
+      accounts: [
+        "0xa10f6af85c7540e4ac1be6ca74b06b9c56c69eb49b88506dd8b425ae92fe22db",
+        "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
+        "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a",
+      ],
+    },
   },
   solidity: {
     version: "0.8.12", // Recommended version >= 0.5.0

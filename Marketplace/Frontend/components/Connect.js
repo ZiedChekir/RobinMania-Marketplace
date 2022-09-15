@@ -22,9 +22,7 @@ const Connect = () => {
   const [provider, setProvider] = useState(null);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const truncateAddress = (address) => {
-    return (
-      address.substring(0, 8) + "..." + address.substring(39, address.length)
-    );
+    return address.substring(0, 8) + "..." + address.substring(39, address.length);
   };
   const settings = [truncateAddress(currentAccount)];
   const handleOpenUserMenu = (event) => {
@@ -67,13 +65,13 @@ const Connect = () => {
         method: "wallet_addEthereumChain",
         params: [
           {
-            chainId: "0x13881",
-            rpcUrls: ["https://matic-testnet-archive-rpc.bwarelabs.com"],
-            chainName: "Polygon Testnet",
-            blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+            chainId: "0x2328",
+            rpcUrls: ["https://eth.bd.evmos.dev:8545"],
+            chainName: "Evmos Testnet",
+            blockExplorerUrls: ["https://evm.evmos.dev"],
             nativeCurrency: {
-              name: "MATIC",
-              symbol: "MATIC",
+              name: "tEVMOS",
+              symbol: "tEVMOS",
               decimals: 18,
             },
           },

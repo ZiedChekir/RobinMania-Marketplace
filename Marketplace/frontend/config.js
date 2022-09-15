@@ -1,4 +1,4 @@
-export const NftAuctionAddress = "0xBF1d9F532bBeADf28DE5510E1bB54545631bD9DF";
+export const NftAuctionAddress = "0xfF2A4e7E53732E06b67BdDa02414F6d119228C20";
 export const NftAuctionABI = [
   {
     inputs: [],
@@ -621,7 +621,7 @@ export const NftAuctionABI = [
     type: "function",
   },
 ];
-export const MarketplaceAddress = "0x42670556893Bcb7bbC53Cfe75fF4FCbeCc3d5cA6";
+export const MarketplaceAddress = "0xb53E8815E9d691354E0f20a9a7899F07785b24a6";
 export const MarketplaceABI = [
   {
     inputs: [],
@@ -902,7 +902,7 @@ export const MarketplaceABI = [
     type: "function",
   },
 ];
-export const GameAddress = "0xa64e1032b959a9A1F63aC093b39B968364FCfd77";
+export const GameAddress = "0x98aEc84C0450976031B17a6D5F49d976393e9535";
 export const GameABI = [
   {
     inputs: [],
