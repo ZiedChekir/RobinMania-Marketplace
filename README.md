@@ -11,11 +11,11 @@ Presentation Video : https://www.youtube.com/watch?v=ccdDlk4qmZE
 
 #### Smart Contracts
 
-Game contract address: `0x98aEc84C0450976031B17a6D5F49d976393e9535`
+Game contract address: `0x8d21a0AE7ECcD554b4B08fd302e0D67bA4D6E3f5`
 
-Marketplace contract adress: `0xb53E8815E9d691354E0f20a9a7899F07785b24a6`
+Marketplace contract adress: `0x718ba26c0C7822CCC10fa51D1937FC1edd7A89cb`
 
-Auction Contract address: `0xfF2A4e7E53732E06b67BdDa02414F6d119228C20`
+Auction Contract address: `0x429ACFdF3a30acef8E5774B1497130803E784819`
 
 # TO-DO:
 

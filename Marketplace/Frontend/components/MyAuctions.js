@@ -11,24 +11,16 @@ const MyAuctions = () => {
   const [UserEndedAuctions, setUserEndedAuctions] = useState([]);
   const [UserNotEndedAuctions, setUserNotEndedAuctions] = useState([]);
   async function loadEndedAuctionsForThisAccount() {
-    const account = await new ethers.providers.Web3Provider(window.ethereum)
-      .getSigner()
-      .getAddress();
+    const account = await new ethers.providers.Web3Provider(window.ethereum).getSigner().getAddress();
     const now = Math.floor(new Date().getTime() / 1000);
 
     let _auctions = allAuctions.filter((auction) => {
-      return (
-        auction.auctionEnd - now < 0 &&
-        auction.highestBidder == account &&
-        auction.state == 0
-      );
+      return auction.auctionEnd - now < 0 && auction.highestBidder == account && auction.state == 0;
     });
     setUserEndedAuctions(_auctions);
   }
   async function loadNotEndedAuctionsForThisAccount() {
-    const account = await new ethers.providers.Web3Provider(window.ethereum)
-      .getSigner()
-      .getAddress();
+    const account = await new ethers.providers.Web3Provider(window.ethereum).getSigner().getAddress();
 
     const now = Math.floor(new Date().getTime() / 1000);
 
@@ -39,17 +31,9 @@ const MyAuctions = () => {
   }
 
   async function loadAllAuctions() {
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://matic-testnet-archive-rpc.bwarelabs.com"
-    );
-    const signer = provider.getSigner(
-      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
-    );
-    const contract = new ethers.Contract(
-      NftAuctionAddress,
-      NftAuctionABI,
-      signer
-    );
+    const provider = new ethers.providers.JsonRpcProvider("https://eth.bd.evmos.dev:8545");
+    const signer = provider.getSigner("0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B");
+    const contract = new ethers.Contract(NftAuctionAddress, NftAuctionABI, signer);
     let _auctions = [];
     let _data = await contract.getAllAuctions(5); //5 is the number of items
     for (let i = 1; i < 6; i++) {
@@ -80,14 +64,7 @@ const MyAuctions = () => {
       <Container>
         <Grid container rowSpacing={3} columnSpacing={3} alignItems="stretch">
           {UserEndedAuctions.map((auction) => (
-            <Grid
-              key={[auction.tokenID, auction.index]}
-              item
-              xs={12}
-              md={6}
-              lg={4}
-              style={{ display: "flex" }}
-            >
+            <Grid key={[auction.tokenID, auction.index]} item xs={12} md={6} lg={4} style={{ display: "flex" }}>
               <AuctionCard
                 loadEndedAuctions={loadEndedAuctionsForThisAccount}
                 loadAuctions={loadAuctions}

@@ -54,35 +54,23 @@ const Nft = () => {
   const sell = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    const MarketplaceContract = new ethers.Contract(
-      MarketplaceAddress,
-      MarketplaceABI,
-      signer
-    );
+    const MarketplaceContract = new ethers.Contract(MarketplaceAddress, MarketplaceABI, signer);
 
     const NFTContract = new ethers.Contract(GameAddress, GameABI, signer);
     const account = await signer.getAddress();
 
-    let approved = await NFTContract.isApprovedForAll(
-      account,
-      MarketplaceAddress
-    );
+    let approved = await NFTContract.isApprovedForAll(account, MarketplaceAddress);
     if (!approved) {
       const x = await NFTContract.setApprovalForAll(MarketplaceAddress, true);
       x.wait();
     }
     const toastId = toast.loading("Waiting...", { duration: 3000 });
 
-    const result = await MarketplaceContract.listItem(
-      GameAddress,
-      tokenId,
-      ethers.utils.parseEther(price)
-    );
+    const result = await MarketplaceContract.listItem(GameAddress, tokenId, ethers.utils.parseEther(price));
     result.wait();
     toast.dismiss(toastId);
 
-    if (result["hash"].length == 66)
-      toast.success("Successfully listed for sale!");
+    if (result["hash"].length == 66) toast.success("Successfully listed for sale!");
     else toast.error("error");
 
     setSellState(false);
@@ -91,23 +79,14 @@ const Nft = () => {
   const buy = async (orderIndex, price) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    const MarketplaceContract = new ethers.Contract(
-      MarketplaceAddress,
-      MarketplaceABI,
-      signer
-    );
+    const MarketplaceContract = new ethers.Contract(MarketplaceAddress, MarketplaceABI, signer);
     // const NFTContract = new ethers.Contract(GameAddress,GameABI,signer)
     //await NFTContract.setApprovalForAll(MarketplaceAddress, true);
     const toastId = toast.loading("waiting...", { duration: 3000 });
 
-    const result = await MarketplaceContract.buyItem(
-      GameAddress,
-      tokenId,
-      parseInt(orderIndex),
-      {
-        value: price.toString(),
-      }
-    );
+    const result = await MarketplaceContract.buyItem(GameAddress, tokenId, parseInt(orderIndex), {
+      value: price.toString(),
+    });
 
     toast.dismiss(toastId);
     if (result["hash"].length == 66) {
@@ -121,19 +100,12 @@ const Nft = () => {
   const createAuction = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    const AuctionContract = new ethers.Contract(
-      NftAuctionAddress,
-      NftAuctionABI,
-      signer
-    );
+    const AuctionContract = new ethers.Contract(NftAuctionAddress, NftAuctionABI, signer);
     const toastId = toast.loading("Waiting...", { duration: 3000 });
     const account = await signer.getAddress();
     const NFTContract = new ethers.Contract(GameAddress, GameABI, signer);
 
-    let approved = await NFTContract.isApprovedForAll(
-      account,
-      NftAuctionAddress
-    );
+    let approved = await NFTContract.isApprovedForAll(account, NftAuctionAddress);
     if (!approved) {
       const x = await NFTContract.setApprovalForAll(NftAuctionAddress, true);
       x.wait();
@@ -147,20 +119,15 @@ const Nft = () => {
     );
     toast.dismiss(toastId);
 
-    if (result["hash"].length == 66)
-      toast.success("Auction successfully created!");
+    if (result["hash"].length == 66) toast.success("Auction successfully created!");
     else toast.error("error");
 
     setAuctionState(false);
   };
 
   async function FetchNftData() {
-    const _provider = new ethers.providers.JsonRpcProvider(
-      "https://matic-testnet-archive-rpc.bwarelabs.com"
-    );
-    const _signer = _provider.getSigner(
-      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
-    );
+    const _provider = new ethers.providers.JsonRpcProvider("https://eth.bd.evmos.dev:8545");
+    const _signer = _provider.getSigner("0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B");
     const gameContract = new ethers.Contract(GameAddress, GameABI, _signer);
     const URI = await gameContract.uri(tokenId);
     const response = await fetch(URI, {
@@ -183,20 +150,9 @@ const Nft = () => {
   }
 
   async function FetchOrders() {
-
-   
-    const signer = provider.getSigner(
-      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
-    );
-    const provider = new ethers.providers.JsonRpcProvider(
-      
-      "https://matic-testnet-archive-rpc.bwarelabs.com"
-    );
-    const Contract = new ethers.Contract(
-      MarketplaceAddress,
-      MarketplaceABI,
-      signer
-    );
+    const signer = provider.getSigner("0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B");
+    const provider = new ethers.providers.JsonRpcProvider("https://eth.bd.evmos.dev:8545");
+    const Contract = new ethers.Contract(MarketplaceAddress, MarketplaceABI, signer);
     const ordersData = await Contract.getOrdersOf(tokenId);
     const tempArray = [];
     ordersData.map((order) => {
@@ -232,12 +188,8 @@ const Nft = () => {
               <Typography sx={{ color: "white" }} variant="h3">
                 {nft.name}
               </Typography>
-              <Typography sx={{ color: "white", fontSize: "15px" }}>
-                Description:{" "}
-              </Typography>
-              <Typography style={{ color: "white", fontSize: "20px" }}>
-                {nft.description}
-              </Typography>
+              <Typography sx={{ color: "white", fontSize: "15px" }}>Description: </Typography>
+              <Typography style={{ color: "white", fontSize: "20px" }}>{nft.description}</Typography>
               <Box className="Buttons">
                 {nft.quantity > 0 ? (
                   <Grid container spacing={2}>
@@ -268,21 +220,13 @@ const Nft = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={6}></Grid>
                     <Grid item xs={3}>
-                      <Button
-                        variant="contained"
-                        sx={{ backgroundColor: "#1EB854" }}
-                        disabled
-                      >
+                      <Button variant="contained" sx={{ backgroundColor: "#1EB854" }} disabled>
                         Sell
                       </Button>
                     </Grid>
 
                     <Grid item xs={3}>
-                      <Button
-                        variant="contained"
-                        sx={{ backgroundColor: "#1EB854" }}
-                        disabled
-                      >
+                      <Button variant="contained" sx={{ backgroundColor: "#1EB854" }} disabled>
                         Create Auction
                       </Button>
                     </Grid>
@@ -293,12 +237,7 @@ const Nft = () => {
           </Grid>
         </Grid>
 
-        <Typography
-          sx={{ color: "white" }}
-          className="seeOrders"
-          variant="h3"
-          align="center"
-        >
+        <Typography sx={{ color: "white" }} className="seeOrders" variant="h3" align="center">
           See Orders
         </Typography>
         <div className="OrderTable">
@@ -308,7 +247,7 @@ const Nft = () => {
                 <font color="#FFFFFF">Seller</font>
               </td>
               <td width="50%" bgcolor="#272935">
-                <font color="#FFFFFF">Price in MATIC</font>
+                <font color="#FFFFFF">Price in EVMOS</font>
               </td>
               <td width="50%" bgcolor="#272935">
                 <font color="#FFFFFF">Buy</font>
@@ -347,16 +286,10 @@ const Nft = () => {
         >
           <DialogTitle id="alert-dialog-title">{"Confirmation"}</DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Are you sure you want to buy this item?
-            </DialogContentText>
+            <DialogContentText id="alert-dialog-description">Are you sure you want to buy this item?</DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: "#1EB854" }}
-              onClick={() => setBuyState(false)}
-            >
+            <Button variant="contained" sx={{ backgroundColor: "#1EB854" }} onClick={() => setBuyState(false)}>
               No
             </Button>
             <Button
@@ -378,7 +311,7 @@ const Nft = () => {
               autoFocus
               margin="dense"
               id="name"
-              label="price In MATIC"
+              label="price In EVMOS"
               type="text"
               fullWidth
               variant="standard"
@@ -390,11 +323,7 @@ const Nft = () => {
             <Button variant="contained" onClick={() => setSellState(false)}>
               Cancel
             </Button>
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: "#1EB854" }}
-              onClick={sell}
-            >
+            <Button variant="contained" sx={{ backgroundColor: "#1EB854" }} onClick={sell}>
               Sell
             </Button>
           </DialogActions>
@@ -411,7 +340,7 @@ const Nft = () => {
                   autoFocus
                   margin="dense"
                   id="name"
-                  label="Starting Price in MATIC"
+                  label="Starting Price in EVMOS"
                   type="text"
                   fullWidth
                   variant="standard"
@@ -439,7 +368,7 @@ const Nft = () => {
               autoFocus
               margin="dense"
               id="name"
-              label="Minimum Bid Incriment In MATIC"
+              label="Minimum Bid Incriment In EVMOS"
               type="text"
               fullWidth
               variant="standard"
@@ -451,11 +380,7 @@ const Nft = () => {
             <Button variant="contained" onClick={() => setAuctionState(false)}>
               Cancel
             </Button>
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: "#1EB854" }}
-              onClick={() => createAuction()}
-            >
+            <Button variant="contained" sx={{ backgroundColor: "#1EB854" }} onClick={() => createAuction()}>
               Create Auction
             </Button>
           </DialogActions>

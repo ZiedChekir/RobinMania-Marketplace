@@ -20,20 +20,10 @@ const Cards = () => {
 
   async function loadEndedAuctionsForThisAccount() {
     if (!window.ethereum) return;
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://matic-testnet-archive-rpc.bwarelabs.com"
-    );
-    const signer = provider.getSigner(
-      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
-    );
-    const contract = new ethers.Contract(
-      NftAuctionAddress,
-      NftAuctionABI,
-      signer
-    );
-    const account = await new ethers.providers.Web3Provider(window.ethereum)
-      .getSigner()
-      .getAddress();
+    const provider = new ethers.providers.JsonRpcProvider("https://eth.bd.evmos.dev:8545");
+    const signer = provider.getSigner("0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B");
+    const contract = new ethers.Contract(NftAuctionAddress, NftAuctionABI, signer);
+    const account = await new ethers.providers.Web3Provider(window.ethereum).getSigner().getAddress();
     let _auctions = [];
     for (let i = 0; i < 5; i++) {
       let data = await contract.getAuctionOf(i);
@@ -46,30 +36,16 @@ const Cards = () => {
     const now = Math.floor(new Date().getTime() / 1000);
 
     _auctions = _auctions.filter((auction) => {
-      return (
-        auction.auctionEnd - now < 0 &&
-        auction.highestBidder == account &&
-        auction.state == 0
-      );
+      return auction.auctionEnd - now < 0 && auction.highestBidder == account && auction.state == 0;
     });
     setUserEndedAuctions(_auctions);
   }
   async function loadNotEndedAuctionsForThisAccount() {
     if (!window.ethereum) return;
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://matic-testnet-archive-rpc.bwarelabs.com"
-    );
-    const signer = provider.getSigner(
-      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
-    );
-    const contract = new ethers.Contract(
-      NftAuctionAddress,
-      NftAuctionABI,
-      signer
-    );
-    const account = await new ethers.providers.Web3Provider(window.ethereum)
-      .getSigner()
-      .getAddress();
+    const provider = new ethers.providers.JsonRpcProvider("https://eth.bd.evmos.dev:8545");
+    const signer = provider.getSigner("0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B");
+    const contract = new ethers.Contract(NftAuctionAddress, NftAuctionABI, signer);
+    const account = await new ethers.providers.Web3Provider(window.ethereum).getSigner().getAddress();
     let _auctions = [];
     for (let i = 0; i < 5; i++) {
       let data = await contract.getAuctionOf(i);
@@ -88,17 +64,9 @@ const Cards = () => {
   }
 
   async function loadAuctions() {
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://matic-testnet-archive-rpc.bwarelabs.com"
-    );
-    const signer = provider.getSigner(
-      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
-    );
-    const contract = new ethers.Contract(
-      NftAuctionAddress,
-      NftAuctionABI,
-      signer
-    );
+    const provider = new ethers.providers.JsonRpcProvider("https://eth.bd.evmos.dev:8545");
+    const signer = provider.getSigner("0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B");
+    const contract = new ethers.Contract(NftAuctionAddress, NftAuctionABI, signer);
     let _auctions = [];
     for (let i = 1; i < 6; i++) {
       let data = await contract.getAuctionOf(i);

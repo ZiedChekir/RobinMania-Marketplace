@@ -43,7 +43,7 @@ const OrdersTable = ({ orders, removeItem, avatars }) => {
                 <Typography fontSize={25}>{order.tokenID}</Typography>
               </TableCell>
               <TableCell align="center">
-                <Typography fontSize={25}>{order.price} MATIC</Typography>
+                <Typography fontSize={25}>{order.price} EVMOS</Typography>
               </TableCell>
               <TableCell align="right">
                 <DeleteForever

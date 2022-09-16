@@ -16,21 +16,15 @@ const Explore = () => {
   }, []);
 
   const loadNfts = async () => {
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://matic-testnet-archive-rpc.bwarelabs.com"
-    );
-    const signer = provider.getSigner(
-      "0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B"
-    );
+    const provider = new ethers.providers.JsonRpcProvider("https://eth.bd.evmos.dev:8545");
+    const signer = provider.getSigner("0xAECd1a6c42866cd7dFb97334568579FA5Ff17B4B");
     const Contract = new ethers.Contract(GameAddress, GameABI, signer);
     //  const data = await Contract.balanceOfBatch([account, account,account,account,account], [1, 2,3,4,5]);
 
     let nftArray = [];
     for (let i = 0; i < 5; i++) {
       const response = await fetch(
-        "https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/" +
-          (i + 1) +
-          ".json",
+        "https://raw.githubusercontent.com/SamiKammoun/robinmania/main/metadata/" + (i + 1) + ".json",
         {
           headers: {
             Accept: "application/json",
@@ -46,38 +40,15 @@ const Explore = () => {
 
   return (
     <>
-      <Typography
-        sx={{ color: "white" }}
-        className="explore"
-        variant="h1"
-        align="center"
-      >
+      <Typography sx={{ color: "white" }} className="explore" variant="h1" align="center">
         Explore RobinMania NFTs
       </Typography>
       <Container>
-        <Grid
-          className="nftGrid"
-          container
-          rowSpacing={3}
-          columnSpacing={3}
-          alignItems="stretch"
-        >
+        <Grid className="nftGrid" container rowSpacing={3} columnSpacing={3} alignItems="stretch">
           {Nfts.map((nft, i) => {
             return (
-              <Grid
-                key={nft.name}
-                item
-                xs={12}
-                md={6}
-                lg={4}
-                style={{ display: "flex" }}
-              >
-                <NftCard
-                  title={nft.name}
-                  description={nft.description}
-                  image={nft.image}
-                  link={"/nft/" + (i + 1)}
-                />
+              <Grid key={nft.name} item xs={12} md={6} lg={4} style={{ display: "flex" }}>
+                <NftCard title={nft.name} description={nft.description} image={nft.image} link={"/nft/" + (i + 1)} />
               </Grid>
             );
           })}
