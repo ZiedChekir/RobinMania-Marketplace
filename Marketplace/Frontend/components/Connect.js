@@ -58,7 +58,7 @@ const Connect = () => {
       setChainId(result.chainId);
       setChainName(result.name);
     });
-    if (chainId != "0x13881") {
+    if (chainId != "0x2328") {
       window.ethereum.request({
         id: 1,
         jsonrpc: "2.0",
